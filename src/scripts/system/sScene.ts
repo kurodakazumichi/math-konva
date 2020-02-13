@@ -1,53 +1,90 @@
-import SceneBase from '~/scripts/scene/SceneBase';
-import SampleScene from '~/scripts/scene/SampleScene';
-import SampleScene2 from '~/scripts/scene/SampleScene2';
+import * as SceneConfigs from '~/scripts/configs/scene';
 import sStage from './sStage';
-export enum SceneType {
-  Sample1,
-  Sample2
-}
+import SceneBase from '~/scripts/scene/SceneBase';
 
-const settings = [
-  {type:SceneType.Sample1, scene:SampleScene},
-  {type:SceneType.Sample2, scene:SampleScene2 }
-]
-
+/******************************************************************************
+ * Scene管理システム(SceneそのものはKonva.Layerに該当する)
+ *****************************************************************************/
 class sScene {
-
-  private scene:SceneBase|null;
 
   constructor() {
     this.scene = null;
   }
 
+  //---------------------------------------------------------------------------
+  // Public メソッド
+  //---------------------------------------------------------------------------
+  /** 初期化 */
   init() {}
 
+  /** 更新 */
   update() {
-    this.scene?.update();
-    this.scene?.draw();
+    if (!this.scene) return;
+    
+    this.scene.update();
+    this.scene.draw();
   }
 
-  load(type:SceneType) {
+  loadSceneByType(type:SceneConfigs.Type) {
+    this.load(SceneConfigs.getConfigByType(type));
+  }
+
+  loadSceneByName(name:string) {
+    this.load(SceneConfigs.getConfigByName(name));
+  }
+
+  loadSceneFromUrlParam(key:string = "scene") {
+    const maybeSceneName = this.getSceneTypeFromUrl(key);
+    this.load(SceneConfigs.getConfigByName(maybeSceneName));
+  }
+
+  //---------------------------------------------------------------------------
+  // Private メソッド
+  //---------------------------------------------------------------------------
+
+  /** 設定をもとにシーンをロード */
+  private load(config:SceneConfigs.ISceneRecord|undefined) 
+  {
+    const newScene = this.createScene(config);
+
+    if (!newScene) return;
+    
     this.scene?.destroy();
-    this.scene = this.createScene(type);
-    this.scene?.init();
 
-    if (this.scene) {
-      sStage.add(this.scene.layerOfKonva);
-    }
+    this.scene = newScene;
+    this.scene.init();
+    sStage.add(this.scene.layerOfKonva);
   }
 
-  private createScene(type:SceneType) {
+  /** 設定をもとにシーンを作成 */
+  private createScene(config:SceneConfigs.ISceneRecord|undefined) 
+  {
+    if (!config) return null;
 
-    const scene = settings.find((setting) => {
-      return setting.type === type;
-    })
-
-    if (!scene) return null;
-
-    return new scene.scene();
+    return new config.sceneClass();
   }
   
+  /** URLのget parameterからシーンタイプを取得 */
+  private getSceneTypeFromUrl(key:string) 
+  {
+    let maybeSceneName = "";
+    
+    location.search.substring(1).split("&").map((param) => {
+      const data = param.split("=");
+  
+      if (data[0] === key) {
+        maybeSceneName = data[1];
+      }
+    });
+
+    return maybeSceneName
+  }
+
+  //---------------------------------------------------------------------------
+  // Private 変数
+  //---------------------------------------------------------------------------
+
+  private scene:SceneBase|null;
 }
 
 const instance = new sScene();

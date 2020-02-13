@@ -1,16 +1,43 @@
 
 import Konva from 'konva';
-import { GUI } from 'dat.gui';
 import SceneBase from './SceneBase';
 
-
-export default class SampleScene extends SceneBase {
+/******************************************************************************
+ * 直線 y=ax+bのシーン
+ *****************************************************************************/
+export default class SampleScene extends SceneBase 
+{
   constructor() {
     super();
     this.circle = null;
   }
+
+  //---------------------------------------------------------------------------
+  // Overrideしないといけないやつ
+  //---------------------------------------------------------------------------
+  protected get title() {
+    return "直線";
+  }
+
+  protected get formula() {
+    return `$$y=ax+b$$`
+  }
+
+  protected get explanation() {
+    return `
+    aが直線の傾きになりbが接線になる。
+    `;
+  }
+
+  //---------------------------------------------------------------------------
+  // Override
+  //---------------------------------------------------------------------------
+  params = {
+    x:0
+  }
   circle:Konva.Circle|null;
   init() {
+    super.init();
     // create our shape
     this.circle = new Konva.Circle({
       x: 100,
@@ -23,15 +50,13 @@ export default class SampleScene extends SceneBase {
 
     this.add(this.circle);
 
-    const params = {
-      x:0,
-    }
+    
+    this.gui.add(this.params, "x");
 
-    const gui = new GUI();
-    gui.add(params, "x").onChange((v) => {
-      this.circle?.setAttr("x", v);
-    });
+  }
 
+  update() {
+    this.circle?.setAttr("x", this.params.x);
   }
 
   

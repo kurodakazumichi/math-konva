@@ -3,16 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <style>
-  /* Konvaのcanvas */
-  .konvajs-content { border:1px solid #000;}
-  </style>
+  <title>数学ラボ</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <link rel="stylesheet" type="text/css" href="./index.css">
 </head>
 <body>
-  <div id="container"></div>
-  <a href="?scene=sample1">サンプル１</a>
-  <a href="?scene=sample2">サンプル２</a>
+  <header>
+    <h1 id="title">タイトル</h1>
+    <div id="formula">$$y=ax+b$$</div>
+  </header>
+  <main>
+    <div id="explanation"></div>
+    <div id="container"></div>
+    <div id="gui-container"></div>
+  </main>
+
+  <a href="?scene=Sample1">サンプル１</a>
+  <a href="?scene=Sample2">サンプル２</a>
+  <script>
+  function mathJaxPreview(elm, text) {
+    if (!elm) return;
+    elm.innerHTML = text;
+    MathJax.Hub.Queue(
+      ["Typeset", MathJax.Hub, elm],
+    );
+  }
+  </script>
   <script src="./scripts/app.ts"></script>
 </body>
 </html>

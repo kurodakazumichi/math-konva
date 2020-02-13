@@ -1,0 +1,21 @@
+/* Konvaのcanvas */
+.konvajs-content { border:1px solid #000;}
+
+/* header */
+header {
+  display: flex;
+  align-items: center;
+  height:90px;
+  font-size:2em;
+}
+h1 {
+  font-size: 1em;
+  margin-right:1em;
+}
+.math {
+  margin:0 0.5em;
+}
+
+main {
+  display: flex;
+}
