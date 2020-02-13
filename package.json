@@ -10,8 +10,9 @@
     "typescript": "^3.7.5"
   },
   "dependencies": {
-    "math-lab": "https://github.com/kurodakazumichi/math-lab.git",
-    "dat.gui": "^0.7.6"
+    "dat.gui": "^0.7.6",
+    "konva": "^4.1.4",
+    "math-lab": "https://github.com/kurodakazumichi/math-lab.git"
   },
   "scripts": {
     "start": "parcel src/index.html",
