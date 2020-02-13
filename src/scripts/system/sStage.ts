@@ -1,4 +1,5 @@
 import Konva from 'konva';
+import { sCoord } from './index'
 
 class sStage {
   constructor() {
@@ -8,8 +9,8 @@ class sStage {
   init() {
     this.stage = new Konva.Stage({
       container:"container",
-      width:1080,
-      height:720,
+      width    :sCoord.w,
+      height   :sCoord.h,
     })
   }
 

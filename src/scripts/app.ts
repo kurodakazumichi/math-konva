@@ -1,5 +1,6 @@
 import sStage from './system/sStage';
 import sScene, { SceneType } from './system/sScene';
+import sCoord from './system/sCoord';
 
 const SceneTable:{[key:string]:SceneType} = {
   "sample1": SceneType.Sample1,
@@ -13,6 +14,7 @@ class App {
   }
 
   init() {
+    sCoord.init();
     sStage.init();
     sScene.init();
 
