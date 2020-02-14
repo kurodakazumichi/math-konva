@@ -1,13 +1,28 @@
 import Konva from 'konva';
 import { sCoord } from '~/scripts/system';
 
+/******************************************************************************
+ * Konva.Nodeのプロパティを再定義するためのNode基底クラス
+ *****************************************************************************/
 export default abstract class NodeBase<T extends Konva.Node> {
   constructor() {
     this._node = this.createNode();
   }
 
+  /** Konva.Nodeインスタンス */
+  private _node:T;
+
+  public get node():T {
+    return this._node;
+  }
+
   //---------------------------------------------------------------------------
-  // Public メソッド
+  // 継承先でオーバーライド
+  //---------------------------------------------------------------------------
+  protected abstract createNode():T;
+
+  //---------------------------------------------------------------------------
+  // Konva.Nodeの属性をセットするメソッド郡
   //---------------------------------------------------------------------------
 
   x(ux:number) {
@@ -29,10 +44,4 @@ export default abstract class NodeBase<T extends Konva.Node> {
   draggable(flg:boolean =  true) {
     this.node.setAttr("draggable", flg); return this;
   }
-
-  protected abstract createNode():T;
-  public get node():T {
-    return this._node;
-  }
-  private _node:T;
 }
