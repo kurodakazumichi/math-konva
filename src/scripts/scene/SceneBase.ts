@@ -67,6 +67,8 @@ export default class SceneBase
   protected get backgroundElements():(ShapeBase<Konva.Shape>|GroupBase)[] {
     return [sGroup.grid()]
   }
+  /** 座標形の初期化 (initの先頭で呼ばれる) */
+  protected initCoord() {}
 
   /** GUIの初期化処理(initで呼ばれる) */
   protected initGUI() {}
@@ -79,6 +81,7 @@ export default class SceneBase
   //---------------------------------------------------------------------------
   /** 初期化 */
   init() {
+    this.initCoord();
     this.initDom();
     
     // 背景レイヤーはinitで一度だけ描画する。

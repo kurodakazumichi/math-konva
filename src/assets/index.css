@@ -73,6 +73,13 @@ header nav ul li > a {
   background-color: #abcdef;
 }
 
+#math-nav .mjx-chtml.MJXc-display {
+  font-size: 12px;
+  margin:0;
+  text-indent: 0.5em;
+  text-align: left !important;
+}
+
 #header {
   display: flex;
   align-items: center;
