@@ -13,53 +13,46 @@
   <div id="bg"></div>
   <header>
     <h1>数学ラボ</h1>
-    <nav>
-      <ul class="subject">
-        <li>
-          <div>中学数学</div>
-          <ul>
-            <li>
-              <div>◆１次関数</div>
-              <ul>
-                <li><a href="?scene=Sample1">１次関数　直線の方程式</a></li>
-                <li><a href="?scene=Sample1">サンプル１</a></li>
-                <li><a href="?scene=Sample1">サンプル１</a></li>
-              </ul>
-            </li>
-            <li>
-              <div>三角比</div>
-              <ul>
-                <li><a href="?scene=Sample1">サンプル１</a></li>
-                <li><a href="?scene=Sample1">サンプル１</a></li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-      </ul>
-      <ul class="subject">
-        <li>
-          <div>高校数学1</div>
-          <ul>
-            <li>
-              <div>２次関数</div>
-              <ul>
-                <li><a href="?scene=Sample1">１次関数　直線の方程式</a></li>
-                <li><a href="?scene=Sample1">サンプル１</a></li>
-                <li><a href="?scene=Sample1">サンプル１</a></li>
-              </ul>
-            </li>
-            <li>
-              <div>三角比</div>
-              <ul>
-                <li><a href="?scene=Sample2">サンプル２</a></li>
-              </ul>
-            </li>
-          </ul>
-        </li>
+    <nav aria-labelledby="primary-navigation">
+      <ul id="primary_links">
+        <li><a href="#" data-id="math_0">中学数学</a></li>
+        <li><a href="#" data-id="math_1">高校 数学1</a></li>
+        <li><a href="#" data-id="math_2">高校 数学2</a></li>
+        <li><a href="#" data-id="math_3">高校 数学3</a></li>
+        <li><a href="#" data-id="math_a">高校 数学A</a></li>
+        <li><a href="#" data-id="math_b">高校 数学B</a></li>
       </ul>
     </nav>
   </header>
-  
+
+  <nav id="math-nav" aria-labelledby="math0-navigation">
+    <ul id="math_0">
+      <li>
+        <span>1次関数</span>
+        <ul>
+          <li><a href="?scene=Sample1">直線の方程式</a></li>
+        </ul>
+      </li>
+    </ul>
+
+    <ul id="math_1">
+      <li>
+        <span>2次関数</span>
+        <ul>
+          <li><a href="?scene=Sample1">直線の方程式</a></li>
+        </ul>
+      </li>
+    </ul>
+    <ul id="math_2">
+      <li>
+        <span>ベクトル</span>
+        <ul>
+          <li><a href="?scene=Sample1">直線の方程式</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+
   <main>
     <div>
       <div id="header">
