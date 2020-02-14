@@ -46,8 +46,10 @@ class sCoord {
   }
 
   //---------------------------------------------------------------------------
-  // 独自座標(unit)からcanvas座標への変換
-
+  // unit -> px
+  u2px(_u:number) {
+    return this.unit * _u;
+  }
   x(_ux:number) {
     return _ux * this._unit + this.halfWidth;
   }
@@ -64,8 +66,10 @@ class sCoord {
   }
 
   //---------------------------------------------------------------------------
-  // canvas座標から独自座標(unit)への変換
-
+  // px -> unitへの変換
+  px2u(px:number) {
+    return px / this._unit;
+  }
   ux(x:number) {
     return (x - this.halfWidth) / this._unit;
   }

@@ -24,6 +24,27 @@ export default abstract class NodeBase<T extends Konva.Node> {
   //---------------------------------------------------------------------------
   // Konva.Nodeの属性をセットするメソッド郡
   //---------------------------------------------------------------------------
+  width(v:number):this;
+  width(v:void):number;
+  width(v:any):any {
+    if(typeof v === 'number') {
+      this.node.width(sCoord.u2px(v));
+      return this;
+    } else {
+      return sCoord.px2u(this.node.width());
+    }
+  }
+
+  height(v:number):NodeBase<T>;
+  height(v:void):number;
+  height(v:any):any {
+    if(typeof v === 'number') {
+      this.node.height(sCoord.u2px(v));
+      return this;
+    } else {
+      return sCoord.px2u(this.node.height());
+    }
+  }
 
   x(ux:number) {
     this.node.setAttr("x", sCoord.x(ux)); return this;
@@ -33,8 +54,8 @@ export default abstract class NodeBase<T extends Konva.Node> {
     this.node.setAttr("y", sCoord.y(uy)); return this;
   }
 
-  pos(p:{x:number, y:number}) {
-    this.x(p.x).y(p.y); return this;
+  pos(x:number, y:number) {
+    this.x(x).y(y); return this;
   }
 
   visible(flg:boolean) {
@@ -43,6 +64,18 @@ export default abstract class NodeBase<T extends Konva.Node> {
 
   draggable(flg:boolean =  true) {
     this.node.setAttr("draggable", flg); return this;
+  }
+
+  offsetX(v:number) {
+    this.node.offsetX(-sCoord.u2px(v));
+    return this;
+  }
+  offsetY(v:number) {
+    this.node.offsetY(sCoord.u2px(v));
+    return this;
+  }
+  offset(x:number, y:number) {
+    return this.offsetX(x).offsetY(y);
   }
 
   destroy() {

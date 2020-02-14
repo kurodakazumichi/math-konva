@@ -19,3 +19,23 @@ export class Circle extends ShapeBase<Konva.Circle> {
     return new Konva.Circle();
   }
 }
+
+/** Text */
+export class Text extends ShapeBase<Konva.Text> {
+  protected createNode() {
+    return new Konva.Text();
+  }
+  text(v:string) {
+    this.node.text(v); return this;
+  }
+  fontSize(v:number) {
+    this.node.fontSize(v); return this;
+  }
+  align(v:string) {
+    this.node.align(v); return this;
+  }
+  verticalAlign(v:string) {
+    this.node.verticalAlign(v); return this;
+  }
+
+}

@@ -68,6 +68,12 @@ export default class SceneBase
     return [sGroup.grid()]
   }
 
+  /** GUIの初期化処理(initで呼ばれる) */
+  protected initGUI() {}
+
+  /** グラフの初期化処理(initで呼ばれる) */
+  protected initGraph() {}
+
   //---------------------------------------------------------------------------
   // Public メソッド
   //---------------------------------------------------------------------------
@@ -80,6 +86,9 @@ export default class SceneBase
       this.bgLayer.add(elm.node);
     });
     this.bgLayer.draw();
+
+    this.initGUI();
+    this.initGraph();
   }
 
   /** 更新 */
