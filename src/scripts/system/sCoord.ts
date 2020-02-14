@@ -8,7 +8,7 @@ class sCoord {
 
   /** とりあえず初期値入れとく */
   constructor() {
-    this.width = this.height = this.unit = 0;
+    this.width = this.height = this._unit = 0;
     this.halfWidth = this.halfHeight = 0;
     this._left = this._right = this._top = this._down = 0;
   }
@@ -22,7 +22,8 @@ class sCoord {
   get down()  { return this._down; }
   get left()  { return this._left; }
   get right() { return this._right; }
-
+  get unit()  { return this._unit; }
+  
   //---------------------------------------------------------------------------
   // Public メソッド
   //---------------------------------------------------------------------------
@@ -40,7 +41,7 @@ class sCoord {
 
   /** 1ユニットあたりのピクセル数を設定 */
   setUnit(unit:number) {
-    this.unit = unit;
+    this._unit = unit;
     this.reCalcUpDownLeftRight();
   }
 
@@ -48,10 +49,10 @@ class sCoord {
   // 独自座標(unit)からcanvas座標への変換
 
   x(_ux:number) {
-    return _ux * this.unit + this.halfWidth;
+    return _ux * this._unit + this.halfWidth;
   }
   y(_uy:number) {
-    return -_uy * this.unit + this.halfHeight;
+    return -_uy * this._unit + this.halfHeight;
   }
   xy(_ux:number, _uy:number) {
     return {x:this.x(_ux), y:this.y(_uy)};
@@ -66,10 +67,10 @@ class sCoord {
   // canvas座標から独自座標(unit)への変換
 
   ux(x:number) {
-    return (x - this.halfWidth) / this.unit;
+    return (x - this.halfWidth) / this._unit;
   }
   uy(y:number) {
-    return -((y - this.halfHeight) / this.unit);
+    return -((y - this.halfHeight) / this._unit);
   }
 
   //---------------------------------------------------------------------------
@@ -84,9 +85,9 @@ class sCoord {
 
   /** 上下左右を再計算 */
   private reCalcUpDownLeftRight() {
-    this._top   = this.halfHeight / this.unit;
+    this._top   = this.halfHeight / this._unit;
     this._down  = -this._top;
-    this._right = this.halfWidth / this.unit;
+    this._right = this.halfWidth / this._unit;
     this._left  = -this._right;
   }
 
@@ -101,7 +102,7 @@ class sCoord {
   private height:number;
   
   /** 1unitあたりのピクセル数 */
-  private unit:number;
+  private _unit:number;
   
   /** canvas幅の1/2 */
   private halfWidth:number;

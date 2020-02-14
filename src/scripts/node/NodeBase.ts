@@ -44,4 +44,8 @@ export default abstract class NodeBase<T extends Konva.Node> {
   draggable(flg:boolean =  true) {
     this.node.setAttr("draggable", flg); return this;
   }
+
+  destroy() {
+    this.node.destroy();
+  }
 }

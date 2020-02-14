@@ -54,8 +54,11 @@ class sScene {
     this.scene?.destroy();
 
     this.scene = newScene;
+    sStage.add(this.scene.bgLayer);
+    sStage.add(this.scene.layer);
+
+    // layerをステージに登録してからシーンの初期化をコール
     this.scene.init();
-    sStage.add(this.scene.layerOfKonva);
   }
 
   /** 設定をもとにシーンを作成 */

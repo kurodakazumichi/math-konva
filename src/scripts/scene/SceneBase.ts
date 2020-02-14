@@ -25,9 +25,10 @@ declare function mathJaxPreview(elm:HTMLElement|null, text:string):void;
 export default class SceneBase
 {
   constructor() {
-    this.layer = new Konva.Layer();
-    this._gui  = new GUI({autoPlace:false});
-    this._dom   = this.getRequiredElements();
+    this._layer   = new Konva.Layer();
+    this._bgLayer = new Konva.Layer();
+    this._gui     = new GUI({autoPlace:false});
+    this._dom     = this.getRequiredElements();
   }
   
   //---------------------------------------------------------------------------
@@ -35,8 +36,13 @@ export default class SceneBase
   //---------------------------------------------------------------------------
 
   /** Konva.Layerのgetter */
-  get layerOfKonva() {
-    return this.layer as Konva.Layer; // nullを無視したいのでキャスト
+  get layer() {
+    return this._layer as Konva.Layer; // nullを無視したいのでキャスト
+  }
+
+  /** 背景レイヤーのgetter */
+  get bgLayer() {
+    return this._bgLayer as Konva.Layer; // nullを無視したいのでキャスト
   }
 
   //---------------------------------------------------------------------------
@@ -54,13 +60,26 @@ export default class SceneBase
     console.error("orveride explanation properity."); return "";
   }
 
+  /** 
+   * 背景レイヤーに登録するノードリストを返す
+   * 標準ではグリッドが設定される。
+   */
+  protected get backgroundElements():(ShapeBase<Konva.Shape>|GroupBase)[] {
+    return [sGroup.grid()]
+  }
+
   //---------------------------------------------------------------------------
   // Public メソッド
   //---------------------------------------------------------------------------
   /** 初期化 */
   init() {
     this.initDom();
-    this.addAxisXY();
+    
+    // 背景レイヤーはinitで一度だけ描画する。
+    this.backgroundElements.map((elm) => {
+      this.bgLayer.add(elm.node);
+    });
+    this.bgLayer.draw();
   }
 
   /** 更新 */
@@ -68,19 +87,20 @@ export default class SceneBase
 
   /** 描画 */
   draw() {
-    this.layer?.draw();
+    this._layer?.draw();
   }
 
   /** 破棄 */
   destroy() {
     this.gui.destroy()
-    this.layer?.destroy();
+    this._layer?.destroy();
+    this._bgLayer?.destroy();
     this.dom.title.innerHTML = "";
     this.dom.gui.innerHTML = "";
     this.dom.formula.innerHTML = "";
     this.dom.explanation.innerHTML = "";
     this._dom = null;
-    this.layer = null;
+    this._layer = null;
     this._gui   = null;
   }
 
@@ -88,12 +108,16 @@ export default class SceneBase
   // Protected メソッド
   //---------------------------------------------------------------------------
   protected add(children:ShapeBase<Konva.Shape>|GroupBase) {
-    this.layer?.add(children.node);
+    this._layer?.add(children.node);
     return this;
   }
 
   protected addAxisXY() {
     this.add(sGroup.axisXY()); return this;
+  }
+
+  protected addGrid() {
+    this.add(sGroup.grid()); return this;
   }
 
   //---------------------------------------------------------------------------
@@ -121,7 +145,8 @@ export default class SceneBase
   //---------------------------------------------------------------------------
   // Private 変数
   //---------------------------------------------------------------------------
-  private layer:Konva.Layer|null;
+  private _layer:Konva.Layer|null;
+  private _bgLayer:Konva.Layer|null; /** シーン生成時に一度だけ描画される */
   private _dom:IDOM|null;
   private _gui:GUI|null;
 
