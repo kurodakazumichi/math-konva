@@ -3,12 +3,13 @@
  *****************************************************************************/
 import SceneBase from '~/scripts/scene/SceneBase';
 import SampleScene from '~/scripts/scene/SampleScene';
-import SampleScene2 from '~/scripts/scene/SampleScene2';
+
+import * as MsMath2 from '~/scripts/scene/msmath2';
 
 /** シーン列挙型 */
 export enum Type {
   Sample1,
-  Sample2
+  MS_MATH2_LINEAR_01,
 }
 
 //-----------------------------------------------------------------------------
@@ -21,7 +22,7 @@ export interface ISceneRecord {
 
 const configs:ISceneRecord[] = [
   {name:"Sample1", type:Type.Sample1, sceneClass:SampleScene  },
-  {name:"Sample2", type:Type.Sample2, sceneClass:SampleScene2 }
+  {name:"ma_math2_linear01", type:Type.MS_MATH2_LINEAR_01, sceneClass:MsMath2.Linear01}
 ];
 
 const defaultConfig = configs[0];
