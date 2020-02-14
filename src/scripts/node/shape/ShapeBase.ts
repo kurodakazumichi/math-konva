@@ -2,7 +2,7 @@ import Konva from 'konva';
 import NodeBase from '~/scripts/node/NodeBase';
 
 /******************************************************************************
- * Konva.Shapeのプロパティを再定義するためのNode基底クラス
+ * Konva.Shapeのプロパティを再定義するための基底クラス
  *****************************************************************************/
 export default abstract class ShapeBase<T extends Konva.Shape> extends NodeBase<T>
 {
