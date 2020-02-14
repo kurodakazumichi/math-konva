@@ -107,3 +107,16 @@ main {
   font-size: 1.4em;
   line-height: 2em;
 }
+
+#explanation b {
+  color:#3261AB;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+#explanation em {
+  color:#C7243A;
+  font-weight: bold;
+  font-style: normal;
+  font-size: 1.2em;
+}

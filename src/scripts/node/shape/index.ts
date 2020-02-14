@@ -12,3 +12,10 @@ export class Line extends ShapeBase<Konva.Line>{
     this.node.setAttr("points", sCoord.points(points)); return this;
   }
 }
+
+/** Circle */
+export class Circle extends ShapeBase<Konva.Circle> {
+  protected createNode() {
+    return new Konva.Circle();
+  }
+}

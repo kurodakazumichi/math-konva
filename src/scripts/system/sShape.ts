@@ -24,6 +24,17 @@ class sShape  {
       .stroke("black")
       .strokeWidth(2);
   }
+  brokenLine() {
+    return new Shapes.Line()
+      .stroke("gray")
+      .strokeWidth(1)
+      .dash(5);
+  }
+  dot() {
+    return new Shapes.Circle()
+      .radius(5)
+      .fill("#009F8C")
+  }
 }
 
 const instance = new sShape();
