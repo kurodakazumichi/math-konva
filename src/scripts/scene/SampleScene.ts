@@ -83,7 +83,7 @@ export default class SampleScene extends SceneBase
     this.params.y = this.fx(this.params.x);
     const { b, x, y } = this.params;
 
-    // 直線のy座標(左端と右端)を計算して線を引き直す
+    // y=ax+bの直線 y座標(左端と右端)を計算して線を引き直す
     const y1 = this.fx(sCoord.left);
     const y2 = this.fx(sCoord.right);
     this.lineLinear.points([sCoord.left, y1, sCoord.right, y2]);
