@@ -21,7 +21,7 @@ export default class SampleScene extends SceneBase {
       strokeWidth: 4
     });
 
-    this.add(this.circle);
+    //this.add(this.circle);
 
     const params = {
       x:0,

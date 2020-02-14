@@ -1,6 +1,9 @@
 
 import Konva from 'konva';
 import { GUI } from 'dat.gui';
+import { sGroup } from '~/scripts/system';
+import ShapeBase from '~/scripts/node/shape/ShapeBase';
+import GroupBase from '~/scripts/node/group/GroupBase';
 
 /******************************************************************************
  * interface declare
@@ -61,6 +64,8 @@ export default class Scene
     this.dom.explanation.innerHTML = this.explanation;
     this.dom.gui.appendChild(this.gui.domElement);
     mathJaxPreview(this.dom.formula, this.formula);
+    
+    this.add(sGroup.axisXY());
   }
 
   /** 更新 */
@@ -83,8 +88,8 @@ export default class Scene
   //---------------------------------------------------------------------------
   // Protected メソッド
   //---------------------------------------------------------------------------
-  protected add(children:Konva.Group|Konva.Shape) {
-    this.layer?.add(children);
+  protected add(children:ShapeBase<Konva.Shape>|GroupBase) {
+    this.layer?.add(children.node);
     return this;
   }
 

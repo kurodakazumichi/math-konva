@@ -10,18 +10,18 @@ class sCoord {
   constructor() {
     this.width = this.height = this.unit = 0;
     this.halfWidth = this.halfHeight = 0;
-    this.left = this.right = this.top = this.down = 0;
+    this._left = this._right = this._top = this._down = 0;
   }
 
   //---------------------------------------------------------------------------
   // Public プロパティ
   //---------------------------------------------------------------------------
-  get w() { return this.width; }
-  get h() { return this.height; }
-  get t() { return this.top; }
-  get d() { return this.down; }
-  get l() { return this.left; }
-  get r() { return this.right; }
+  get w()     { return this.width; }
+  get h()     { return this.height; }
+  get top()   { return this._top; }
+  get down()  { return this._down; }
+  get left()  { return this._left; }
+  get rigjt() { return this._right; }
 
   //---------------------------------------------------------------------------
   // Public メソッド
@@ -84,10 +84,10 @@ class sCoord {
 
   /** 上下左右を再計算 */
   private reCalcUpDownLeftRight() {
-    this.top   = this.halfHeight / this.unit;
-    this.down  = -this.top;
-    this.right = this.halfWidth / this.unit;
-    this.left  = -this.right;
+    this._top   = this.halfHeight / this.unit;
+    this._down  = -this._top;
+    this._right = this.halfWidth / this.unit;
+    this._left  = -this._right;
   }
 
   //---------------------------------------------------------------------------
@@ -110,16 +110,16 @@ class sCoord {
   private halfHeight:number;
   
   /** 独自座標における一番上の座標値 */
-  private top:number;
+  private _top:number;
 
   /** 独自座標における一番下の座標値 */
-  private down:number;
+  private _down:number;
 
   /** 独自座標における左端 */
-  private left:number;
+  private _left:number;
 
   /** 独自座標における右端 */
-  private right:number;
+  private _right:number;
 }
 
 const instance = new sCoord();

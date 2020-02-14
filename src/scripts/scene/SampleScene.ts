@@ -48,7 +48,7 @@ export default class SampleScene extends SceneBase
       strokeWidth: 4
     });
 
-    this.add(this.circle);
+    //this.add(this.circle);
 
     
     this.gui.add(this.params, "x");
