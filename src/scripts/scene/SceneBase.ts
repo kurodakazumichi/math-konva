@@ -22,7 +22,7 @@ declare function mathJaxPreview(elm:HTMLElement|null, text:string):void;
 /******************************************************************************
  * シーンの基底クラス
  *****************************************************************************/
-export default class Scene 
+export default class SceneBase
 {
   constructor() {
     this.layer = new Konva.Layer();
@@ -58,14 +58,9 @@ export default class Scene
   // Public メソッド
   //---------------------------------------------------------------------------
   /** 初期化 */
-  init() 
-  {
-    this.dom.title.innerHTML = this.title;
-    this.dom.explanation.innerHTML = this.explanation;
-    this.dom.gui.appendChild(this.gui.domElement);
-    mathJaxPreview(this.dom.formula, this.formula);
-    
-    this.add(sGroup.axisXY());
+  init() {
+    this.initDom();
+    this.addAxisXY();
   }
 
   /** 更新 */
@@ -78,8 +73,12 @@ export default class Scene
 
   /** 破棄 */
   destroy() {
-    this._gui?.destroy();
+    this.gui.destroy()
     this.layer?.destroy();
+    this.dom.title.innerHTML = "";
+    this.dom.gui.innerHTML = "";
+    this.dom.formula.innerHTML = "";
+    this.dom.explanation.innerHTML = "";
     this._dom = null;
     this.layer = null;
     this._gui   = null;
@@ -91,6 +90,10 @@ export default class Scene
   protected add(children:ShapeBase<Konva.Shape>|GroupBase) {
     this.layer?.add(children.node);
     return this;
+  }
+
+  protected addAxisXY() {
+    this.add(sGroup.axisXY()); return this;
   }
 
   //---------------------------------------------------------------------------
@@ -107,23 +110,22 @@ export default class Scene
     }
   }
 
-  //---------------------------------------------------------------------------
-  // Private・Protected プロパティ
-  // ガベコレ対策でnull許容にしてるけど、実際の処理ではnullにはならないので
-  // プロパティで無理やりキャストしてたりする。
-  //---------------------------------------------------------------------------
-
-  private layer:Konva.Layer|null;
-
-  private _dom:IDOM|null;
-
-  private get dom():IDOM {
-    return this._dom as IDOM;
+  /** DOMを初期処理 */
+  private initDom() {
+    this.dom.title.innerHTML = this.title;
+    this.dom.explanation.innerHTML = this.explanation;
+    this.dom.gui.appendChild(this.gui.domElement);
+    mathJaxPreview(this.dom.formula, this.formula);
   }
 
+  //---------------------------------------------------------------------------
+  // Private 変数
+  //---------------------------------------------------------------------------
+  private layer:Konva.Layer|null;
+  private _dom:IDOM|null;
   private _gui:GUI|null;
 
-  protected get gui():GUI {
-    return this._gui as GUI;
-  }
+  // nullチェックを横着するための定義
+  private get dom():IDOM { return this._dom as IDOM; }
+  protected get gui():GUI { return this._gui as GUI; }
 }

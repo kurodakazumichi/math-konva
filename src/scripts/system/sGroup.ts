@@ -1,9 +1,11 @@
 import * as Groups  from  '~/scripts/node/group';
 
-
+/******************************************************************************
+ * Groupファクトリークラス
+ *****************************************************************************/
 class sGroup  {
   axisXY() {
-    return new Groups.Axis();
+    return new Groups.AxisXY();
   }
 }
 

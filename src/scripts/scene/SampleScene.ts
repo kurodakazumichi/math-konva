@@ -1,15 +1,15 @@
 
-import Konva from 'konva';
 import SceneBase from './SceneBase';
+import { sShape, sCoord } from '../system';
+import { Line } from '~/scripts/node/shape';
 
 /******************************************************************************
  * 直線 y=ax+bのシーン
  *****************************************************************************/
 export default class SampleScene extends SceneBase 
-{
+{  
   constructor() {
     super();
-    this.circle = null;
   }
 
   //---------------------------------------------------------------------------
@@ -30,38 +30,41 @@ export default class SampleScene extends SceneBase
   }
 
   //---------------------------------------------------------------------------
-  // Override
+  // メインの処理
   //---------------------------------------------------------------------------
   params = {
-    x:0
+    a:0,
+    b:0,
   }
-  circle:Konva.Circle|null;
+
+  private line:Line = sShape.solidLine();
+  
   init() {
     super.init();
-    // create our shape
-    this.circle = new Konva.Circle({
-      x: 100,
-      y: 100,
-      radius: 70,
-      fill: 'red',
-      stroke: 'black',
-      strokeWidth: 4
-    });
-
-    //this.add(this.circle);
-
     
-    this.gui.add(this.params, "x");
+    this.gui.add(this.params, "a").step(0.1);
+    this.gui.add(this.params, "b").step(0.1);
 
+
+    this.line.points([0, 0, 1, 1]);
+    this.add(this.line);
+  }
+
+  fx(x:number) {
+    const { a, b } = this.params;
+    return a * x + b;
   }
 
   update() {
-    this.circle?.setAttr("x", this.params.x);
+    
+    const y1 = this.fx(sCoord.left);
+    const y2 = this.fx(sCoord.right);
+    this.line.points([sCoord.left, y1, sCoord.right, y2]);
   }
 
   
   destroy() {
     super.destroy();
-    this.circle = null;
+
   }
 }

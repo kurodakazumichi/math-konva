@@ -9,8 +9,25 @@ export default class SampleScene extends SceneBase {
     super();
     this.circle = null;
   }
+
+  //---------------------------------------------------------------------------
+  // Overrideしないといけないやつ
+  //---------------------------------------------------------------------------
+  protected get title() {
+    return "サンプル";
+  }
+
+  protected get formula() {
+    return `$$y=ax+b$$`
+  }
+
+  protected get explanation() {
+    return ``;
+  }
+
   circle:Konva.Circle|null;
   init() {
+    super.init();
     // create our shape
     this.circle = new Konva.Circle({
       x: 100,
@@ -27,8 +44,8 @@ export default class SampleScene extends SceneBase {
       x:0,
     }
 
-    const gui = new GUI();
-    gui.add(params, "x").onChange((v) => {
+
+    this.gui.add(params, "x").onChange((v) => {
       this.circle?.setAttr("x", v);
     });
 

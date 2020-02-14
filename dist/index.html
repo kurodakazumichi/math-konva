@@ -5,21 +5,75 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>数学ラボ</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-  <link rel="stylesheet" type="text/css" href="/src.9ad09f98.css">
-<script src="/src.9ad09f98.js"></script></head>
+  <link href="https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="/reset.5ea8f092.css">
+  <link rel="stylesheet" type="text/css" href="/assets.2f291257.css">
+<script src="/reset.5ea8f092.js"></script><script src="/assets.2f291257.js"></script></head>
 <body>
+  <div id="bg"></div>
   <header>
-    <h1 id="title">タイトル</h1>
-    <div id="formula">$$y=ax+b$$</div>
+    <h1>数学ラボ</h1>
+    <nav>
+      <ul class="subject">
+        <li>
+          <div>中学数学</div>
+          <ul>
+            <li>
+              <div>◆１次関数</div>
+              <ul>
+                <li><a href="?scene=Sample1">１次関数　直線の方程式</a></li>
+                <li><a href="?scene=Sample1">サンプル１</a></li>
+                <li><a href="?scene=Sample1">サンプル１</a></li>
+              </ul>
+            </li>
+            <li>
+              <div>三角比</div>
+              <ul>
+                <li><a href="?scene=Sample1">サンプル１</a></li>
+                <li><a href="?scene=Sample1">サンプル１</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <ul class="subject">
+        <li>
+          <div>高校数学1</div>
+          <ul>
+            <li>
+              <div>２次関数</div>
+              <ul>
+                <li><a href="?scene=Sample1">１次関数　直線の方程式</a></li>
+                <li><a href="?scene=Sample1">サンプル１</a></li>
+                <li><a href="?scene=Sample1">サンプル１</a></li>
+              </ul>
+            </li>
+            <li>
+              <div>三角比</div>
+              <ul>
+                <li><a href="?scene=Sample2">サンプル２</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
   </header>
+  
   <main>
-    <div id="explanation"></div>
-    <div id="container"></div>
-    <div id="gui-container"></div>
+    <div>
+      <div id="header">
+        <h2 id="title">タイトル</h2>
+        <div id="formula">$$y=ax+b$$</div>
+      </div>
+      <p id="explanation"></p>
+      <div id="graph">
+        <div id="container"></div>
+        <div id="gui-container"></div>
+      </div>
+    </div>
   </main>
 
-  <a href="?scene=Sample1">サンプル１</a>
-  <a href="?scene=Sample2">サンプル２</a>
   <script>function mathJaxPreview(elm, text) {
   if (!elm) return;
   elm.innerHTML = text;

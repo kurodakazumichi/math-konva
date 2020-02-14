@@ -21,7 +21,7 @@ class sCoord {
   get top()   { return this._top; }
   get down()  { return this._down; }
   get left()  { return this._left; }
-  get rigjt() { return this._right; }
+  get right() { return this._right; }
 
   //---------------------------------------------------------------------------
   // Public メソッド

@@ -15,7 +15,7 @@
     "math-lab": "https://github.com/kurodakazumichi/math-lab.git"
   },
   "scripts": {
-    "start": "parcel src/index.html",
-    "build": "parcel build src/index.html"
+    "start": "rm -rf ./dist && parcel src/index.html",
+    "build": "rm -rf ./dist && parcel build src/index.html"
   }
 }

@@ -1,9 +1,12 @@
 import * as Shapes  from  '~/scripts/node/shape';
 import { sCoord } from '~/scripts/system';
 
+/******************************************************************************
+ * Shapeファクトリークラス
+ *****************************************************************************/
 class sShape  {
   axisX() {
-    const p = [sCoord.left, 0, sCoord.rigjt, 0];
+    const p = [sCoord.left, 0, sCoord.right, 0];
     return new Shapes.Line()
       .points(p)
       .stroke("gray")
@@ -15,6 +18,11 @@ class sShape  {
       .points(p)
       .stroke("gray")
       .strokeWidth(1);
+  }
+  solidLine() {
+    return new Shapes.Line()
+      .stroke("black")
+      .strokeWidth(2);
   }
 }
 
