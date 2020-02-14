@@ -56,6 +56,23 @@ header nav ul li > a {
   width:200px;
 }
 
+#math-nav > ul {
+
+}
+#math-nav > ul > li > span {
+  font-size: 1.2em;
+  border-left:10px solid #abcdef;
+  padding:0.5em;
+  display: inline-block;
+}
+#math-nav > ul > li > ul {
+  padding: 0.6em 1em;
+  cursor: pointer;
+}
+#math-nav > ul > li > ul:hover {
+  background-color: #abcdef;
+}
+
 #header {
   display: flex;
   align-items: center;
@@ -101,4 +118,12 @@ main {
   font-weight: bold;
   font-style: normal;
   font-size: 1.2em;
+}
+
+footer {
+  background: #0086AB;
+  line-height: 2em;
+  color:white;
+  text-align: center;
+  margin-top:3em;
 }

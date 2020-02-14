@@ -31,11 +31,13 @@ export class Text extends ShapeBase<Konva.Text> {
   fontSize(v:number) {
     this.node.fontSize(v); return this;
   }
+  fontFamily(v:string) {
+    this.node.fontFamily(v); return this;
+  }
   align(v:string) {
     this.node.align(v); return this;
   }
   verticalAlign(v:string) {
     this.node.verticalAlign(v); return this;
   }
-
 }
