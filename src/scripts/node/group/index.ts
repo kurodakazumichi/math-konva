@@ -5,6 +5,8 @@ import { sShape } from '~/scripts/system';
 export class Axis extends GroupBase{
   constructor() {
     super();
-    this.node.add(sShape.axisX().node).add(sShape.axisY().node);
+    this.node
+      .add(sShape.axisX().node)
+      .add(sShape.axisY().node);
   }
 }
