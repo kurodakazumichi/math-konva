@@ -25,10 +25,11 @@ header {
   position: static;
 }
 
-header h1 {
+header h1 a{
   color:white;
   margin:0 2em 0 1em;
   line-height: 2em;;
+  text-decoration: none;
 }
 
 /** header-nav */
