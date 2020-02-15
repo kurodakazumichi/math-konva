@@ -25,21 +25,21 @@ export default abstract class NodeBase<T extends Konva.Node> {
   // Konva.Nodeの属性をセットするメソッド郡
   //---------------------------------------------------------------------------
   width(v:number):this;
-  width(v:void):number;
-  width(v:any):any {
-    if(typeof v === 'number') {
-      this.node.width(sCoord.u2px(v));
+  width():number;
+  width(...v: [] | [number]):this | number {
+    if(typeof v[0] === 'number') {
+      this.node.width(sCoord.u2px(v[0]));
       return this;
     } else {
       return sCoord.px2u(this.node.width());
     }
   }
 
-  height(v:number):NodeBase<T>;
-  height(v:void):number;
-  height(v:any):any {
-    if(typeof v === 'number') {
-      this.node.height(sCoord.u2px(v));
+  height(v:number): this;
+  height():number;
+  height(...v: [] | [number]): this | number {
+    if(typeof v[0] === 'number') {
+      this.node.height(sCoord.u2px(v[0]));
       return this;
     } else {
       return sCoord.px2u(this.node.height());
