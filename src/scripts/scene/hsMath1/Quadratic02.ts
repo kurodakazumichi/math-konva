@@ -36,25 +36,6 @@ export default class SampleScene extends SceneBase
   //---------------------------------------------------------------------------
   private quad = new Quadratic();
 
-  private quadPoints():number[] {
-    const p:number[]  = [];
-
-    if(this.quad.isInvalid) return p;
-    for(let x = sCoord.left; x < sCoord.right; x+=0.1) {
-      p.push(x);
-      p.push(this.quad.fx(x));
-    }
-    return p;
-  }
-
-  intersectPoint() {
-    if(this.quad.isInvalid) return [];
-    const { b, c } = this.quad;
-    const y1 = b * sCoord.left + c;
-    const y2 = b * sCoord.right + c;
-    return [sCoord.left, y1, sCoord.right, y2];
-  }
-
   //---------------------------------------------------------------------------
   // GUI
   //---------------------------------------------------------------------------
@@ -96,10 +77,8 @@ export default class SampleScene extends SceneBase
   updateLines() {
     const { a, b, c } =  this.params;
     this.quad.initGeneralForm(a, b, c);
-    this.intersectLine.points(this.intersectPoint());
-
-
-    this.quadLine.points(this.quadPoints());
+    this.intersectLine.points(this.quad.getPointsOfSlopeAtYTangent(sCoord.left, sCoord.right));
+    this.quadLine.points(this.quad.getPoints(sCoord.left, sCoord.right, 0.1));
   }
 
   update() {

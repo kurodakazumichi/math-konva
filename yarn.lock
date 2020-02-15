@@ -3066,7 +3066,7 @@ map-visit@^1.0.0:
 
 "math-lab@https://github.com/kurodakazumichi/math-lab.git":
   version "1.0.0"
-  resolved "https://github.com/kurodakazumichi/math-lab.git#b76f8750450921bf48a8be9d5a69cd75b4935c87"
+  resolved "https://github.com/kurodakazumichi/math-lab.git#300ae625b410da63d965c740da2a5a3667d5982a"
 
 md5.js@^1.3.4:
   version "1.3.5"
