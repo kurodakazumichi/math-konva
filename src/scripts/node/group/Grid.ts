@@ -55,7 +55,7 @@ export default class Grid extends GroupBase {
   private createLine(points:number[]) {
     return sShape.solidLine()
       .strokeWidth(1)
-      .stroke("#dddddd")
+      .stroke("#5B686D")
       .points(points);     
   }
 

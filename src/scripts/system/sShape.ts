@@ -9,24 +9,24 @@ class sShape  {
     const p = [sCoord.left, 0, sCoord.right, 0];
     return new Shapes.Line()
       .points(p)
-      .stroke("gray")
+      .stroke("white")
       .strokeWidth(1);
   }
   axisY() {
     const p = [0, sCoord.down, 0, sCoord.top];
     return new Shapes.Line()
       .points(p)
-      .stroke("gray")
+      .stroke("white")
       .strokeWidth(1);
   }
   solidLine() {
     return new Shapes.Line()
-      .stroke("black")
+      .stroke("white")
       .strokeWidth(2);
   }
   brokenLine() {
     return new Shapes.Line()
-      .stroke("gray")
+      .stroke("#D5E0F1")
       .strokeWidth(1)
       .dash(5);
   }
@@ -38,7 +38,8 @@ class sShape  {
   text() {
     return new Shapes.Text()
       .text("A")
-      .fontSize(20);
+      .fontSize(20)
+      .stroke("white");
   }
 }
 

@@ -14,6 +14,7 @@ export enum Type {
   MS_MATH2_LINEAR_01,
   MS_MATH3_PYTHAGOREAN_01,
   HS_MATH1_QUADRATIC_01,
+  HS_MATH1_QUADRATIC_02,
 }
 
 //-----------------------------------------------------------------------------
@@ -28,7 +29,8 @@ const configs:ISceneRecord[] = [
   { name:"Sample1"                , type:Type.Sample1                , sceneClass:SampleScene   },
   { name:"ms_math2_linear_01"     , type:Type.MS_MATH2_LINEAR_01     , sceneClass:MsMath2.Linear01 },
   { name:"ms_math3_pythagorean_01", type:Type.MS_MATH3_PYTHAGOREAN_01, sceneClass:MsMath3.Pythagorean01 },
-  { name:"hs_math1_quadratic_01"  , type:Type.HS_MATH1_QUADRATIC_01  , sceneClass:HsMath1.Quadratic01 }
+  { name:"hs_math1_quadratic_01"  , type:Type.HS_MATH1_QUADRATIC_01  , sceneClass:HsMath1.Quadratic01 },
+  { name:"hs_math1_quadratic_02"  , type:Type.HS_MATH1_QUADRATIC_02  , sceneClass:HsMath1.Quadratic02 },
 ];
 
 const defaultConfig = configs[0];

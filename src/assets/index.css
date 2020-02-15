@@ -4,6 +4,7 @@
 body {
   margin:0;
   font-family: "M PLUS Rounded 1c";
+  background-color:#eee;
 }
 
 #bg {
@@ -65,12 +66,19 @@ header nav ul li > a {
   padding:0.5em;
   display: inline-block;
 }
-#math-nav > ul > li > ul {
+#math-nav > ul > li > ul > li {
   padding: 0.6em 1em;
   cursor: pointer;
 }
-#math-nav > ul > li > ul:hover {
+#math-nav > ul > li > ul > li:hover {
   background-color: #abcdef;
+}
+#math-nav > ul > li > ul > li > a {
+  color:#3261AB;
+  text-decoration: none;
+}
+#math-nav > ul > li > ul > li > a:hover {
+  color:#BF1E56;
 }
 
 #math-nav .mjx-chtml.MJXc-display {
@@ -105,7 +113,7 @@ main {
 }
 
 #container {
-  background:white;
+  background:rgb(12, 12, 24);
   margin-right: 2em;
 }
 
