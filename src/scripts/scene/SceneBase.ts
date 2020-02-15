@@ -15,9 +15,18 @@ interface IDOM {
   explanation:HTMLElement;
 }
 
-// mathJaxPreviewはindex.htmlに定義された関数
-// MathJaxをちょっと使いたいので定義だけあることにしてる
-declare function mathJaxPreview(elm:HTMLElement|null, text:string):void;
+// かなり無理やりだけどMathJaxを再評価するための関数をここに定義
+// index.htmlの方でcdnからMathJaxのjsを読み込んでいるので動作はする。
+// @typesとか調べればあるかもしれないけどこれだけのためにやるのもなぁということで
+// 無理やり定義しました。
+declare const MathJax:any;
+function mathJaxPreview(elm:HTMLElement, text:string) {
+  if (!elm) return;
+  elm.innerHTML = text;
+  MathJax.Hub.Queue(
+    ["Typeset", MathJax.Hub, elm],
+  );
+}
 
 /******************************************************************************
  * シーンの基底クラス
