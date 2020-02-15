@@ -47,10 +47,10 @@ class sColor implements IColorTable{
   //---------------------------------------------------------------------------
   /** 初期化 */
   init() {
-    const maybeMode = Number(sessionStorage.getItem("mode"));
-
+    const maybeMode = sessionStorage.getItem("mode");
+    console.log(maybeMode);
     switch(maybeMode) {
-      case 0: this._mode = Mode.Light; break;
+      case "0": this._mode = Mode.Light; break;
       default: this._mode = Mode.Dark; break;
     }
   }

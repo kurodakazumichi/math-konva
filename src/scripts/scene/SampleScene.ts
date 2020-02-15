@@ -4,7 +4,7 @@ import { Line, Circle, Text } from '~/scripts/node/shape';
 import { Quadratic } from 'math-lab';
 
 /******************************************************************************
- * ２次関数  y=a(x-p)^2 + q
+ * ２次関数 因数分解式 a(x - s)(x - t)
  *****************************************************************************/
 export default class SampleScene extends SceneBase 
 {  
@@ -17,17 +17,16 @@ export default class SampleScene extends SceneBase
   // Overrideするプロパティ
   //---------------------------------------------------------------------------
   protected get title() {
-    return "２次関数 一般形";
+    return "２次関数 因数分解式";
   }
 
   protected get formula() {
-    return `$$y=ax^2+bx+c　(a \\neq 0)$$`
+    return `$$y=a(x-s)(x-t)　(a \\neq 0)$$`
   }
 
   protected get explanation() {
     return `
-    <b>a</b>は放物線の<em>開き具合</em>を表し、<b>b</b>はy切片における<em>傾き</em>を表す。<br>
-    また<b>c</b>は<em>y切片</em>を表す。
+    <b>a</b>は放物線の<em>開き具合</em>を表し、<b>s</b>と<b>t</b>は<em>x切片</em>(x軸と重なる時)の値を表す。<br>
     `;
   }
 
@@ -36,39 +35,20 @@ export default class SampleScene extends SceneBase
   //---------------------------------------------------------------------------
   private quad = new Quadratic();
 
-  private quadPoints():number[] {
-    const p:number[]  = [];
-
-    if(this.quad.isInvalid) return p;
-    for(let x = sCoord.left; x < sCoord.right; x+=0.1) {
-      p.push(x);
-      p.push(this.quad.fx(x));
-    }
-    return p;
-  }
-
-  intersectPoint() {
-    if(this.quad.isInvalid) return [];
-    const { b, c } = this.quad;
-    const y1 = b * sCoord.left + c;
-    const y2 = b * sCoord.right + c;
-    return [sCoord.left, y1, sCoord.right, y2];
-  }
-
   //---------------------------------------------------------------------------
   // GUI
   //---------------------------------------------------------------------------
   params = {
     a:1,
-    b:0,
-    c:0,
+    s:-1,
+    t:1,
   }
 
   initGUI() {
     const f1 = this.gui.addFolder("２次関数のパラメータ");
     f1.add(this.params, "a").step(0.1).onChange(this.updateLines);
-    f1.add(this.params, "b").step(0.1).onChange(this.updateLines);
-    f1.add(this.params, "c").step(0.1).onChange(this.updateLines);
+    f1.add(this.params, "s").step(0.1).onChange(this.updateLines);
+    f1.add(this.params, "t").step(0.1).onChange(this.updateLines);
     f1.open();
   }
 
@@ -78,33 +58,39 @@ export default class SampleScene extends SceneBase
 
   /** グラフ内の要素 */
   private quadLine:Line   = sShape.solidLine();
-  private intersectLine:Line = sShape.solidLine().strokeWidth(1).stroke(sColor.green);
-  private yIntersectPoint:Circle = sShape.point();
-  private coord:Text  = sShape.text().offset(0.1, -0.1);
+
+  private sCoord:Text  = sShape.text().offset(0.2, -0.1);
+  private tCoord:Text  = sShape.text().offset(0.2, -0.1);
+  private sPoint:Circle = sShape.point();
+  private tPoint:Circle = sShape.point();
 
   initGraph() {
 
     this.updateLines();
 
     this.add(this.quadLine);
-    this.add(this.intersectLine);
-    this.add(this.yIntersectPoint);
-    this.add(this.coord);
+
+    this.add(this.sCoord);
+    this.add(this.tCoord);
+    this.add(this.sPoint);
+    this.add(this.tPoint);
   }
 
 
   updateLines() {
-    const { a, b, c } =  this.params;
-    this.quad.initGeneralForm(a, b, c);
-    this.intersectLine.points(this.intersectPoint());
-
-
-    this.quadLine.points(this.quadPoints());
+    const { a, s, t } =  this.params;
+    this.quad.initFactorizationForm(a, s, t);
+    this.quadLine.points(
+      this.quad.getPoints(sCoord.left, sCoord.right, 0.1)
+    );
   }
 
   update() {
-    const { c } = this.quad;
-    this.yIntersectPoint.pos(0, c);
-    this.coord.pos(0, c).text(`${c.toFixed(1)}`);
+    const { s, t } = this.params;
+
+    this.sCoord.pos(s, 0).text(`s = ${s.toFixed(1)}`);
+    this.tCoord.pos(t, 0).text(`t = ${t.toFixed(1)}`);
+    this.sPoint.pos(s, 0);
+    this.tPoint.pos(t, 0);
   }
 }
