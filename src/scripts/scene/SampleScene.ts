@@ -1,47 +1,74 @@
-
 import SceneBase from '~/scripts/scene/SceneBase';
-import { sShape } from '~/scripts/system';
-import { Line, Text } from '~/scripts/node/shape';
+import { sShape, sCoord, sColor } from '~/scripts/system';
+import { Line, Circle, Text } from '~/scripts/node/shape';
+import { Quadratic } from 'math-lab';
 
 /******************************************************************************
- * 直線 y=ax+bのシーン
+ * ２次関数  y=a(x-p)^2 + q
  *****************************************************************************/
 export default class SampleScene extends SceneBase 
 {  
   constructor() {
     super();
+    this.updateLines = this.updateLines.bind(this);
   }
 
   //---------------------------------------------------------------------------
   // Overrideするプロパティ
   //---------------------------------------------------------------------------
   protected get title() {
-    return "三平方の定理";
+    return "２次関数 一般形";
   }
 
   protected get formula() {
-    return `$$c^2=a^2 + b^2$$`
+    return `$$y=ax^2+bx+c　(a \\neq 0)$$`
   }
 
   protected get explanation() {
     return `
-    <em>直角三角形</em>の斜辺を<b>c</b>、底辺を<b>a</b>、高さを<b>b</b>とすると上の式が成り立つ。<br>
-    <em>ピタゴラスの定理</em>とも呼ばれる。
+    <b>a</b>は放物線の<em>開き具合</em>を表し、<b>b</b>はy切片における<em>傾き</em>を表す。<br>
+    また<b>c</b>は<em>y切片</em>を表す。
     `;
+  }
+
+  //---------------------------------------------------------------------------
+  // Graph
+  //---------------------------------------------------------------------------
+  private quad = new Quadratic();
+
+  private quadPoints():number[] {
+    const p:number[]  = [];
+
+    if(this.quad.isInvalid) return p;
+    for(let x = sCoord.left; x < sCoord.right; x+=0.1) {
+      p.push(x);
+      p.push(this.quad.fx(x));
+    }
+    return p;
+  }
+
+  intersectPoint() {
+    if(this.quad.isInvalid) return [];
+    const { b, c } = this.quad;
+    const y1 = b * sCoord.left + c;
+    const y2 = b * sCoord.right + c;
+    return [sCoord.left, y1, sCoord.right, y2];
   }
 
   //---------------------------------------------------------------------------
   // GUI
   //---------------------------------------------------------------------------
   params = {
-    bottom:4,
-    height:3,
+    a:1,
+    b:0,
+    c:0,
   }
 
   initGUI() {
-    const f1 = this.gui.addFolder("三角形の底辺と高さ");
-    f1.add(this.params, "bottom").step(0.1);
-    f1.add(this.params, "height").step(0.1);
+    const f1 = this.gui.addFolder("２次関数のパラメータ");
+    f1.add(this.params, "a").step(0.1).onChange(this.updateLines);
+    f1.add(this.params, "b").step(0.1).onChange(this.updateLines);
+    f1.add(this.params, "c").step(0.1).onChange(this.updateLines);
     f1.open();
   }
 
@@ -50,34 +77,34 @@ export default class SampleScene extends SceneBase
   //---------------------------------------------------------------------------
 
   /** グラフ内の要素 */
-  private triangle:Line       = sShape.solidLine();
-  private textBottom:Text     = sShape.text().fontSize(30).offsetY(-0.2);
-  private textHeight:Text     = sShape.text().fontSize(30).offsetX(0.2);
-  private textHypotenuse:Text = sShape.text().fontSize(30).offset(-0.1, 0.3);
-  private formulaAxA:Text     = sShape.text().fontSize(50).offsetX(0.1).y(-2.0).fontFamily("Monaco");
-  private formulaBxB:Text     = sShape.text().fontSize(50).offsetX(0.1).y(-2.5).fontFamily("Monaco");
-  private formulaCxC:Text     = sShape.text().fontSize(50).offsetX(0.1).y(-3.0).fontFamily("Monaco");
+  private quadLine:Line   = sShape.solidLine();
+  private intersectLine:Line = sShape.solidLine().strokeWidth(1).stroke(sColor.green);
+  private yIntersectPoint:Circle = sShape.point();
+  private coord:Text  = sShape.text().offset(0.1, -0.1);
 
   initGraph() {
-    this.add(this.triangle);
-    this.add(this.textBottom);
-    this.add(this.textHeight);
-    this.add(this.textHypotenuse);
-    this.add(this.formulaAxA);
-    this.add(this.formulaBxB);
-    this.add(this.formulaCxC);
+
+    this.updateLines();
+
+    this.add(this.quadLine);
+    this.add(this.intersectLine);
+    this.add(this.yIntersectPoint);
+    this.add(this.coord);
+  }
+
+
+  updateLines() {
+    const { a, b, c } =  this.params;
+    this.quad.initGeneralForm(a, b, c);
+    this.intersectLine.points(this.intersectPoint());
+
+
+    this.quadLine.points(this.quadPoints());
   }
 
   update() {
-    const { bottom:x, height:y } = this.params;
-
-    this.triangle.points([0, 0, x, 0, x, y, 0, 0]);
-
-    this.textBottom.pos(x/2, 0).text(`a = ${x.toFixed(1)}`);
-    this.textHeight.pos(x, y/2).text(`b = ${y.toFixed(1)}`);
-    this.textHypotenuse.pos(x/2, y/2).text(`c`);
-    this.formulaAxA.text(`a × a = ${(x**2).toFixed(2)}`);
-    this.formulaBxB.text(`b × b = ${(y**2).toFixed(2)}`);
-    this.formulaCxC.text(`c × c = ${(x**2 + y**2).toFixed(2)}`);
+    const { c } = this.quad;
+    this.yIntersectPoint.pos(0, c);
+    this.coord.pos(0, c).text(`${c.toFixed(1)}`);
   }
 }

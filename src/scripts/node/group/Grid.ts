@@ -1,5 +1,5 @@
 import GroupBase from './GroupBase';
-import { sShape, sCoord } from '~/scripts/system';
+import { sShape, sCoord, sColor } from '~/scripts/system';
 import { Line } from '~/scripts/node/shape';
 
 /******************************************************************************
@@ -55,7 +55,7 @@ export default class Grid extends GroupBase {
   private createLine(points:number[]) {
     return sShape.solidLine()
       .strokeWidth(1)
-      .stroke("#5B686D")
+      .stroke(sColor.grid)
       .points(points);     
   }
 

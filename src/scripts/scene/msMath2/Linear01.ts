@@ -1,6 +1,6 @@
 
 import SceneBase from '~/scripts/scene/SceneBase';
-import { sShape, sCoord } from '~/scripts/system';
+import { sShape, sCoord, sColor } from '~/scripts/system';
 import { Line, Circle, Text } from '~/scripts/node/shape';
 
 /******************************************************************************
@@ -63,8 +63,8 @@ export default class Scene extends SceneBase
   private lineLinear:Line        = sShape.solidLine().points([0, 0, 1, 1]);
   private lineX2Y:Line           = sShape.brokenLine();
   private pointInterceptY:Circle = sShape.point();
-  private pointX:Circle          = sShape.point().fill("red");
-  private pointY:Circle          = sShape.point().fill("red");
+  private pointX:Circle          = sShape.point().fill(sColor.red);
+  private pointY:Circle          = sShape.point().fill(sColor.red);
   private coordX:Text            = sShape.text().offset(0.1, -0.1);
   private coordY:Text            = sShape.text().offset(0.1, -0.1);
 

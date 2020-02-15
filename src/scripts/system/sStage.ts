@@ -7,16 +7,23 @@ import { sCoord } from './index'
 class sStage 
 {
   constructor() {
-    this.stage = null;
+    this.stage     = null;
+    this.container = null;
   }
 
   /** 初期化 */
-  init(divId:string) {
+  init(divId:string, fill:string = "") 
+  {
+    const div:HTMLDivElement = document.getElementById(divId) as HTMLDivElement;
+    this.container = div;
+
     this.stage = new Konva.Stage({
-      container:divId,
+      container:div,
       width    :sCoord.w,
       height   :sCoord.h,
     })
+
+    this.fill(fill);
   }
 
   /** レイヤーを追加するためのadd */
@@ -24,8 +31,17 @@ class sStage
     this.stage?.add(layer);
   }
 
+  /** 背景色を設定 */
+  fill(color:string) {
+    if (!this.container) return;
+    this.container.style.backgroundColor = color;
+  }
+
   /** Stage */
   private stage:Konva.Stage|null;
+
+  /** Container */
+  private container:HTMLDivElement|null;
 }
 
 const instance = new sStage();

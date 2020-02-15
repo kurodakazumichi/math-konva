@@ -1,6 +1,4 @@
-import sStage from './system/sStage';
-import sScene from './system/sScene';
-import sCoord from './system/sCoord';
+import { sStage, sScene, sCoord, sColor } from '~/scripts/system'
 
 class App {
   constructor() {
@@ -8,8 +6,9 @@ class App {
   }
 
   init() {
+    sColor.init();
     sCoord.init();
-    sStage.init("container");
+    sStage.init("container", sColor.backGround);
     sScene.init();
 
     sScene.loadSceneFromUrlParam();

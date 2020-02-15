@@ -1,5 +1,5 @@
 import SceneBase from '~/scripts/scene/SceneBase';
-import { sShape, sCoord } from '~/scripts/system';
+import { sShape, sCoord, sColor } from '~/scripts/system';
 import { Line, Circle, Text } from '~/scripts/node/shape';
 import { Quadratic } from 'math-lab';
 
@@ -59,7 +59,7 @@ export default class SampleScene extends SceneBase
 
   /** グラフ内の要素 */
   private quadLine:Line   = sShape.solidLine();
-  private intersectLine:Line = sShape.solidLine().strokeWidth(1).stroke("#009F8C");
+  private intersectLine:Line = sShape.solidLine().strokeWidth(1).stroke(sColor.green);
   private yIntersectPoint:Circle = sShape.point();
   private coord:Text  = sShape.text().offset(0.1, -0.1);
 
