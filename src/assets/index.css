@@ -175,7 +175,7 @@ footer {
 
 }
 
-#markdown p, ul, ol {
+#markdown p, #markdown ul, #markdown  ol {
   margin-bottom: 2em;
 }
 
