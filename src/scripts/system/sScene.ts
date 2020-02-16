@@ -40,6 +40,22 @@ class sScene {
     this.load(SceneConfigs.getConfigByName(maybeSceneName));
   }
 
+  /** URLのget parameterからシーンタイプを取得 */
+  getSceneTypeFromUrl(key:string = "scene") 
+  {
+    let maybeSceneName = "";
+    
+    location.search.substring(1).split("&").map((param) => {
+      const data = param.split("=");
+  
+      if (data[0] === key) {
+        maybeSceneName = data[1];
+      }
+    });
+
+    return maybeSceneName
+  }
+
   //---------------------------------------------------------------------------
   // Private メソッド
   //---------------------------------------------------------------------------
@@ -67,22 +83,6 @@ class sScene {
     if (!config) return null;
 
     return new config.sceneClass();
-  }
-  
-  /** URLのget parameterからシーンタイプを取得 */
-  private getSceneTypeFromUrl(key:string) 
-  {
-    let maybeSceneName = "";
-    
-    location.search.substring(1).split("&").map((param) => {
-      const data = param.split("=");
-  
-      if (data[0] === key) {
-        maybeSceneName = data[1];
-      }
-    });
-
-    return maybeSceneName
   }
 
   //---------------------------------------------------------------------------
