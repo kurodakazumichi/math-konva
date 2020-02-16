@@ -4,5 +4,9 @@ import sScene from './sScene';
 import sShape from './sShape';
 import sGroup from './sGroup';
 import sColor from './sColor';
+import sMarkdown from './sMarkdown';
+import sAjax from './sAjax';
 
-export { sCoord, sStage, sScene, sShape, sGroup, sColor };
+export { 
+  sCoord, sStage, sScene, sShape, sGroup, sColor, sMarkdown, sAjax
+};
