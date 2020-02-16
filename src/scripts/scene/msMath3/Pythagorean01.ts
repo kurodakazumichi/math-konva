@@ -25,8 +25,8 @@ export default class SampleScene extends SceneBase
 
   protected get explanation() {
     return `
-    <em>直角三角形</em>の斜辺を<b>c</b>、底辺を<b>a</b>、高さを<b>b</b>とすると上の式が成り立つ。<br>
-    <em>ピタゴラスの定理</em>とも呼ばれる。
+直角三角形の**斜辺**を*c*、**底辺**を*a*、**高さ**を*b*とすると$c^2=a^2+b^2$が成り立つ。  
+ピタゴラスの定理とも呼ばれる。
     `;
   }
 
