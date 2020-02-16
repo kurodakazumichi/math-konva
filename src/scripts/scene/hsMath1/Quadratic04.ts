@@ -27,9 +27,7 @@ export default class SampleScene extends SceneBase
   }
 
   protected get explanation() {
-    return `
-    頂点<b>(緑)</b>と通過点<b>(赤)</b>は<em>ドラッグ</em>できます。
-    `;
+    return ``;
   }
 
   //---------------------------------------------------------------------------

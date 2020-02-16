@@ -21,12 +21,13 @@ export default class SampleScene extends SceneBase
   }
 
   protected get formula() {
-    return `$$y=a(x-s)(x-t)　(a \\neq 0)$$`
+    return `$y=a(x-s)(x-t)$　ただし$(a \\neq 0)$`
   }
 
   protected get explanation() {
     return `
-    <b>a</b>は放物線の<em>開き具合</em>を表し、<b>s</b>と<b>t</b>は<em>x切片</em>(x軸と重なる時)の値を表す。<br>
+*a*は放物線の**開き具合**を表し、*s*と*t*は**x切片**(x軸と交わる場所)の値を表す。  
+※ $a=0$ の場合は2次式ではなくなってしまう。
     `;
   }
 

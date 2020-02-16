@@ -20,12 +20,13 @@ export default class SampleScene extends SceneBase
   }
 
   protected get formula() {
-    return `$$y=a(x-p)^2+q　(a \\neq 0)$$`
+    return `$y=a(x-p)^2+q$　ただし $(a \\neq 0)$`
   }
 
   protected get explanation() {
     return `
-    <b>a</b>が放物線の<em>開き具合</em>を表し、<b>(p, q)</b>が<em>頂点</em>を表す式。<br>
+*a*が放物線の**開き具合**を表し、*p, q*が**頂点**を表す式  
+※ $a=0$ の場合は2次式ではなくなってしまう。
     `;
   }
 

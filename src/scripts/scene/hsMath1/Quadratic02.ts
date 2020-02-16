@@ -21,13 +21,13 @@ export default class SampleScene extends SceneBase
   }
 
   protected get formula() {
-    return `$$y=ax^2+bx+c　(a \\neq 0)$$`
+    return `$y=ax^2+bx+c$　ただし$(a \\neq 0)$`
   }
 
   protected get explanation() {
     return `
-    <b>a</b>は放物線の<em>開き具合</em>を表し、<b>b</b>はy切片における<em>傾き</em>を表す。<br>
-    また<b>c</b>は<em>y切片</em>を表す。
+*a*は放物線の**開き具合**を表し、*b*はy切片における**傾き**、*c*は**y切片**を表す。  
+※ $a=0$ の場合は2次式ではなくなってしまう。
     `;
   }
 
