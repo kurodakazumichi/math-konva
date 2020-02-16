@@ -46,12 +46,24 @@ export default abstract class NodeBase<T extends Konva.Node> {
     }
   }
 
-  x(ux:number) {
-    this.node.setAttr("x", sCoord.x(ux)); return this;
+  x(v:number): this;
+  x():number;
+  x(...v: [] | [number]) {
+    if (typeof v[0] === 'number') {
+      this.node.setAttr("x", sCoord.x(v[0])); return this;
+    } else {
+      return sCoord.ux(this.node.x());
+    }
   }
 
-  y(uy:number) {
-    this.node.setAttr("y", sCoord.y(uy)); return this;
+  y(v:number): this;
+  y():number;
+  y(...v: [] | [number]) {
+    if (typeof v[0] === 'number') {
+      this.node.setAttr("y", sCoord.y(v[0])); return this;
+    } else {
+      return sCoord.uy(this.node.y());
+    }
   }
 
   pos(x:number, y:number) {
@@ -62,8 +74,15 @@ export default abstract class NodeBase<T extends Konva.Node> {
     this.node.setAttr("visible", flg);
   }
 
-  draggable(flg:boolean =  true) {
-    this.node.setAttr("draggable", flg); return this;
+  draggable(flg:boolean = true) {
+    this.node.setAttr("draggable", flg); 
+    if (flg) {
+      this.on("mouseover", () => { document.body.style.cursor = "pointer"; });
+      this.on("mouseout", () => { document.body.style.cursor = "default"; })
+    } else {
+      this.off("mouseover").off("mouseout");
+    }
+    return this;
   }
 
   offsetX(v:number) {
@@ -80,5 +99,16 @@ export default abstract class NodeBase<T extends Konva.Node> {
 
   destroy() {
     this.node.destroy();
+  }
+
+  on(evtStr:string, cb:(e:this) => void) {
+    this.node.on(evtStr, () =>  {
+      cb(this);
+    });
+    return this;
+  }
+  off(evtStr:string) {
+    this.node.off(evtStr);
+    return this;
   }
 }

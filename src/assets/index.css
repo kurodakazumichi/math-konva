@@ -25,11 +25,12 @@ header {
   position: static;
 }
 
-header h1 a{
+header div a{
   color:white;
   margin:0 2em 0 1em;
   line-height: 2em;;
   text-decoration: none;
+  font-weight: bold;
 }
 
 /** header-nav */
@@ -94,15 +95,16 @@ header nav ul li > a {
 #header {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   height:90px;
   font-size:2em;
 }
-h2 {
+h1 {
   font-size: 1em;
   margin-right:1em;
 }
-.math {
-  margin:0 0.5em;
+#formula {
+  font-size: 0.8em;
 }
 
 main {
