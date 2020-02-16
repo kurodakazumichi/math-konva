@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 
 /******************************************************************************
  * マークダウンを扱うためのシステム
@@ -14,10 +14,7 @@ class sAjax {
 
     try {
       const res = await axios.get(url);
-
-      const data = (this.isMarkdown(res))? res.data : "";
-      
-      cb(data);
+      cb(res.data);
     } catch {
       cb("");
     }
@@ -29,10 +26,6 @@ class sAjax {
     } else {
       return "/math2d/md";
     }
-  }
-
-  private isMarkdown(response:AxiosResponse) {
-    return (response.headers['content-type'] === "text/markdown; charset=UTF-8");
   }
 }
 
