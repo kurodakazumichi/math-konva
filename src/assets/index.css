@@ -115,6 +115,7 @@ main {
 
 #graph {
   display: flex;
+  margin-bottom:2em;
 }
 
 #container {
@@ -147,4 +148,45 @@ footer {
   color:white;
   text-align: center;
   margin-top:3em;
+}
+
+#markdown {
+  font-size: 1.5em;
+}
+#markdown h2 {
+  font-size: 1.5em;
+  margin-bottom: 1em;
+  padding: 0.5em;
+  background: black;
+  
+}
+
+#markdown h3 {
+  font-size: 1.2em;
+  margin-bottom: 1em;
+  padding-bottom: 0.5em;
+  border-bottom: 3px solid #999;
+}
+
+#markdown h4 {
+  margin-bottom: 1em;
+  text-indent: 0.5em;
+  border-left: 10px solid #333;
+
+}
+
+#markdown p, ul, ol {
+  margin-bottom: 2em;
+}
+
+#markdown ul, ol{
+  padding-left:1.2em;
+}
+
+#markdown ol {
+  text-indent: 0.4em;
+}
+
+#markdown ol li {
+  margin-bottom: 0.7em;
 }
