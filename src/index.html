@@ -8,91 +8,92 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
   <link href="https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c:400,800" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="./assets/reset.css">
-  <link rel="stylesheet" type="text/css" href="./assets/index.scss">
+  <link rel="stylesheet" type="text/css" href="./assets/sass/index.scss">
 </head>
 <body>
-  <div id="bg"></div>
-  <header>
-    <div><a href="./">数学ラボ</a></div>
-    <nav aria-labelledby="primary-navigation">
-      <ul id="primary_links">
-        <li><a href="#" data-id="ms_math_1" style="display: none;">中1 数学</a></li>
-        <li><a href="#" data-id="ms_math_2">中2 数学</a></li>
-        <li><a href="#" data-id="ms_math_3">中3 数学</a></li>
-        <li><a href="#" data-id="hs_math_1">高校 数学1</a></li>
-        <li><a href="#" data-id="hs_math_2" style="display: none;">高校 数学2</a></li>
-        <li><a href="#" data-id="hs_math_3" style="display: none;">高校 数学3</a></li>
-        <li><a href="#" data-id="hs_math_a" style="display: none;">高校 数学A</a></li>
-        <li><a href="#" data-id="hs_math_b" style="display: none;">高校 数学B</a></li>
-      </ul>
-    </nav>
-  </header>
+  <div class="wrapper">
+    <header class="header">
+      <a class="header__title-link" href="./">数学ラボ</a>
+      <nav aria-labelledby="primary-navigation">
+        <ul class="header__nav" id="primary_links">
+          <li><a class="header__nav-menu" href="#" data-id="ms_math_1" style="display: none;">中1 数学</a></li>
+          <li><a class="header__nav-menu" href="#" data-id="ms_math_2">中2 数学</a></li>
+          <li><a class="header__nav-menu" href="#" data-id="ms_math_3">中3 数学</a></li>
+          <li><a class="header__nav-menu" href="#" data-id="hs_math_1">高校 数学1</a></li>
+          <li><a class="header__nav-menu" href="#" data-id="hs_math_2" style="display: none;">高校 数学2</a></li>
+          <li><a class="header__nav-menu" href="#" data-id="hs_math_3" style="display: none;">高校 数学3</a></li>
+          <li><a class="header__nav-menu" href="#" data-id="hs_math_a" style="display: none;">高校 数学A</a></li>
+          <li><a class="header__nav-menu" href="#" data-id="hs_math_b" style="display: none;">高校 数学B</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
 
-  <nav id="math-nav" aria-labelledby="math0-navigation">
-    <ul id="ms_math_1">
-      <li>
-        <span>サンプル</span>
-        <ul>
-          <li><a href="?scene=Sample1">サンプル</a></li>
+      <nav id="math-nav" aria-labelledby="math0-navigation">
+        <ul id="ms_math_1">
+          <li>
+            <span>サンプル</span>
+            <ul>
+              <li><a href="?scene=Sample1">サンプル</a></li>
+            </ul>
+          </li>
         </ul>
-      </li>
-    </ul>
-    <ul id="ms_math_2">
-      <li>
-        <span>1次関数</span>
-        <ul>
-          <li><a href="?scene=ms_math2_linear_01">直線の方程式</a></li>
+        <ul id="ms_math_2">
+          <li>
+            <span>1次関数</span>
+            <ul>
+              <li><a href="?scene=ms_math2_linear_01">直線の方程式</a></li>
+            </ul>
+          </li>
         </ul>
-      </li>
-    </ul>
-    <ul id="ms_math_3">
-      <li>
-        <span>三平方の定理</span>
-        <ul>
-          <li><a href="?scene=ms_math3_pythagorean_01">$$c^2=a^2+b^2$$</a></li>
+        <ul id="ms_math_3">
+          <li>
+            <span>三平方の定理</span>
+            <ul>
+              <li><a href="?scene=ms_math3_pythagorean_01">$$c^2=a^2+b^2$$</a></li>
+            </ul>
+          </li>
         </ul>
-      </li>
-    </ul>
-    <ul id="hs_math_1">
-      <li>
-        <span>２次関数</span>
-        <ul>
-          <li><a href="?scene=hs_math1_quadratic_01">標準形の式</a></li>
-          <li><a href="?scene=hs_math1_quadratic_02">一般形の式</a></li>
-          <li><a href="?scene=hs_math1_quadratic_03">因数分解形の式</a></li>
-          <li><a href="?scene=hs_math1_quadratic_04">頂点と通過する１点がわかれば放物線は決まる</a></li>
-          <li><a href="?scene=hs_math1_quadratic_05">軸と通過する２点がわかれば放物線は決まる</a></li>
-          <li><a href="?scene=hs_math1_quadratic_06">通過する３点がわかれば放物線は決まる</a></li>
-          <li><a href="?scene=hs_math1_quadratic_07">２つの放物線が交わる点</a></li>
+        <ul id="hs_math_1">
+          <li>
+            <span>２次関数</span>
+            <ul>
+              <li><a href="?scene=hs_math1_quadratic_01">標準形の式</a></li>
+              <li><a href="?scene=hs_math1_quadratic_02">一般形の式</a></li>
+              <li><a href="?scene=hs_math1_quadratic_03">因数分解形の式</a></li>
+              <li><a href="?scene=hs_math1_quadratic_04">頂点と通過する１点がわかれば放物線は決まる</a></li>
+              <li><a href="?scene=hs_math1_quadratic_05">軸と通過する２点がわかれば放物線は決まる</a></li>
+              <li><a href="?scene=hs_math1_quadratic_06">通過する３点がわかれば放物線は決まる</a></li>
+              <li><a href="?scene=hs_math1_quadratic_07">２つの放物線が交わる点</a></li>
+            </ul>
+          </li>
+          <li>
+            <span>２次関数を使う</span>
+            <ul>
+              <li><a href="?scene=hs_math1_quadratic_08">放物線上を移動する</a></li>
+            </ul>
+          </li>
         </ul>
-      </li>
-      <li>
-        <span>２次関数を使う</span>
-        <ul>
-          <li><a href="?scene=hs_math1_quadratic_08">放物線上を移動する</a></li>
-        </ul>
-      </li>
-    </ul>
+        
+      </nav>
     
-  </nav>
-
-  <main>
-    <div>
-      <div id="header">
-        <h1 id="title">タイトル</h1>
-        <div id="formula">$$y=ax+b$$</div>
+      <div>
+        <div id="header">
+          <h1 id="title">タイトル</h1>
+          <div id="formula">$$y=ax+b$$</div>
+        </div>
+        <p id="explanation"></p>
+        <div id="graph">
+          <div id="container"></div>
+          <div id="gui-container"></div>
+        </div>
+        <div id="markdown">
+  
+        </div>
       </div>
-      <p id="explanation"></p>
-      <div id="graph">
-        <div id="container"></div>
-        <div id="gui-container"></div>
-      </div>
-      <div id="markdown">
-
-      </div>
-    </div>
-  </main>
-  <footer>無職の学び舎 By Nekonecode</footer>
+    </main>
+    <footer>無職の学び舎 By Nekonecode</footer>
+  </div>
   <script src="./scripts/app.ts"></script>
 </body>
 </html>

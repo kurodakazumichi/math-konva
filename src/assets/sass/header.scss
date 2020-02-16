@@ -1,0 +1,34 @@
+@import 'global.scss';
+
+.header {
+
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  background: #0086AB;
+  line-height: 2em;
+
+  &__title-link {
+    @extend %link;
+
+    display: inline-block;
+    font-weight: bold;
+    width:5em;
+    text-align: center;
+  }
+
+  &__nav {
+    display: flex;
+    
+  }
+
+  &__nav-menu {
+    @extend %link;
+    display: inline-block;
+    width:7em;
+    text-align: center;
+    &:hover {
+      background:#9ACDE7;
+    }
+  }
+}

@@ -1,24 +1,24 @@
+@import 'base.scss';
+@import 'wrapper.scss';
+@import  'header.scss';
 /* Konvaのcanvas */
 .konvajs-content { border:1px solid #000;}
 
-body {
-  margin:0;
-  font-family: "M PLUS Rounded 1c";
-  background-color:#000;
-  color:#eee;
-}
+
+
+
 
 #bg {
   position: fixed;
-  background-image: url(bg.png);
+  background-image: url(../img/bg.png);
   width: 100vw;
   height:100vh;
   top:0;
   z-index: -1;
   opacity: 0.4;
 }
+/*
 
-/* header */
 header {
   background: #0086AB;
   display: flex;
@@ -33,7 +33,7 @@ header div a{
   font-weight: bold;
 }
 
-/** header-nav */
+
 header nav ul li {
   display: inline-block;
   line-height: 2em;
@@ -44,7 +44,7 @@ header nav ul li > a {
   text-decoration: none;
   color:white;
 }
-
+*/
 /** math-nav */
 #math-nav {
   position: absolute;
@@ -108,9 +108,22 @@ h1 {
 }
 
 main {
+  background-image:url(../img/bg.png);
   display: flex;
   justify-content: center;
   margin:0 auto;
+  position: relative;
+  z-index: -2;
+  &::after {
+    content: '';
+    background: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    top:0;
+    left:0;
+    bottom:0;
+    right: 0;
+    z-index: -1;
+  }
 }
 
 #graph {
@@ -147,7 +160,6 @@ footer {
   line-height: 2em;
   color:white;
   text-align: center;
-  margin-top:3em;
 }
 
 #markdown {
