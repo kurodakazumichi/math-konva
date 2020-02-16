@@ -25,7 +25,7 @@ export default class Scene extends SceneBase
 
   protected get explanation() {
     return `
-    <b>a</b>が直線の<em>傾き</em>になり<b>b</b>が<em>y切片</em>になる。
+*a*が直線の**傾き**になり*b*が**y切片**になる。
     `;
   }
 
