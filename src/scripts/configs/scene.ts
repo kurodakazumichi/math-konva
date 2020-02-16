@@ -17,6 +17,7 @@ export enum Type {
   HS_MATH1_QUADRATIC_02,
   HS_MATH1_QUADRATIC_03,
   HS_MATH1_QUADRATIC_04,
+  HS_MATH1_QUADRATIC_05,
 }
 
 //-----------------------------------------------------------------------------
@@ -35,6 +36,7 @@ const configs:ISceneRecord[] = [
   { name:"hs_math1_quadratic_02"  , type:Type.HS_MATH1_QUADRATIC_02  , sceneClass:HsMath1.Quadratic02 },
   { name:"hs_math1_quadratic_03"  , type:Type.HS_MATH1_QUADRATIC_03  , sceneClass:HsMath1.Quadratic03 },
   { name:"hs_math1_quadratic_04"  , type:Type.HS_MATH1_QUADRATIC_04  , sceneClass:HsMath1.Quadratic04 },
+  { name:"hs_math1_quadratic_05"  , type:Type.HS_MATH1_QUADRATIC_05  , sceneClass:HsMath1.Quadratic05 },
 ];
 
 const defaultConfig = configs[0];

@@ -4,7 +4,7 @@ import { Line, Circle, Text } from '~/scripts/node/shape';
 import { Quadratic } from 'math-lab';
 
 /******************************************************************************
- * ２次関数 因数分解式 a(x - s)(x - t)
+ * ２次関数　頂点と通過する１点がわかれば放物線は決まる
  *****************************************************************************/
 export default class SampleScene extends SceneBase 
 {  
