@@ -129,8 +129,11 @@ export default class SceneBase
   //---------------------------------------------------------------------------
   // Protected メソッド
   //---------------------------------------------------------------------------
-  protected add(children:ShapeBase<Konva.Shape>|GroupBase) {
-    this._layer?.add(children.node);
+  protected add(...children:ShapeBase<Konva.Shape>[]|GroupBase[]) {
+    
+    children.forEach((child:ShapeBase<Konva.Shape>|GroupBase) => {
+      this._layer?.add(child.node);
+    })
     return this;
   }
 
