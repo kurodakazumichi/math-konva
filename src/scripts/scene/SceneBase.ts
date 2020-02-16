@@ -1,7 +1,7 @@
 
 import Konva from 'konva';
 import { GUI } from 'dat.gui';
-import { sGroup } from '~/scripts/system';
+import { sGroup, sScene, sMarkdown, sAjax } from '~/scripts/system';
 import ShapeBase from '~/scripts/node/shape/ShapeBase';
 import GroupBase from '~/scripts/node/group/GroupBase';
 
@@ -13,19 +13,7 @@ interface IDOM {
   formula:HTMLElement;
   gui:HTMLElement;
   explanation:HTMLElement;
-}
-
-// かなり無理やりだけどMathJaxを再評価するための関数をここに定義
-// index.htmlの方でcdnからMathJaxのjsを読み込んでいるので動作はする。
-// @typesとか調べればあるかもしれないけどこれだけのためにやるのもなぁということで
-// 無理やり定義しました。
-declare const MathJax:any;
-function mathJaxPreview(elm:HTMLElement, text:string) {
-  if (!elm) return;
-  elm.innerHTML = text;
-  MathJax.Hub.Queue(
-    ["Typeset", MathJax.Hub, elm],
-  );
+  markdown:HTMLElement;
 }
 
 /******************************************************************************
@@ -86,6 +74,18 @@ export default class SceneBase
   protected initGraph() {}
 
   //---------------------------------------------------------------------------
+  // 必要があれば継承先でオーバーライドしてもいい
+  //---------------------------------------------------------------------------
+
+  /** マークダウンの初期化(initで呼ばれる) */
+  protected initMarkdown() {
+    const sceneType = sScene.getSceneTypeFromUrl();
+    sAjax.loadMarkdown(sceneType, (data) => {
+      this.dom.markdown.innerHTML = sMarkdown.render(data);
+    })
+  }
+
+  //---------------------------------------------------------------------------
   // Public メソッド
   //---------------------------------------------------------------------------
   /** 初期化 */
@@ -101,6 +101,7 @@ export default class SceneBase
 
     this.initGUI();
     this.initGraph();
+    this.initMarkdown();
   }
 
   /** 更新 */
@@ -152,15 +153,16 @@ export default class SceneBase
       formula    : document.getElementById('formula') as HTMLElement,
       gui        : document.getElementById('gui-container') as HTMLElement,
       explanation: document.getElementById('explanation') as HTMLElement,
+      markdown   : document.getElementById('markdown') as HTMLElement,
     }
   }
 
   /** DOMを初期処理 */
   private initDom() {
     this.dom.title.innerHTML = this.title;
-    this.dom.explanation.innerHTML = this.explanation;
+    this.dom.explanation.innerHTML = sMarkdown.render(this.explanation);
     this.dom.gui.appendChild(this.gui.domElement);
-    mathJaxPreview(this.dom.formula, this.formula);
+    this.dom.formula.innerHTML = sMarkdown.render(this.formula);
   }
 
   //---------------------------------------------------------------------------

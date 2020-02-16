@@ -126,14 +126,14 @@ main {
   line-height: 2em;
 }
 
-#explanation b {
+#explanation em {
   color:#99CFE5;
   font-weight: bold;
   font-size: 1.2em;
   margin:0 0.2em;
 }
 
-#explanation em {
+#explanation strong {
   color:#EAA8BF;
   font-weight: bold;
   font-style: normal;
