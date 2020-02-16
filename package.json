@@ -8,6 +8,7 @@
     "@types/markdown-it": "^0.0.9",
     "@types/node": "^13.7.1",
     "parcel-bundler": "^1.12.4",
+    "sass": "^1.25.0",
     "typescript": "^3.7.5"
   },
   "dependencies": {
@@ -19,10 +20,10 @@
     "math-lab": "https://github.com/kurodakazumichi/math-lab.git"
   },
   "scripts": {
-    "start"   : "parcel src/index.html",
-    "build"   : "yarn clean && parcel build src/index.html --no-source-maps -d math2d --public-url /math2d",
-    "clean"   : "rm -rf ./dist ./math2d",
-    "cp"      : "rm -rf ./dist/md && cp -r ./src_md/ ./dist/md",
+    "start": "parcel src/index.html",
+    "build": "yarn clean && parcel build src/index.html --no-source-maps -d math2d --public-url /math2d",
+    "clean": "rm -rf ./dist ./math2d",
+    "cp": "rm -rf ./dist/md && cp -r ./src_md/ ./dist/md",
     "cp:build": "rm -rf ./math2d/md && cp -rf ./src_md/ ./math2d/md"
   }
 }
