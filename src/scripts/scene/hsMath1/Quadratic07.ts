@@ -2,6 +2,7 @@ import SceneBase from '~/scripts/scene/SceneBase';
 import { sShape, sCoord, sColor } from '~/scripts/system';
 import { Line, Circle, Text } from '~/scripts/node/shape';
 import { Quadratic } from 'math-lab';
+import { GUI } from '~/scripts/helper';
 
 /******************************************************************************
  * ２次関数　２つの放物線が交わる点
@@ -40,15 +41,15 @@ export default class SampleScene extends SceneBase
 
   initGUI() {
     const f1 = this.gui.addFolder("放物線１");
-    f1.add(this.params.quad1, "a").step(0.1).listen().onChange(this.onChangeParams);
-    f1.add(this.params.quad1, "b").step(0.1).listen().onChange(this.onChangeParams);
-    f1.add(this.params.quad1, "c").step(0.1).listen().onChange(this.onChangeParams);
+    GUI.addS10(f1, this.params.quad1, "a").onChange(this.onChangeParams);
+    GUI.addS10(f1, this.params.quad1, "b").onChange(this.onChangeParams);
+    GUI.addSTD(f1, this.params.quad1, "c").onChange(this.onChangeParams);
     f1.open();
 
     const f2 = this.gui.addFolder("放物線２");
-    f2.add(this.params.quad2, "a").step(0.1).listen().onChange(this.onChangeParams);
-    f2.add(this.params.quad2, "b").step(0.1).listen().onChange(this.onChangeParams);
-    f2.add(this.params.quad2, "c").step(0.1).listen().onChange(this.onChangeParams);
+    GUI.addS10(f2, this.params.quad2, "a").onChange(this.onChangeParams);
+    GUI.addS10(f2, this.params.quad2, "b").onChange(this.onChangeParams);
+    GUI.addSTD(f2, this.params.quad2, "c").onChange(this.onChangeParams);
     f2.open();
   }
 
@@ -60,8 +61,8 @@ export default class SampleScene extends SceneBase
   private quad1Line:Line   = sShape.solidLine();
   private quad2Line:Line   = sShape.solidLine();
   private intersectPoints:Circle[] = [
-    sShape.point().fill(sColor.red),
-    sShape.point().fill(sColor.red),
+    sShape.point(),
+    sShape.point(),
   ]
   private intersectCoords:Text[] = [
     sShape.text().offset(0.2, -0.1),

@@ -39,8 +39,11 @@ class sShape extends SystemBase {
   }
 
   point() {
+    // draggableな点はモバイルの時は少し大きめに設定する(見えにくい)
+    const radius = (sEnv.isMobile)? 0.15 : 0.1;
+
     return new Shapes.Circle()
-      .radius(0.1)
+      .radius(radius)
       .fill(sColor.green)
   }
   draggablePoint() {
