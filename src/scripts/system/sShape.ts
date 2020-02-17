@@ -1,10 +1,11 @@
+import SystemBase from '~/scripts/system/SystemBase';
 import * as Shapes  from  '~/scripts/node/shape';
 import { sCoord, sColor } from '~/scripts/system';
 
 /******************************************************************************
  * Shapeファクトリークラス
  *****************************************************************************/
-class sShape  {
+class sShape extends SystemBase {
   axisX() {
     const p = [sCoord.left, 0, sCoord.right, 0];
     return new Shapes.Line()

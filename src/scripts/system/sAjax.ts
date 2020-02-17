@@ -1,11 +1,11 @@
 import axios, { AxiosResponse } from 'axios';
-
+import SystemBase from '~/scripts/system/SystemBase';
 /******************************************************************************
  * マークダウンを扱うためのシステム
  *****************************************************************************/
-class sAjax {
+class sAjax extends SystemBase{
   constructor() {
-    
+    super();
   }
 
   async loadMarkdown(key:string, cb:(data:string) => void) 

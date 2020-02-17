@@ -1,3 +1,5 @@
+import SystemBase from '~/scripts/system/SystemBase';
+
 export enum Mode {
   Light,
   Dark,
@@ -13,19 +15,16 @@ interface IColorTable {
   green:string;
 }
 
-declare var window:{ sColor:sColor };
 /******************************************************************************
  * 色システム
  * 
  * モードに対応した色の管理と、モード値をセッション経由で管理する。
  *****************************************************************************/
-class sColor implements IColorTable{
-
-
+class sColor extends SystemBase implements IColorTable{
 
   /** とりあえず初期値入れとく */
   constructor() {
-    window.sColor = this;
+    super();
     this._mode = Mode.Dark;
   }
 
@@ -48,7 +47,7 @@ class sColor implements IColorTable{
   /** 初期化 */
   init() {
     const maybeMode = sessionStorage.getItem("mode");
-    console.log(maybeMode);
+
     switch(maybeMode) {
       case "0": this._mode = Mode.Light; break;
       default: this._mode = Mode.Dark; break;

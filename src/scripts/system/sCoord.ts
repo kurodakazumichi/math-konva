@@ -1,13 +1,16 @@
+import SystemBase from '~/scripts/system/SystemBase';
+
 /******************************************************************************
  * 座標システム
  * 
  * canvasは左上を起点とした座標型だが、扱いにくいので
  * canvasの中心を原点とした独自座標系への変換システム
  *****************************************************************************/
-class sCoord {
+class sCoord extends SystemBase {
 
   /** とりあえず初期値入れとく */
   constructor() {
+    super();
     this.width = this.height = this._unit = 0;
     this.halfWidth = this.halfHeight = 0;
     this._left = this._right = this._top = this._down = 0;

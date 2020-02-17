@@ -1,12 +1,14 @@
 import Konva from 'konva';
+import SystemBase from '~/scripts/system/SystemBase';
 import { sCoord } from './index'
 
 /******************************************************************************
  * Konva.Stageに該当
  *****************************************************************************/
-class sStage 
+class sStage extends SystemBase
 {
   constructor() {
+    super();
     this.stage     = null;
     this.container = null;
   }

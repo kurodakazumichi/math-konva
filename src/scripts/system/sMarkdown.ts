@@ -1,11 +1,14 @@
 import MarkdownIt from 'markdown-it';
 const katex = require('markdown-it-katex');
 
+import SystemBase from '~/scripts/system/SystemBase';
+
 /******************************************************************************
  * マークダウンを扱うためのシステム
  *****************************************************************************/
-class sMarkdown {
+class sMarkdown extends SystemBase {
   constructor() {
+    super();
     this.markdown = new MarkdownIt();
     this.markdown.use(katex);
   }
