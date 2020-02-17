@@ -1,7 +1,8 @@
+import { Quadratic } from 'math-lab';
 import SceneBase from '~/scripts/scene/SceneBase';
 import { sShape, sCoord, sColor } from '~/scripts/system';
 import { Line, Circle, Text } from '~/scripts/node/shape';
-import { Quadratic } from 'math-lab';
+import { GUI } from '~/scripts/helper';
 
 /******************************************************************************
  * ２次関数  y=a(x-p)^2 + q
@@ -24,8 +25,7 @@ export default class SampleScene extends SceneBase
     return `
 $y=ax^2+bx+c$　ただし$(a \\neq 0)$
 
-*a*は放物線の**開き具合**を表し、*b*はy切片における**傾き**、*c*は**y切片**を表す。  
-※ $a=0$ の場合は2次式ではなくなってしまう。
+*a*は放物線の**開き具合**を表し、*b*はy切片における**傾き**、*c*は**y切片**を表す。
     `;
   }
 
@@ -45,9 +45,9 @@ $y=ax^2+bx+c$　ただし$(a \\neq 0)$
 
   initGUI() {
     const f1 = this.gui.addFolder("２次関数のパラメータ");
-    f1.add(this.params, "a").step(0.1).onChange(this.updateLines);
-    f1.add(this.params, "b").step(0.1).onChange(this.updateLines);
-    f1.add(this.params, "c").step(0.1).onChange(this.updateLines);
+    GUI.addS10(f1, this.params, "a").onChange(this.updateLines);
+    GUI.addS10(f1, this.params, "b").onChange(this.updateLines);
+    GUI.addSTD(f1, this.params, "c").onChange(this.updateLines);
     f1.open();
   }
 
@@ -56,10 +56,10 @@ $y=ax^2+bx+c$　ただし$(a \\neq 0)$
   //---------------------------------------------------------------------------
 
   /** グラフ内の要素 */
-  private quadLine:Line   = sShape.solidLine();
-  private intersectLine:Line = sShape.solidLine().strokeWidth(1).stroke(sColor.green);
-  private yIntersectPoint:Circle = sShape.point();
-  private coord:Text  = sShape.text().offset(0.1, -0.1);
+  private quadLine:Line        = sShape.solidLine();
+  private intersectLine:Line   = sShape.auxLine();
+  private pointTangentY:Circle = sShape.point();
+  private coord:Text           = sShape.text().offset(0.1, -0.1);
 
   initGraph() {
 
@@ -67,7 +67,7 @@ $y=ax^2+bx+c$　ただし$(a \\neq 0)$
 
     this.add(this.quadLine);
     this.add(this.intersectLine);
-    this.add(this.yIntersectPoint);
+    this.add(this.pointTangentY);
     this.add(this.coord);
   }
 
@@ -81,7 +81,7 @@ $y=ax^2+bx+c$　ただし$(a \\neq 0)$
 
   update() {
     const { c } = this.quad;
-    this.yIntersectPoint.pos(0, c);
-    this.coord.pos(0, c).text(`${c.toFixed(1)}`);
+    this.pointTangentY.pos(0, c);
+    this.coord.pos(0, c).text(`${"c=" + c.toFixed(1)}`);
   }
 }

@@ -25,12 +25,19 @@ class sShape extends SystemBase {
       .stroke(sColor.main)
       .strokeWidth(2);
   }
+  // 補助線
+  auxLine() {
+    return new Shapes.Line()
+      .stroke(sColor.green)
+      .strokeWidth(1);
+  }
   brokenLine() {
     return new Shapes.Line()
       .stroke(sColor.main)
       .strokeWidth(1)
       .dash(0.1);
   }
+
   point() {
     return new Shapes.Circle()
       .radius(0.1)
