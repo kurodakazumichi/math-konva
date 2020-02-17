@@ -1,5 +1,5 @@
 import SceneBase from '~/scripts/scene/SceneBase';
-import { sShape, sCoord, sColor } from '~/scripts/system';
+import { sShape, sCoord } from '~/scripts/system';
 import { Line, Circle, Text } from '~/scripts/node/shape';
 import { Quadratic } from 'math-lab';
 import { GUI } from '~/scripts/helper';

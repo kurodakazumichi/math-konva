@@ -1,7 +1,8 @@
 import SceneBase from '~/scripts/scene/SceneBase';
-import { sShape, sCoord, sColor } from '~/scripts/system';
-import { Line, Circle, Text } from '~/scripts/node/shape';
+import { sShape, sCoord } from '~/scripts/system';
+import { Line, Circle } from '~/scripts/node/shape';
 import { Quadratic } from 'math-lab';
+import { GUI } from '~/scripts/helper';
 
 enum State {
   Idle,
@@ -17,6 +18,7 @@ export default class SampleScene extends SceneBase
     super();
     this.updateQuadLine = this.updateQuadLine.bind(this);
     this.updatePositionOfCircle = this.updatePositionOfCircle.bind(this);
+    this.onChangeVisible = this.onChangeVisible.bind(this);
   }
 
   private state = State.Default;
@@ -52,22 +54,23 @@ export default class SampleScene extends SceneBase
 
   initGUI() {
     const f1 = this.gui.addFolder("放物線");
-    f1.add(this.params.quad, "a").step(0.01).listen().onChange(this.updateQuadLine);
-    f1.add(this.params.quad, "b").step(0.01).listen().onChange(this.updateQuadLine);
-    f1.add(this.params.quad, "c").step(0.01).listen().onChange(this.updateQuadLine);
-    f1.add(this.params.quad, "visible")
-      .onChange((v:boolean) => { 
-        this.quadLine.visible(v); 
-      });
+
+    GUI.addS10(f1, this.params.quad, "a").step(0.01).onChange(this.updateQuadLine);
+    GUI.addS10(f1, this.params.quad, "b").step(0.01).onChange(this.updateQuadLine);
+    GUI.addSTD(f1, this.params.quad, "c").step(0.01).onChange(this.updateQuadLine);
+    f1.add(this.params.quad, "visible").onChange(this.onChangeVisible);
     f1.open();
 
     const f2 = this.gui.addFolder("コントロール");
     f2.add(this.params.state, "stop");
     f2.add(this.params.state, "start");
     f2.add(this.params.state, "reset");
-    f2.add(this.params, "x", sCoord.left, sCoord.right).listen()
-      .onChange(this.updatePositionOfCircle);
+    GUI.addSLR(f2, this.params, "x").onChange(this.updatePositionOfCircle);
     f2.open();
+  }
+
+  onChangeVisible(v:boolean) {
+    this.quadLine.visible(v);
   }
 
   //---------------------------------------------------------------------------
@@ -76,7 +79,7 @@ export default class SampleScene extends SceneBase
 
   /** グラフ内の要素 */
   private quadLine:Line   = sShape.solidLine();
-  private point:Circle    = sShape.point().radius(15);
+  private point:Circle    = sShape.point().radius(0.3)
 
   initGraph() 
   {
