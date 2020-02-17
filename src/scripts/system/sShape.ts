@@ -54,9 +54,11 @@ class sShape extends SystemBase {
       .draggable()
   }
   text() {
+    // モバイルとPCで若干デフォルトサイズを変える
+    const size = (sEnv.isMobile)? 0.4 : 0.3;
     return new Shapes.Text()
       .text("A")
-      .fontSize(0.4)
+      .fontSize(size)
       .fill(sColor.text);
   }
 }

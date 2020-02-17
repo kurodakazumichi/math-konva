@@ -1,7 +1,8 @@
+import { Quadratic } from 'math-lab';
 import SceneBase from '~/scripts/scene/SceneBase';
 import { sShape, sCoord, sColor } from '~/scripts/system';
 import { Line, Circle, Text } from '~/scripts/node/shape';
-import { Quadratic } from 'math-lab';
+import { GUI } from '~/scripts/helper';
 
 /******************************************************************************
  * ２次関数　頂点と通過する１点がわかれば放物線は決まる
@@ -47,13 +48,13 @@ export default class SampleScene extends SceneBase
 
   initGUI() {
     const f1 = this.gui.addFolder("頂点");
-    f1.add(this.params.apex, "x").step(0.1).listen().onChange(this.updateLines);
-    f1.add(this.params.apex, "y").step(0.1).listen().onChange(this.updateLines);
+    GUI.addSLR(f1, this.params.apex, "x").onChange(this.updateLines);
+    GUI.addSLR(f1, this.params.apex, "y").onChange(this.updateLines);
     f1.open();
 
     const f2 = this.gui.addFolder("通過点A");
-    f2.add(this.params.pass, "x").step(0.1).listen().onChange(this.updateLines);
-    f2.add(this.params.pass, "y").step(0.1).listen().onChange(this.updateLines);
+    GUI.addSLR(f2, this.params.pass, "x").onChange(this.updateLines);
+    GUI.addSLR(f2, this.params.pass, "y").onChange(this.updateLines);
     f2.open();
   }
 
@@ -66,8 +67,8 @@ export default class SampleScene extends SceneBase
 
   private apexCoord:Text  = sShape.text().offset(0.2, -0.1);
   private passCoord:Text  = sShape.text().offset(0.2, -0.1);
-  private apexPoint:Circle = sShape.point().draggable();
-  private passPoint:Circle = sShape.point().draggable().fill(sColor.red);
+  private apexPoint:Circle = sShape.draggablePoint().draggable();
+  private passPoint:Circle = sShape.draggablePoint().draggable().fill(sColor.red);
 
   initGraph() 
   {
