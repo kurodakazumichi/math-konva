@@ -31,7 +31,7 @@ class sCoord extends SystemBase {
   // Public メソッド
   //---------------------------------------------------------------------------
   /** 初期化 */
-  init(width:number = 1080, height:number = 720, unit:number = 100)
+  init(width:number = 720, height:number = 720, unit:number = 72)
   {
     // Step1:幅・高さ・その半分のサイズをまず計算
     this.width  = width;
