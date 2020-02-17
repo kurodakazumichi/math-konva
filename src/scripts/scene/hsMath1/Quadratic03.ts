@@ -2,6 +2,7 @@ import SceneBase from '~/scripts/scene/SceneBase';
 import { sShape, sCoord } from '~/scripts/system';
 import { Line, Circle, Text } from '~/scripts/node/shape';
 import { Quadratic } from 'math-lab';
+import { GUI } from '~/scripts/helper';
 
 /******************************************************************************
  * ２次関数 因数分解式 a(x - s)(x - t)
@@ -11,6 +12,8 @@ export default class SampleScene extends SceneBase
   constructor() {
     super();
     this.updateLines = this.updateLines.bind(this);
+    this.onDragMovePointS = this.onDragMovePointS.bind(this);
+    this.onDragMovePointT = this.onDragMovePointT.bind(this);
   }
 
   //---------------------------------------------------------------------------
@@ -24,8 +27,7 @@ export default class SampleScene extends SceneBase
     return `
 $y=a(x-s)(x-t)$　ただし$(a \\neq 0)$
 
-*a*は放物線の**開き具合**を表し、*s*と*t*は**x切片**(x軸と交わる場所)の値を表す。  
-※ $a=0$ の場合は2次式ではなくなってしまう。
+*a*は放物線の**開き具合**を表し、*s*と*t*は**x切片**(x軸と交わる場所)の値を表す。
     `;
   }
 
@@ -45,9 +47,9 @@ $y=a(x-s)(x-t)$　ただし$(a \\neq 0)$
 
   initGUI() {
     const f1 = this.gui.addFolder("２次関数のパラメータ");
-    f1.add(this.params, "a").step(0.1).onChange(this.updateLines);
-    f1.add(this.params, "s").step(0.1).onChange(this.updateLines);
-    f1.add(this.params, "t").step(0.1).onChange(this.updateLines);
+    GUI.addS10(f1, this.params, "a").onChange(this.updateLines);
+    GUI.addSLR(f1, this.params, "s").onChange(this.updateLines);
+    GUI.addSLR(f1, this.params, "t").onChange(this.updateLines);
     f1.open();
   }
 
@@ -60,10 +62,13 @@ $y=a(x-s)(x-t)$　ただし$(a \\neq 0)$
 
   private sCoord:Text  = sShape.text().offset(0.2, -0.1);
   private tCoord:Text  = sShape.text().offset(0.2, -0.1);
-  private sPoint:Circle = sShape.point();
-  private tPoint:Circle = sShape.point();
+  private sPoint:Circle = sShape.draggablePoint();
+  private tPoint:Circle = sShape.draggablePoint();
 
   initGraph() {
+
+    this.sPoint.on('dragmove', this.onDragMovePointS);
+    this.tPoint.on('dragmove', this.onDragMovePointT);
 
     this.updateLines();
 
@@ -75,6 +80,14 @@ $y=a(x-s)(x-t)$　ただし$(a \\neq 0)$
     this.add(this.tPoint);
   }
 
+  onDragMovePointS(e:Circle) {
+    this.params.s = e.x();
+    this.updateLines();
+  }
+  onDragMovePointT(e:Circle) {
+    this.params.t = e.x();
+    this.updateLines();
+  }
 
   updateLines() {
     const { a, s, t } =  this.params;
