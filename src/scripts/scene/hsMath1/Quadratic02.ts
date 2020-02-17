@@ -20,12 +20,10 @@ export default class SampleScene extends SceneBase
     return "２次関数 一般形";
   }
 
-  protected get formula() {
-    return `$y=ax^2+bx+c$　ただし$(a \\neq 0)$`
-  }
-
-  protected get explanation() {
+  protected get description() {
     return `
+$y=ax^2+bx+c$　ただし$(a \\neq 0)$
+
 *a*は放物線の**開き具合**を表し、*b*はy切片における**傾き**、*c*は**y切片**を表す。  
 ※ $a=0$ の場合は2次式ではなくなってしまう。
     `;

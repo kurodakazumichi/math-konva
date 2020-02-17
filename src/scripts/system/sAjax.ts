@@ -1,5 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import SystemBase from '~/scripts/system/SystemBase';
+import { sEnv } from '~/scripts/system';
+
 /******************************************************************************
  * マークダウンを扱うためのシステム
  *****************************************************************************/
@@ -30,11 +32,7 @@ class sAjax extends SystemBase{
   }
 
   get mdBase() {
-    if (process.env.NODE_ENV === "development") {
-      return "/md";
-    } else {
-      return "/math2d/md";
-    }
+    return `${sEnv.baseUrl}md`;
   }
 }
 

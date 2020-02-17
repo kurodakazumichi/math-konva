@@ -3,3 +3,13 @@
   text-decoration: none;
   color:white;
 }
+
+$queries: (
+  'sm': '(max-width:600px)', // グラフとGUIを横並びにしても不自然にならないポイント
+);
+
+@mixin mq($query: sm) {
+  @media #{map-get($queries, $query)} {
+    @content;
+  }
+}

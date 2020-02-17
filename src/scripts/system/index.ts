@@ -6,7 +6,8 @@ import sGroup from './sGroup';
 import sColor from './sColor';
 import sMarkdown from './sMarkdown';
 import sAjax from './sAjax';
+import sEnv from './sEnv';
 
 export { 
-  sCoord, sStage, sScene, sShape, sGroup, sColor, sMarkdown, sAjax
+  sCoord, sStage, sScene, sShape, sGroup, sColor, sMarkdown, sAjax, sEnv
 };

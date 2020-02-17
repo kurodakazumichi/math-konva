@@ -6,9 +6,10 @@ class App {
   }
 
   init() {
+
     sColor.init();
     sCoord.init();
-    sStage.init("container", sColor.backGround);
+    sStage.init("container_forJs", sColor.backGround);
     sScene.init();
 
     sScene.loadSceneFromUrlParam();
@@ -49,7 +50,7 @@ const setupMenu = () => {
       const id = target.getAttribute('data-id');
       
       resetLinkStyle();
-      target.style.color = "blue";
+      target.style.color = "#F6CA06";
       setMenuStyle(id);
 
       if (activeMenuId === "" || activeMenuId !== id) {
@@ -62,19 +63,24 @@ const setupMenu = () => {
       const nav = document.getElementById('math-nav') as HTMLElement;
 
       if (activeMenuId) {
-        nav.className = "math-nav active";
+        nav.className = "main__nav main__nav--active";
       } else {
-        nav.className = "math-nav";
+        nav.className = "main__nav";
       }
 
     })
   })
 }
 
+
+const app = new App();
+
 window.addEventListener("load", () => {
   setupMenu();
-
-  const app = new App();
   app.init();
   app.execute();
+})
+
+window.addEventListener('orientationchange', () => {
+  location.reload();
 })

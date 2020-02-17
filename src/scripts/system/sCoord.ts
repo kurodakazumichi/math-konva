@@ -1,4 +1,9 @@
 import SystemBase from '~/scripts/system/SystemBase';
+import { sEnv } from '~/scripts/system';
+
+const DEFAULT_WIDTH  = 720;
+const DEFAULT_HEIGHT = 720;
+const DEFAULT_UNIT   = 72;
 
 /******************************************************************************
  * 座標システム
@@ -31,15 +36,34 @@ class sCoord extends SystemBase {
   // Public メソッド
   //---------------------------------------------------------------------------
   /** 初期化 */
-  init(width:number = 720, height:number = 720, unit:number = 72)
+  init()
   {
+    const config = {
+      width : DEFAULT_WIDTH,
+      height: DEFAULT_HEIGHT,
+      unit  : DEFAULT_UNIT,
+    }
+
+    // Mobileの場合
+    // window幅が600を超えているなら、canvasサイズはwindow幅 - 300にする
+    if (sEnv.isMobile) {
+      if (sEnv.windowWidth <  600) {
+        config.width = sEnv.windowWidth;
+      } else {
+        config.width = sEnv.windowWidth - 300;
+      }
+
+      config.height = config.width;
+      config.unit   = config.width / 10;
+    }
+
     // Step1:幅・高さ・その半分のサイズをまず計算
-    this.width  = width;
-    this.height = height;
+    this.width  = config.width;
+    this.height = config.height;
     this.reCalcHalf();
 
     // Step2:Step1の値をもとに独自座標型を設定
-    this.setUnit(unit);
+    this.setUnit(config.unit);
   }
 
   /** 1ユニットあたりのピクセル数を設定 */

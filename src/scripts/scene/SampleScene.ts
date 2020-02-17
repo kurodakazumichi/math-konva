@@ -1,55 +1,73 @@
 import SceneBase from '~/scripts/scene/SceneBase';
-import { sShape, sCoord } from '~/scripts/system';
+import { sShape, sCoord, sColor } from '~/scripts/system';
 import { Line, Circle, Text } from '~/scripts/node/shape';
 import { Quadratic } from 'math-lab';
 
+enum State {
+  Idle,
+  Default,
+  Reset,
+}
 /******************************************************************************
- * ２次関数 因数分解式 a(x - s)(x - t)
+ * ２次関数　放物線上を移動する
  *****************************************************************************/
 export default class SampleScene extends SceneBase 
 {  
   constructor() {
     super();
-    this.updateLines = this.updateLines.bind(this);
+    this.updateQuadLine = this.updateQuadLine.bind(this);
+    this.updatePositionOfCircle = this.updatePositionOfCircle.bind(this);
   }
+
+  private state = State.Default;
 
   //---------------------------------------------------------------------------
   // Overrideするプロパティ
   //---------------------------------------------------------------------------
   protected get title() {
-    return "２次関数 因数分解式";
+    return "放物線上を移動する";
   }
 
-  protected get formula() {
-    return `$$y=a(x-s)(x-t)　(a \\neq 0)$$`
-  }
-
-  protected get explanation() {
-    return `
-    <b>a</b>は放物線の<em>開き具合</em>を表し、<b>s</b>と<b>t</b>は<em>x切片</em>(x軸と重なる時)の値を表す。<br>
-    `;
+  protected get description() {
+    return ``;
   }
 
   //---------------------------------------------------------------------------
   // Graph
   //---------------------------------------------------------------------------
   private quad = new Quadratic();
-
+  
   //---------------------------------------------------------------------------
   // GUI
   //---------------------------------------------------------------------------
   params = {
-    a:1,
-    s:-1,
-    t:1,
+    quad : { a:-0.1, b:0, c:2, visible:true },
+    state: {
+      stop :() => { this.state = State.Idle; },
+      start:() => { this.state =  State.Default; },
+      reset:() => { this.state = State.Reset; }
+    },
+    x:sCoord.left,
   }
 
   initGUI() {
-    const f1 = this.gui.addFolder("２次関数のパラメータ");
-    f1.add(this.params, "a").step(0.1).onChange(this.updateLines);
-    f1.add(this.params, "s").step(0.1).onChange(this.updateLines);
-    f1.add(this.params, "t").step(0.1).onChange(this.updateLines);
+    const f1 = this.gui.addFolder("放物線");
+    f1.add(this.params.quad, "a").step(0.01).listen().onChange(this.updateQuadLine);
+    f1.add(this.params.quad, "b").step(0.01).listen().onChange(this.updateQuadLine);
+    f1.add(this.params.quad, "c").step(0.01).listen().onChange(this.updateQuadLine);
+    f1.add(this.params.quad, "visible")
+      .onChange((v:boolean) => { 
+        this.quadLine.visible(v); 
+      });
     f1.open();
+
+    const f2 = this.gui.addFolder("コントロール");
+    f2.add(this.params.state, "stop");
+    f2.add(this.params.state, "start");
+    f2.add(this.params.state, "reset");
+    f2.add(this.params, "x", sCoord.left, sCoord.right).listen()
+      .onChange(this.updatePositionOfCircle);
+    f2.open();
   }
 
   //---------------------------------------------------------------------------
@@ -58,39 +76,47 @@ export default class SampleScene extends SceneBase
 
   /** グラフ内の要素 */
   private quadLine:Line   = sShape.solidLine();
+  private point:Circle    = sShape.point().radius(15);
 
-  private sCoord:Text  = sShape.text().offset(0.2, -0.1);
-  private tCoord:Text  = sShape.text().offset(0.2, -0.1);
-  private sPoint:Circle = sShape.point();
-  private tPoint:Circle = sShape.point();
-
-  initGraph() {
-
-    this.updateLines();
-
+  initGraph() 
+  {
+    this.updateQuadLine();
     this.add(this.quadLine);
-
-    this.add(this.sCoord);
-    this.add(this.tCoord);
-    this.add(this.sPoint);
-    this.add(this.tPoint);
+    this.add(this.point);
   }
 
+  private reset() {
+    this.params.x = sCoord.left;
+    this.state    = State.Default;
+  }
 
-  updateLines() {
-    const { a, s, t } =  this.params;
-    this.quad.initFactorizationForm(a, s, t);
-    this.quadLine.points(
-      this.quad.getPoints(sCoord.left, sCoord.right, 0.1)
-    );
+  updateQuadLine() {
+    const { quad: q } = this.params;
+    this.quad.initGeneralForm(q.a, q.b, q.c);
+    this.quadLine.points(this.quad.getPoints(sCoord.left, sCoord.right, 0.1));
+  }
+
+  updatePositionOfCircle() {
+    const x = this.params.x;
+    this.point.pos(x, this.quad.fx(x));
+
+    if (sCoord.right < x) {
+      this.params.x = sCoord.left;
+    }
   }
 
   update() {
-    const { s, t } = this.params;
+    switch(this.state) {
+      case State.Idle : return;
+      case State.Reset: {
+        this.reset();
+        return;
+      }
+    }
 
-    this.sCoord.pos(s, 0).text(`s = ${s.toFixed(1)}`);
-    this.tCoord.pos(t, 0).text(`t = ${t.toFixed(1)}`);
-    this.sPoint.pos(s, 0);
-    this.tPoint.pos(t, 0);
+    if (this.quad.isInvalid) return;
+
+    this.params.x += 0.05;
+    this.updatePositionOfCircle();
   }
 }

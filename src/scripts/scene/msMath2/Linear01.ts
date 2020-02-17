@@ -18,13 +18,11 @@ export default class Scene extends SceneBase
   protected get title() {
     return "直線";
   }
-
-  protected get formula() {
-    return `$$y=ax+b$$`
-  }
-
-  protected get explanation() {
+  
+  protected get description() {
     return `
+$y=ax+b$
+
 *a*が直線の**傾き**になり*b*が**y切片**になる。
     `;
   }

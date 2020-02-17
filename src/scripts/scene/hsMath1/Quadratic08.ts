@@ -28,11 +28,7 @@ export default class SampleScene extends SceneBase
     return "放物線上を移動する";
   }
 
-  protected get formula() {
-    return ``
-  }
-
-  protected get explanation() {
+  protected get description() {
     return ``;
   }
 

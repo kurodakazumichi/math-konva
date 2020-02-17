@@ -20,12 +20,10 @@ export default class SampleScene extends SceneBase
     return "２次関数 因数分解式";
   }
 
-  protected get formula() {
-    return `$y=a(x-s)(x-t)$　ただし$(a \\neq 0)$`
-  }
-
-  protected get explanation() {
+  protected get description() {
     return `
+$y=a(x-s)(x-t)$　ただし$(a \\neq 0)$
+
 *a*は放物線の**開き具合**を表し、*s*と*t*は**x切片**(x軸と交わる場所)の値を表す。  
 ※ $a=0$ の場合は2次式ではなくなってしまう。
     `;

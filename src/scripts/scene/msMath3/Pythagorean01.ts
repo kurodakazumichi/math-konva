@@ -19,12 +19,10 @@ export default class SampleScene extends SceneBase
     return "三平方の定理";
   }
 
-  protected get formula() {
-    return `$$c^2=a^2 + b^2$$`
-  }
-
-  protected get explanation() {
+  protected get description() {
     return `
+$c^2=a^2 + b^2$
+
 直角三角形の**斜辺**を*c*、**底辺**を*a*、**高さ**を*b*とすると$c^2=a^2+b^2$が成り立つ。  
 ピタゴラスの定理とも呼ばれる。
     `;

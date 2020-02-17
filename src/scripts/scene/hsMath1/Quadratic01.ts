@@ -10,6 +10,7 @@ export default class SampleScene extends SceneBase
 {  
   constructor() {
     super();
+    this.updateQuadLinePoints = this.updateQuadLinePoints.bind(this);
   }
 
   //---------------------------------------------------------------------------
@@ -19,12 +20,10 @@ export default class SampleScene extends SceneBase
     return "２次関数 標準形";
   }
 
-  protected get formula() {
-    return `$y=a(x-p)^2+q$　ただし $(a \\neq 0)$`
-  }
-
-  protected get explanation() {
+  protected get description() {
     return `
+$y=a(x-p)^2+q$　ただし $(a \\neq 0)$  
+
 *a*が放物線の**開き具合**を表し、*p, q*が**頂点**を表す式  
 ※ $a=0$ の場合は2次式ではなくなってしまう。
     `;
@@ -46,15 +45,9 @@ export default class SampleScene extends SceneBase
 
   initGUI() {
     const f1 = this.gui.addFolder("２次関数のパラメータ");
-    f1.add(this.params, "a").step(0.1).onChange(() => {
-       this.updateQuadLinePoints();  
-    });
-    f1.add(this.params, "p").step(0.1).onChange(() => {
-      this.updateQuadLinePoints();
-    });
-    f1.add(this.params, "q").step(0.1).onChange(() => {
-      this.updateQuadLinePoints();
-    });
+    f1.add(this.params, "a", -10, 10).step(0.1).onChange(this.updateQuadLinePoints);
+    f1.add(this.params, "p", sCoord.left, sCoord.right).step(0.1).onChange(this.updateQuadLinePoints);
+    f1.add(this.params, "q", sCoord.down, sCoord.top).step(0.1).onChange(this.updateQuadLinePoints);
     f1.open();
   }
 

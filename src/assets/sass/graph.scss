@@ -1,0 +1,28 @@
+@import 'global.scss';
+
+.graph {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+  &__container {
+    margin: 0 auto;
+  }
+
+  &__gui {
+    margin: 0 auto;
+
+    // dat.guiのstyleを無理やり上書き
+    @include mq('sm') {
+      width:100%;
+      .dg.main {
+        width:100% !important;
+
+        .close-button {
+          width:100% !important;
+        }
+      }
+    }
+    
+  }
+}

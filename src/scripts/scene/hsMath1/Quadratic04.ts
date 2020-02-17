@@ -22,11 +22,7 @@ export default class SampleScene extends SceneBase
     return "２次関数　頂点と通過する１点がわかれば放物線は決まる";
   }
 
-  protected get formula() {
-    return ``
-  }
-
-  protected get explanation() {
+  protected get description() {
     return ``;
   }
 

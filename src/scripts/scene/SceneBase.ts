@@ -10,9 +10,8 @@ import GroupBase from '~/scripts/node/group/GroupBase';
  *****************************************************************************/
 interface IDOM {
   title  :HTMLElement;
-  formula:HTMLElement;
   gui:HTMLElement;
-  explanation:HTMLElement;
+  description:HTMLElement;
   markdown:HTMLElement;
 }
 
@@ -49,11 +48,7 @@ export default class SceneBase
     console.error("override title properity."); return "";
   }
 
-  protected get formula() {
-    console.error("orveride formula properity."); return "";
-  }
-
-  protected get explanation() {
+  protected get description() {
     console.error("orveride explanation properity."); return "";
   }
 
@@ -81,7 +76,14 @@ export default class SceneBase
   protected initMarkdown() {
     const sceneType = sScene.getSceneTypeFromUrl();
     sAjax.loadMarkdown(sceneType, (data) => {
-      this.dom.markdown.innerHTML = sMarkdown.render(data);
+
+      if (data) {
+        this.dom.markdown.innerHTML = sMarkdown.render(data);
+      } else {
+        const parent = this.dom.markdown.parentElement;
+        parent && (parent.style.display = "none");
+      }
+
     })
   }
 
@@ -119,8 +121,7 @@ export default class SceneBase
     this._bgLayer?.destroy();
     this.dom.title.innerHTML = "";
     this.dom.gui.innerHTML = "";
-    this.dom.formula.innerHTML = "";
-    this.dom.explanation.innerHTML = "";
+    this.dom.description.innerHTML = "";
     this._dom = null;
     this._layer = null;
     this._gui   = null;
@@ -152,20 +153,18 @@ export default class SceneBase
   {
     // ID間違えたらnullっちゃうけどチェックめんどいので強制キャスト
     return {
-      title      : document.getElementById('title') as HTMLElement,
-      formula    : document.getElementById('formula') as HTMLElement,
-      gui        : document.getElementById('gui-container') as HTMLElement,
-      explanation: document.getElementById('explanation') as HTMLElement,
-      markdown   : document.getElementById('markdown') as HTMLElement,
+      title      : document.getElementById('title_forJs') as HTMLElement,
+      description: document.getElementById('description_forJs') as HTMLElement,
+      gui        : document.getElementById('gui_forJs') as HTMLElement,
+      markdown   : document.getElementById('markdown_forJs') as HTMLElement,
     }
   }
 
   /** DOMを初期処理 */
   private initDom() {
     this.dom.title.innerHTML = this.title;
-    this.dom.explanation.innerHTML = sMarkdown.render(this.explanation);
+    this.dom.description.innerHTML = sMarkdown.render(this.description);
     this.dom.gui.appendChild(this.gui.domElement);
-    this.dom.formula.innerHTML = sMarkdown.render(this.formula);
   }
 
   //---------------------------------------------------------------------------

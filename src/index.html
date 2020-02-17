@@ -27,37 +27,55 @@
         </ul>
       </nav>
     </header>
-    <main>
+    <main class="main">
+      <div class="main__bg"></div>
+      <div class="main__contents">
+        <div class="article">
+          <div class="article__header">
+            <h1 class="article__title" id="title_forJs">タイトル</h1>
+            <div class="article__description" id="description_forJs"></div>
+          </div>
+          
+          <div class="graph">
+            <div class="graph__container" id="container_forJs"></div>
+            <div class="graph__gui" id="gui_forJs"></div>
+          </div>
+          <div class="article__markdown-wrapper">
+            <h2>解説</h2>
+            <div class="article__markdown-context" id="markdown_forJs"></div>
+          </div>
+        </div>
+      </div>
 
-      <nav id="math-nav" aria-labelledby="math0-navigation">
-        <ul id="ms_math_1">
+      <nav class="main__nav" id="math-nav" aria-labelledby="math0-navigation">
+        <ul class="nav" id="ms_math_1">
           <li>
-            <span>サンプル</span>
+            <span class="nav__title">サンプル</span>
             <ul>
               <li><a href="?scene=Sample1">サンプル</a></li>
             </ul>
           </li>
         </ul>
-        <ul id="ms_math_2">
+        <ul  class="nav" id="ms_math_2">
           <li>
-            <span>1次関数</span>
-            <ul>
+            <span class="nav__title">1次関数</span>
+            <ul class="nav__item">
               <li><a href="?scene=ms_math2_linear_01">直線の方程式</a></li>
             </ul>
           </li>
         </ul>
-        <ul id="ms_math_3">
+        <ul  class="nav" id="ms_math_3">
           <li>
-            <span>三平方の定理</span>
-            <ul>
+            <span class="nav__title">三平方の定理</span>
+            <ul class="nav__item">
               <li><a href="?scene=ms_math3_pythagorean_01">$$c^2=a^2+b^2$$</a></li>
             </ul>
           </li>
         </ul>
-        <ul id="hs_math_1">
+        <ul  class="nav" id="hs_math_1">
           <li>
-            <span>２次関数</span>
-            <ul>
+            <span class="nav__title">２次関数</span>
+            <ul class="nav__item">
               <li><a href="?scene=hs_math1_quadratic_01">標準形の式</a></li>
               <li><a href="?scene=hs_math1_quadratic_02">一般形の式</a></li>
               <li><a href="?scene=hs_math1_quadratic_03">因数分解形の式</a></li>
@@ -68,29 +86,14 @@
             </ul>
           </li>
           <li>
-            <span>２次関数を使う</span>
-            <ul>
+            <span class="nav__title">２次関数を使う</span>
+            <ul class="nav__item">
               <li><a href="?scene=hs_math1_quadratic_08">放物線上を移動する</a></li>
             </ul>
           </li>
         </ul>
         
       </nav>
-    
-      <div>
-        <div id="header">
-          <h1 id="title">タイトル</h1>
-          <div id="formula">$$y=ax+b$$</div>
-        </div>
-        <p id="explanation"></p>
-        <div id="graph">
-          <div id="container"></div>
-          <div id="gui-container"></div>
-        </div>
-        <div id="markdown">
-  
-        </div>
-      </div>
     </main>
     <footer>無職の学び舎 By Nekonecode</footer>
   </div>

@@ -4,7 +4,7 @@
 
   display: flex;
   justify-content: space-between;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   background: #0086AB;
   line-height: 2em;
 
@@ -28,7 +28,7 @@
     width:7em;
     text-align: center;
     &:hover {
-      background:#9ACDE7;
+      background:#2D579A;
     }
   }
 }

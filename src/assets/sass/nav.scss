@@ -1,0 +1,58 @@
+.nav {
+
+  &__title {
+    color:black;
+    border-bottom: 5px solid #F6CA06;
+    display: block;
+    line-height: 2em;
+    text-indent: 0.4em;
+
+    &:before {
+      content:"●";
+      color:#1F91BE;
+      margin-right: 0.2em;
+    }
+  }
+
+
+  &__item {
+
+    li {
+      font-size: 0.8rem;
+      line-height:2.3em;
+      border-bottom: 1px solid #eee;
+
+
+
+      &:hover {
+       background:#FEF7D5;
+      }
+
+      a {
+        display: block;
+        width:100%;
+        color:black;
+        text-decoration: none;
+        padding:0 0.5em;
+
+        &::before {
+          content:'・';
+          font-weight: bold;
+          color:#F6CA06;
+        }
+
+        
+          .MJXc-display {
+            color:black;
+            text-align: left !important;
+            margin:0 !important;
+            font-size: 0.6rem;
+            line-height: 2em;
+            display: inline-block;
+          }
+        
+
+      }
+    }
+  }
+}

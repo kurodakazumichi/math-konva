@@ -1,0 +1,41 @@
+@import 'global.scss';
+
+.main {
+  background-image:url(../img/bg.png);
+  position: relative;
+
+  &__contents{
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    position: relative;
+  }
+
+  &__nav {
+    position: absolute;
+    background:white;
+    top:0;
+    right:0;
+    width:0;
+    overflow:hidden;
+    overflow-x:scroll;
+    transition: all 300ms 0s ease;
+    white-space: nowrap;
+    &--active{
+      width:380px;
+
+      @include mq() {
+        width:100%;
+      }
+    }
+  }
+
+  &__bg {
+    background:rgba(0, 0, 0, 0.8);
+    position: absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom: 0;
+  }
+}
