@@ -2,6 +2,7 @@ import SceneBase from '~/scripts/scene/SceneBase';
 import { sShape, sCoord, sColor } from '~/scripts/system';
 import { Line, Circle, Text } from '~/scripts/node/shape';
 import { Quadratic } from 'math-lab';
+import { GUI } from '~/scripts/helper';
 
 /******************************************************************************
  * ２次関数　通過する３点がわかれば放物線は決まる
@@ -43,18 +44,18 @@ export default class SampleScene extends SceneBase
 
   initGUI() {
     const f1 = this.gui.addFolder("通過点A");
-    f1.add(this.params.pass1, "x").step(0.1).listen().onChange(this.updateLines);
-    f1.add(this.params.pass1, "y").step(0.1).listen().onChange(this.updateLines);
+    GUI.addSLR(f1, this.params.pass1, "x").onChange(this.updateLines);
+    GUI.addSTD(f1, this.params.pass1, "y").onChange(this.updateLines);
     f1.open();
 
     const f2 = this.gui.addFolder("通過点B");
-    f2.add(this.params.pass2, "x").step(0.1).listen().onChange(this.updateLines);
-    f2.add(this.params.pass2, "y").step(0.1).listen().onChange(this.updateLines);
+    GUI.addSLR(f2, this.params.pass2, "x").onChange(this.updateLines);
+    GUI.addSTD(f2, this.params.pass2, "y").onChange(this.updateLines);
     f2.open();
 
     const f3 = this.gui.addFolder("通過点C");
-    f3.add(this.params.pass3, "x").step(0.1).listen().onChange(this.updateLines);
-    f3.add(this.params.pass3, "y").step(0.1).listen().onChange(this.updateLines);
+    GUI.addSLR(f3, this.params.pass3, "x").onChange(this.updateLines);
+    GUI.addSTD(f3, this.params.pass3, "y").onChange(this.updateLines);
     f3.open();
   }
 
@@ -67,9 +68,9 @@ export default class SampleScene extends SceneBase
   private pass1Coord:Text  = sShape.text().offset(0.2, -0.1);
   private pass2Coord:Text  = sShape.text().offset(0.2, -0.1);
   private pass3Coord:Text  = sShape.text().offset(0.2, -0.1);
-  private pass1Point:Circle = sShape.point().draggable().fill(sColor.red);
-  private pass2Point:Circle = sShape.point().draggable().fill(sColor.red);
-  private pass3Point:Circle = sShape.point().draggable().fill(sColor.red);
+  private pass1Point:Circle = sShape.draggablePoint().draggable().fill(sColor.red);
+  private pass2Point:Circle = sShape.draggablePoint().draggable().fill(sColor.red);
+  private pass3Point:Circle = sShape.draggablePoint().draggable().fill(sColor.red);
 
   initGraph() 
   {
