@@ -1,6 +1,6 @@
 import Konva from 'konva';
 import NodeBase from '~/scripts/node/NodeBase';
-
+import { sCoord } from '~/scripts/system';
 /******************************************************************************
  * Konva.Shapeのプロパティを再定義するための基底クラス
  *****************************************************************************/
@@ -23,11 +23,11 @@ export default abstract class ShapeBase<T extends Konva.Shape> extends NodeBase<
   }
 
   dash(width:number) {
-    this.node.setAttr("dash", [width]); return this;
+    this.node.setAttr("dash", [sCoord.u2px(width)]); return this;
   }
 
   radius(radius:number) {
-    this.node.setAttr("radius", radius); return this;
+    this.node.setAttr("radius", sCoord.u2px(radius)); return this;
   }
 }
 

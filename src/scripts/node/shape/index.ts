@@ -29,7 +29,7 @@ export class Text extends ShapeBase<Konva.Text> {
     this.node.text(v); return this;
   }
   fontSize(v:number) {
-    this.node.fontSize(v); return this;
+    this.node.fontSize(sCoord.u2px(v)); return this;
   }
   fontFamily(v:string) {
     this.node.fontFamily(v); return this;

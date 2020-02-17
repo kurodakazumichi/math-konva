@@ -1,6 +1,6 @@
 import SystemBase from '~/scripts/system/SystemBase';
 import * as Shapes  from  '~/scripts/node/shape';
-import { sCoord, sColor } from '~/scripts/system';
+import { sCoord, sColor, sEnv } from '~/scripts/system';
 
 /******************************************************************************
  * Shapeファクトリークラス
@@ -29,17 +29,27 @@ class sShape extends SystemBase {
     return new Shapes.Line()
       .stroke(sColor.main)
       .strokeWidth(1)
-      .dash(5);
+      .dash(0.1);
   }
   point() {
     return new Shapes.Circle()
-      .radius(5)
+      .radius(0.1)
       .fill(sColor.green)
+  }
+  draggablePoint() {
+
+    // draggableな点はモバイルの時は少し大きめに設定する(ドラッグしにくいから)
+    const radius = (sEnv.isMobile)? 0.15 : 0.1;
+    
+    return new Shapes.Circle()
+      .radius(radius)
+      .fill(sColor.red)
+      .draggable()
   }
   text() {
     return new Shapes.Text()
       .text("A")
-      .fontSize(20)
+      .fontSize(0.4)
       .fill(sColor.text);
   }
 }
