@@ -68,9 +68,9 @@ export default class SampleScene extends SceneBase
   private pass1Coord:Text  = sShape.text().offset(0.2, -0.1);
   private pass2Coord:Text  = sShape.text().offset(0.2, -0.1);
   private pass3Coord:Text  = sShape.text().offset(0.2, -0.1);
-  private pass1Point:Circle = sShape.draggablePoint().draggable().fill(sColor.red);
-  private pass2Point:Circle = sShape.draggablePoint().draggable().fill(sColor.red);
-  private pass3Point:Circle = sShape.draggablePoint().draggable().fill(sColor.red);
+  private pass1Point:Circle = sShape.draggablePoint();
+  private pass2Point:Circle = sShape.draggablePoint();
+  private pass3Point:Circle = sShape.draggablePoint();
 
   initGraph() 
   {
