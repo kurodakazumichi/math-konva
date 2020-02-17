@@ -31,6 +31,15 @@ class sCoord extends SystemBase {
   get left()  { return this._left; }
   get right() { return this._right; }
   get unit()  { return this._unit; }
+
+  /** 幅(unit) */
+  get uw() {
+    return (this.right - this.left);
+  }
+  /** 高さ(unit) */
+  get uh() {
+    return (this.top - this.down);
+  }
   
   //---------------------------------------------------------------------------
   // Public メソッド
@@ -72,6 +81,14 @@ class sCoord extends SystemBase {
     this.reCalcUpDownLeftRight();
   }
 
+  /** 指定されたX座標(unit)がグラフ横幅のどの割合のいちになるかを-1~1で返す */
+  calcRateX(ux:number) {
+    return ux / this.uw * 2;
+  }
+  /** 指定されたY座標(unit)がグラフ縦幅のどの割合の位置になるかを-1~1で返す */
+  calcRateY(uy:number) {
+    return uy / this.uh * 2;
+  }
   //---------------------------------------------------------------------------
   // unit -> px
   u2px(_u:number) {
