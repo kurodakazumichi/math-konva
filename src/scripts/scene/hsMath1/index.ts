@@ -10,6 +10,7 @@ import Quadratic06 from './Quadratic06';
 import Quadratic07 from './Quadratic07';
 import Quadratic08 from './Quadratic08';
 import Quadratic09 from './Quadratic09';
+import Quadratic10 from './Quadratic10';
 
 export { 
   Quadratic01, 
@@ -21,4 +22,5 @@ export {
   Quadratic07,
   Quadratic08,
   Quadratic09,
+  Quadratic10,
 }

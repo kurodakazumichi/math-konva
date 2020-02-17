@@ -16,6 +16,12 @@ export default abstract class NodeBase<T extends Konva.Node> {
     return this._node;
   }
 
+  /** 動きを制御する際によく使うので時間を持たせる */
+  private _timer:number = 0;
+
+  get timer() { return this._timer; }
+  set timer(v){ this._timer = v; }
+
   //---------------------------------------------------------------------------
   // 継承先でオーバーライド
   //---------------------------------------------------------------------------

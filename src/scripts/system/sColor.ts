@@ -13,6 +13,7 @@ interface IColorTable {
   text:string;
   red:string;
   green:string;
+  yellow:string;
 }
 
 /******************************************************************************
@@ -40,6 +41,7 @@ class sColor extends SystemBase implements IColorTable{
   get text() { return this.table.text; }
   get red() { return this.table.red; }
   get green() { return this.table.green; }
+  get yellow() { return this.table.yellow; }
 
   //---------------------------------------------------------------------------
   // Public メソッド
@@ -82,6 +84,7 @@ class sColor extends SystemBase implements IColorTable{
     main      : "#000000",
     red       : "#CA3C6E",
     green     : "#009F8C",
+    yellow    : "#EDAD0B",
     text      : "#000000",
   }
 
@@ -93,6 +96,7 @@ class sColor extends SystemBase implements IColorTable{
     main      : "#FFFFFF",
     red       : "#CA3C6E",
     green     : "#40BFB0",
+    yellow    : "#EDAD0B",
     text      : "#FFFFFF",
   }
 
