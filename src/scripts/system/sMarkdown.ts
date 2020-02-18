@@ -1,6 +1,6 @@
 import MarkdownIt from 'markdown-it';
 const katex = require('markdown-it-katex');
-
+const container = require('markdown-it-container');
 import SystemBase from '~/scripts/system/SystemBase';
 
 /******************************************************************************
@@ -10,7 +10,12 @@ class sMarkdown extends SystemBase {
   constructor() {
     super();
     this.markdown = new MarkdownIt();
-    this.markdown.use(katex);
+    this.markdown
+      .use(katex)
+      .use(container, "note")
+      // .use(container, "warning") // containerを追加する場合はuseを追加していく
+      ;
+    
   }
 
   render(md:string) {

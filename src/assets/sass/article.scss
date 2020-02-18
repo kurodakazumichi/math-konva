@@ -19,10 +19,87 @@
     margin-bottom:0.7em;
   }
 
+
   &__description {
+
+    @extend %__markdown_default;
+    
     line-height: 1.4em;
     
+
+  }
+
+  &__markdown-wrapper {
+    h2 {
+      font-size: 1.5em;
+      padding: 0.5em;
+      background: #002635;
+    }
+  }
+
+  &__markdown-context {
+    @extend %__markdown_default;
+
+    padding:2em;
+    font-size: 1rem;
+
+    @include mq() {
+      padding: 1rem;
+    }
+  }
+
+  // マークダウンの共通定義
+  %__markdown_default {
+
+    h3 {
+      font-size: 1.2em;
+      margin:3em 0 2em 0;
+      padding-bottom: 0.7em;
+      border-bottom: 5px solid #00597C;
+      line-height: 1.5em;
+      
+      &:first-child {
+        margin-top:0;
+      }
+    }
+
+    h4 {
+      margin-bottom: 1em;
+      text-indent: 0.5em;
+      border-left: 10px solid #00597C;
+    }
+
+    strong {
+      color:#CE579B;
+      font-weight: bold;
+      margin:0 0.3em;
+    }
+
+    em {
+      color: #45A1CF;
+      font-weight: bold;
+      margin:0 0.3em;
+      font-style: normal;
+    }
+
+    a {
+      color:#EDAD0B;
+      text-decoration: none;
+
+      &:hover {
+        color:#007AB7;
+      }
+    }
+
     p {
+      margin-bottom: 1em;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    ul, ol {
       margin-bottom: 1em;
 
       &:last-child {
@@ -49,111 +126,19 @@
       }
     }
 
-    strong {
-      color:#CE579B;
-      font-weight: bold;
-      margin:0 0.3em;
-    }
-
-    em {
-      color: #45A1CF;
-      font-weight: bold;
-      margin:0 0.3em;
-      font-style: normal;
-    }
-
     .katex {
       color:white;
       font-size: 1.4em;
       margin: 0 0.5em;
     }
-  }
 
-  &__markdown-wrapper {
-    h2 {
-      font-size: 1.5em;
-      padding: 0.5em;
-      background: #002635;
+    .note {
+      background:rgba(255, 255, 255, 0.04);
+      color:rgb(182, 173, 152);
+      font-size: 0.7rem;
+      padding:0.3em 0.3em;
     }
   }
 
-  &__markdown-context {
-    padding:2em;
-    font-size: 1rem;
 
-    @include mq() {
-      padding: 1rem;
-    }
-
-    h3 {
-      font-size: 1.2em;
-      margin:3em 0 2em 0;
-      padding-bottom: 0.7em;
-      border-bottom: 5px solid #00597C;
-      line-height: 1.5em;
-      
-      &:first-child {
-        margin-top:0;
-      }
-    }
-
-    h4 {
-      margin-bottom: 1em;
-      text-indent: 0.5em;
-      border-left: 10px solid #00597C;
-    
-    }
-
-    strong {
-      color:#CE579B;
-      font-weight: bold;
-      margin:0 0.3em;
-    }
-
-    em {
-      color: #45A1CF;
-      font-weight: bold;
-      margin:0 0.3em;
-      font-style: normal;
-    }
-
-    a {
-      color:#EDAD0B;
-      text-decoration: none;
-
-      &:hover {
-        color:#007AB7;
-      }
-    }
-
-    p, ul, ol {
-      margin-bottom: 2em;
-    }
-
-    ol, ul {
-      padding-left:1.2em;
-    }
-
-    ol {
-      text-indent: 0.4em;
-
-
-      li {
-        margin-bottom: 0.7em;
-      }
-    }
-
-    ul {
-      li {
-        line-height: 1.6em;
-      }
-    }
-
-
-    .katex {
-      color:white;
-      font-size: 1.4em;
-      margin: 0 0.5em;
-    }
-  }
 }
