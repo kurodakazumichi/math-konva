@@ -7,6 +7,7 @@ import SampleScene from '~/scripts/scene/SampleScene';
 import * as MsMath2 from '~/scripts/scene/msMath2';
 import * as MsMath3 from '~/scripts/scene/msMath3';
 import * as HsMath1 from '~/scripts/scene/hsMath1';
+import * as HsMathB from '~/scripts/scene/hsMathB';
 
 /** シーン列挙型 */
 export enum Type {
@@ -23,6 +24,7 @@ export enum Type {
   HS_MATH1_QUADRATIC_08,
   HS_MATH1_QUADRATIC_09,
   HS_MATH1_QUADRATIC_10,
+  HS_MATHB_VECTOR_01,
 }
 
 //-----------------------------------------------------------------------------
@@ -47,6 +49,7 @@ const configs:ISceneRecord[] = [
   { name:"hs_math1_quadratic_08"  , type:Type.HS_MATH1_QUADRATIC_08  , sceneClass:HsMath1.Quadratic08 },
   { name:"hs_math1_quadratic_09"  , type:Type.HS_MATH1_QUADRATIC_09  , sceneClass:HsMath1.Quadratic09 },
   { name:"hs_math1_quadratic_10"  , type:Type.HS_MATH1_QUADRATIC_10  , sceneClass:HsMath1.Quadratic10 },
+  { name:"hs_mathb_vector_01"     , type:Type.HS_MATHB_VECTOR_01     , sceneClass:HsMathB.Vector01 },
 ];
 
 const defaultConfig = configs[0];

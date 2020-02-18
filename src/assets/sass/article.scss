@@ -46,7 +46,7 @@
     .katex {
       color:white;
       font-size: 1.4em;
-      margin-right: 0.5em;
+      margin: 0 0.5em;
     }
   }
 
@@ -85,12 +85,29 @@
     
     }
 
+    strong {
+      color:#CE579B;
+      font-weight: bold;
+      margin:0 0.3em;
+    }
+
+    em {
+      color: #45A1CF;
+      font-weight: bold;
+      margin:0 0.3em;
+      font-style: normal;
+    }
+
     p, ul, ol {
       margin-bottom: 2em;
     }
 
     ol, ul {
       padding-left:1.2em;
+    }
+
+    ul li {
+      line-height: 1.6em;
     }
 
 
@@ -100,6 +117,12 @@
 
     ol li {
       margin-bottom: 0.7em;
+    }
+
+    .katex {
+      color:white;
+      font-size: 1.4em;
+      margin: 0 0.5em;
     }
   }
 }

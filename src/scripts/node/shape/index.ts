@@ -34,10 +34,33 @@ export class Text extends ShapeBase<Konva.Text> {
   fontFamily(v:string) {
     this.node.fontFamily(v); return this;
   }
+  fontStyle(v:string) {
+    this.node.fontStyle(v); return this;
+  }
+  normal() { this.fontStyle("normal"); return this; }
+  italic() { this.fontStyle("italic"); return this; }
+  bold()   { this.fontStyle("bold"); return this; }
+
   align(v:string) {
     this.node.align(v); return this;
   }
   verticalAlign(v:string) {
     this.node.verticalAlign(v); return this;
+  }
+}
+
+/** Arrow */
+export class Arrow extends ShapeBase<Konva.Arrow> {
+  protected createNode() {
+    return new Konva.Arrow();
+  }
+  points(points:number[]) {
+    this.node.setAttr("points", sCoord.points(points)); return this;
+  }
+  pointerLength(v:number) {
+    this.node.pointerLength(sCoord.u2px(v)); return this;
+  }
+  pointerWidth(v:number) {
+    this.node.pointerWidth(sCoord.u2px(v)); return this;
   }
 }

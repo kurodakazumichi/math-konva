@@ -19,7 +19,8 @@
 
   &__nav {
     display: flex;
-    
+    flex-wrap: wrap;
+    justify-content: space-between;
   }
 
   &__nav-menu {
