@@ -3,7 +3,6 @@ import * as SceneConfigs from '~/scripts/configs/scene';
 import sStage from './sStage';
 import SceneBase from '~/scripts/scene/SceneBase';
 
-declare var window:{ sScene:sScene };
 /******************************************************************************
  * Scene管理システム(SceneそのものはKonva.Layerに該当する)
  *****************************************************************************/
