@@ -27,6 +27,7 @@ export enum Type {
   HS_MATHB_VECTOR_01,
   HS_MATHB_VECTOR_02,
   HS_MATHB_VECTOR_03,
+  HS_MATHB_VECTOR_04,
 }
 
 //-----------------------------------------------------------------------------
@@ -54,6 +55,7 @@ const configs:ISceneRecord[] = [
   { name:"hs_mathb_vector_01"     , type:Type.HS_MATHB_VECTOR_01     , sceneClass:HsMathB.Vector01 },
   { name:"hs_mathb_vector_02"     , type:Type.HS_MATHB_VECTOR_02     , sceneClass:HsMathB.Vector02 },
   { name:"hs_mathb_vector_03"     , type:Type.HS_MATHB_VECTOR_03     , sceneClass:HsMathB.Vector03 },
+  { name:"hs_mathb_vector_04"     , type:Type.HS_MATHB_VECTOR_04     , sceneClass:HsMathB.Vector04 },
 ];
 
 const defaultConfig = configs[0];
