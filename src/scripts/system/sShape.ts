@@ -84,6 +84,7 @@ class sShape extends SystemBase {
       .text(v)
       .fontSize(size)
       .offset(0.1, -0.1)
+      .fontFamily("Hiragino Maru Gothic ProN, meiryo, arial, sans-serif")
       .fill(sColor.text);
   }
   arrow() {
