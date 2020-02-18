@@ -162,9 +162,17 @@ export default class SceneBase
 
   /** DOMを初期処理 */
   private initDom() {
-    this.dom.title.innerHTML = this.title;
-    this.dom.description.innerHTML = sMarkdown.render(this.description);
+    this.setTitle(this.title);
+    this.setDescription(this.description);
     this.dom.gui.appendChild(this.gui.domElement);
+  }
+
+  protected setTitle(title:string) {
+    this.dom.title.innerHTML = title;
+  }
+
+  protected setDescription(text:string) {
+    this.dom.description.innerHTML = sMarkdown.render(text);
   }
 
   //---------------------------------------------------------------------------

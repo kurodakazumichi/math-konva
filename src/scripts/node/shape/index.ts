@@ -63,4 +63,23 @@ export class Arrow extends ShapeBase<Konva.Arrow> {
   pointerWidth(v:number) {
     this.node.pointerWidth(sCoord.u2px(v)); return this;
   }
+  color(v:string) {
+    return this.fill(v).stroke(v);
+  }
+}
+
+/** Star */
+export class Star extends ShapeBase<Konva.Star> {
+  protected createNode() {
+    return new Konva.Star();
+  }
+  numPoints(v:number) {
+    this.node.numPoints(v); return this;
+  }
+  innerRadius(v:number) {
+    this.node.innerRadius(sCoord.u2px(v)); return  this;
+  }
+  outerRadius(v:number) {
+    this.node.outerRadius(sCoord.u2px(v)); return this;
+  }
 }

@@ -1,5 +1,6 @@
 import { GUI } from 'dat.gui';
-import { sCoord } from '~/scripts/system';
+import { sCoord, sColor } from '~/scripts/system';
+import { isNumber } from 'util';
 
 const DEFAULT_STEP = 0.1;
 
@@ -25,5 +26,48 @@ export const addSLR =  (gui:GUI, target:Object, propName:string) => {
 export const addSTD = (gui:GUI, target:Object, propName:string) => {
   return gui.add(target, propName, sCoord.down, sCoord.top)
     .step(DEFAULT_STEP).listen();
+}
+
+/** Enumを元にセレクとボックスを追加する */
+export const addSelect = <T>(gui:GUI, target:Object, propName:string, e:T) => {
+
+  const list:any = {};
+  Object.entries(e).forEach(([key,  value]) => {
+    if (isNaN(Number(key))){
+      list[key] = value;
+    }
+  })
+
+  return gui.add(target, propName, list).listen();
+}
+
+/** スライダー形式のGUIを追加する */
+export const addSlider = (gui:GUI, target:Object, propName:string) => {
+  const min = getSliderMinByPropName(propName);
+  const max = getSliderMaxByPropName(propName);
+
+  return gui.add(target, propName, min, max)
+    .step(DEFAULT_STEP).listen()
+}
+
+/** スライダーの最小値をpropNameから判断して取得 */
+function getSliderMinByPropName(propName:string) 
+{
+  switch(propName) {
+    case "x": return sCoord.left;
+    case "y": return sCoord.down;
+    case "timer": return 0;
+  }
+  return -1;
+}
+
+/** スライダーの最大値をpropNameから判断して取得 */
+function getSliderMaxByPropName(propName:string) {
+  switch(propName) {
+    case "x": return sCoord.right;
+    case "y": return sCoord.top;
+    case "timer": return 1;
+  }
+  return 1;
 }
 

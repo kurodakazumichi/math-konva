@@ -22,7 +22,7 @@ export default class TitleScene extends SceneBase
 
   protected get description() {
     return `
-**数学を使って**いろいろしてみたいというサイト
+**数学**を勉強するだけだとつまらないので、**勉強したことでなんか作ってみよう**と思って作っているサイトです。
 
 ::: note
 - 基本的にグラフの中心が原点(0, 0)で横がX軸、縦がY軸という扱いです。

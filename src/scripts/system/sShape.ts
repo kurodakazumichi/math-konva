@@ -1,6 +1,8 @@
 import SystemBase from '~/scripts/system/SystemBase';
+import ShapeBase from '~/scripts/node/shape/ShapeBase';
 import * as Shapes  from  '~/scripts/node/shape';
 import { sCoord, sColor, sEnv } from '~/scripts/system';
+import Konva from 'konva';
 
 /******************************************************************************
  * Shapeファクトリークラス
@@ -24,8 +26,7 @@ class sShape extends SystemBase {
     const p = [sCoord.left, 0, sCoord.right, 0];
     return new Shapes.Arrow()
       .points(p)
-      .stroke(sColor.axisXY)
-      .fill(sColor.axisXY)
+      .color(sColor.axisXY)
       .pointerWidth(0.05)
       .pointerLength(0.1)
       .strokeWidth(1);
@@ -34,8 +35,7 @@ class sShape extends SystemBase {
     const p = [0, sCoord.down, 0, sCoord.top];
     return new Shapes.Arrow()
       .points(p)
-      .stroke(sColor.axisXY)
-      .fill(sColor.axisXY)
+      .color(sColor.axisXY)
       .pointerWidth(0.05)
       .pointerLength(0.1)
       .strokeWidth(1);
@@ -91,8 +91,24 @@ class sShape extends SystemBase {
     return new Shapes.Arrow()
       .pointerLength(0.1)
       .pointerWidth(0.1)
-      .stroke(sColor.main)
+      .color(sColor.main)
       .strokeWidth(2)
+  }
+  star() {
+    return new Shapes.Star()
+      .fill(sColor.yellow)
+      .stroke(sColor.main)
+      .strokeWidth(1)
+      .outerRadius(0.15)
+      .innerRadius(0.06)
+      .numPoints(5)
+  }
+
+  /** 便利関数、ShapesのObjectに対するmap */
+  map(shapes:{[key:string]:ShapeBase<Konva.Shape>}, cb:(shape:ShapeBase<Konva.Shape>) => void){
+    Object.values(shapes).map((shape) => {
+      cb(shape);
+    })
   }
 }
 

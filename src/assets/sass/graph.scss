@@ -24,8 +24,18 @@
     }
   }
 
+  /** dat.guiのstyleがなぜかいろいろ崩れるので頑張って調整 */
   &__gui {
     margin: 0 auto;
+
+    // dat.guiのstyleを無理やり上書き
+    .dg .c select {
+      margin-top:-4px;
+    }
+
+    .dg .c input[type=checkbox] {
+      margin-top:0;
+    }
 
     // dat.guiのstyleを無理やり上書き
     @include mq('sm') {
@@ -37,7 +47,10 @@
           width:100% !important;
         }
       }
+
+      .dg .c select {
+        margin-top:0;
+      }
     }
-    
   }
 }

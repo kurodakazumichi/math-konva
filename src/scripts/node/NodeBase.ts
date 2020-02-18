@@ -77,7 +77,7 @@ export default abstract class NodeBase<T extends Konva.Node> {
   }
 
   visible(flg:boolean) {
-    this.node.setAttr("visible", flg);
+    this.node.setAttr("visible", flg); return this;
   }
 
   draggable(flg:boolean = true) {
@@ -116,5 +116,8 @@ export default abstract class NodeBase<T extends Konva.Node> {
   off(evtStr:string) {
     this.node.off(evtStr);
     return this;
+  }
+  opacity(v:number) {
+    this.node.opacity(v); return this;
   }
 }
