@@ -1,6 +1,6 @@
 import SceneBase from '~/scripts/scene/SceneBase';
-import { sShape, sCoord } from '~/scripts/system';
-import { Line, Circle } from '~/scripts/node/shape';
+import { sShape } from '~/scripts/system';
+import { Circle } from '~/scripts/node/shape';
 import { Vector2 } from 'math-lab';
 import { GUI, Util } from '~/scripts/helper';
 
