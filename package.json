@@ -20,7 +20,7 @@
     "math-lab": "https://github.com/kurodakazumichi/math-lab.git"
   },
   "scripts": {
-    "start": "parcel src/index.html",
+    "start": "yarn cp && parcel src/index.html",
     "build": "yarn clean && parcel build src/index.html --no-source-maps -d math2d --public-url /math2d",
     "clean": "rm -rf ./dist ./math2d",
     "cp": "rm -rf ./dist/md && cp -r ./src_md/ ./dist/md",

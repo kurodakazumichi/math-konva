@@ -54,7 +54,7 @@ class sScene extends SystemBase {
       }
     });
 
-    return maybeSceneName
+    return SceneConfigs.getConfigByName(maybeSceneName).name;
   }
 
   //---------------------------------------------------------------------------
