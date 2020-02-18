@@ -1,6 +1,6 @@
 import GroupBase from './GroupBase';
 import { sShape, sCoord, sColor } from '~/scripts/system';
-import { Line } from '~/scripts/node/shape';
+import { Line, Arrow, Text } from '~/scripts/node/shape';
 
 /******************************************************************************
  * Grid
@@ -11,6 +11,7 @@ export default class Grid extends GroupBase {
     super();
     this.centerAxis = [];
     this.lines      = [];
+    this.labels     = [];
     this.initilize();
   }
 
@@ -35,6 +36,7 @@ export default class Grid extends GroupBase {
     this.createCenterAxis();
     this.createVerticalLines();
     this.createHorizonLines();
+    this.createLables();
 
     this.lines.map((line) => {
       this.add(line);
@@ -43,12 +45,16 @@ export default class Grid extends GroupBase {
     this.centerAxis.map((axis) => {
       this.add(axis);
     });
+
+    this.labels.map((label) => {
+      this.add(label);
+    })
   }
 
   /** 中心軸を作成 */
   private createCenterAxis() {
-    this.centerAxis.push(sShape.axisX());
-    this.centerAxis.push(sShape.axisY());
+    this.centerAxis.push(sShape.arrowX());
+    this.centerAxis.push(sShape.arrowY());
   }
 
   /** グリッド線を作成 */
@@ -80,9 +86,31 @@ export default class Grid extends GroupBase {
     }
   }
 
+  private createLables() {
+    const params = [
+      {text:"x", x:sCoord.right, y:0, offsetX:-0.1, offsetY:-0.1 },
+      {text:"y", y:sCoord.top  , x:0, offsetX: 0.1, offsetY:0 }
+    ]
+
+    params.map((p) => {
+      const label = sShape.text(p.text)
+        .pos(p.x, p.y)
+        .fontSize(0.15)
+        .offsetX(p.offsetX)
+        .offsetY(p.offsetY)
+        .italic();
+
+      this.labels.push(label);
+    })
+    
+  }
+
   /** 中心軸XY */
-  centerAxis:Line[];
+  private centerAxis:Arrow[];
 
   /** その他の線 */
-  lines:Line[]
+  private lines:Line[]
+
+  /** Label */
+  private labels:Text[];
 }

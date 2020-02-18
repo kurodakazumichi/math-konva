@@ -1,11 +1,11 @@
 import SceneBase from '~/scripts/scene/SceneBase';
-import { sShape } from '~/scripts/system';
-import { Circle } from '~/scripts/node/shape';
+import { sShape, sColor, sCoord } from '~/scripts/system';
+import { Circle, Arrow } from '~/scripts/node/shape';
 import { Vector2 } from 'math-lab';
 import { GUI, Util } from '~/scripts/helper';
 
 /******************************************************************************
- * 2Dベクトル　ベクトルは向きと大きさを持つ
+ * ベクトル　ベクトルの成分
  *****************************************************************************/
 export default class SampleScene extends SceneBase 
 {  
@@ -17,14 +17,13 @@ export default class SampleScene extends SceneBase
   // Overrideするプロパティ
   //---------------------------------------------------------------------------
   protected get title() {
-    return "ベクトルは向きと大きさを持つ";
+    return "ベクトルの成分";
   }
 
   protected get description() {
     return `
-ベクトルは*向き*と、*大きさ*という**２つの情報を持ち**矢印で表現される。
-
-以下は**点Aから点Bに向かう**ベクトルである。
+- ベクトルの*xの量*を**x成分**と呼び
+- ベクトルの*yの量*を**y成分**と呼ぶ
 `;
   }
 
@@ -33,14 +32,19 @@ export default class SampleScene extends SceneBase
   //---------------------------------------------------------------------------
   params = {
     a: new Vector2(0, 0),
-    b: new Vector2(2, 2),
-    v: new Vector2(1, 1)
+    b: new Vector2(3, 4),
+    v: new Vector2(0, 0)
   }
 
   //---------------------------------------------------------------------------
   // GUI
   //---------------------------------------------------------------------------
   initGUI() {
+    const f3 = this.gui.addFolder("ベクトルABの成分");
+    GUI.addLSN(f3, this.params.v, "x");
+    GUI.addLSN(f3, this.params.v, "y");
+    f3.open();
+
     const f1 = this.gui.addFolder("始点(A)");
     GUI.addSLR(f1, this.params.a, "x");
     GUI.addSTD(f1, this.params.a, "y");
@@ -50,11 +54,6 @@ export default class SampleScene extends SceneBase
     GUI.addSLR(f2, this.params.b, "x");
     GUI.addSLR(f2, this.params.b, "y");
     f2.open();
-
-    const f3 = this.gui.addFolder("ベクトルAB");
-    GUI.addLSN(f3, this.params.v, "x");
-    GUI.addLSN(f3, this.params.v, "y");
-    f3.open();
   }
 
   //---------------------------------------------------------------------------
@@ -63,20 +62,24 @@ export default class SampleScene extends SceneBase
 
   /** グラフ内の要素 */
   private arrow = sShape.arrow();
+  private line  = sShape.brokenLine().stroke(sColor.yellow);
   private pointA = sShape.draggablePoint().pos(0, 0);
   private pointB = sShape.draggablePoint();
-  private labelA = sShape.text("A");
-  private labelB = sShape.text("B");
-  private labelV = sShape.text("AB").fontSize(0.2).italic();
+  private labelA = sShape.text("A").fontSize(0.25);
+  private labelB = sShape.text("B").fontSize(0.25);
+  private labelX = sShape.text("x").fontSize(0.25).offsetX(-0.08);
+  private labelY = sShape.text("y").fontSize(0.25).offsetY(0.1);
 
   initGraph() {
 
     this.add(this.arrow);
+    this.add(this.line);
     this.add(this.labelA);
     this.add(this.labelB);
+    this.add(this.labelX);
+    this.add(this.labelY);
     this.add(this.pointA);
     this.add(this.pointB);
-    this.add(this.labelV);
 
     this.pointA.on('dragmove', (e:Circle) => {
       this.params.a.x = Util.round(e.x());
@@ -97,8 +100,21 @@ export default class SampleScene extends SceneBase
     this.updateArrow();
     this.updateA();
     this.updateB();
-    this.updateV();
 
+    this.updateLine();
+    this.updateXY();
+
+
+  }
+
+  updateLine() {
+    const { a, b } = this.params;
+
+    this.line.points([
+      a.x, a.y,
+      b.x, a.y,
+      b.x, b.y,
+    ])
   }
 
   updateA() {
@@ -116,6 +132,15 @@ export default class SampleScene extends SceneBase
     this.labelB.pos(b.x, b.y);
   }
 
+  updateXY() {
+    const { a, b, v } = this.params;
+    this.labelX.x(a.x + v.x / 2).y(a.y)
+      .text("x="+Util.round(v.x).toString());
+
+    this.labelY.x(b.x).y(a.y + v.y /2)
+      .text("y="+Util.round(v.y).toString());
+  }
+
   updateArrow() {
     const { a, b, v } = this.params;
     const ab = Vector2.sub(b, a);
@@ -124,13 +149,5 @@ export default class SampleScene extends SceneBase
     v.y = ab.y;
 
     this.arrow.points([a.x, a.y, b.x, b.y]);
-  }
-
-  updateV() {
-    const { a, v } = this.params;
-    const v2    = v.clone().times(0.5);
-
-    this.labelV
-      .pos(a.x + v2.x, a.y + v2.y);
   }
 }

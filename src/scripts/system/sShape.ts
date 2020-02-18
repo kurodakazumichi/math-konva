@@ -20,6 +20,26 @@ class sShape extends SystemBase {
       .stroke(sColor.axisXY)
       .strokeWidth(1);
   }
+  arrowX() {
+    const p = [sCoord.left, 0, sCoord.right, 0];
+    return new Shapes.Arrow()
+      .points(p)
+      .stroke(sColor.axisXY)
+      .fill(sColor.axisXY)
+      .pointerWidth(0.05)
+      .pointerLength(0.1)
+      .strokeWidth(1);
+  }
+  arrowY() {
+    const p = [0, sCoord.down, 0, sCoord.top];
+    return new Shapes.Arrow()
+      .points(p)
+      .stroke(sColor.axisXY)
+      .fill(sColor.axisXY)
+      .pointerWidth(0.05)
+      .pointerLength(0.1)
+      .strokeWidth(1);
+  }
   solidLine() {
     return new Shapes.Line()
       .stroke(sColor.main)

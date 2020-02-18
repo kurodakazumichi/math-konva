@@ -30,6 +30,25 @@
       }
     }
 
+    ol, ul {
+      padding-left:1.2em;
+    }
+
+    ol {
+      text-indent: 0.4em;
+
+
+      li {
+        margin-bottom: 0.7em;
+      }
+    }
+
+    ul {
+      li {
+        line-height: 1.6em;
+      }
+    }
+
     strong {
       color:#CE579B;
       font-weight: bold;
@@ -98,6 +117,15 @@
       font-style: normal;
     }
 
+    a {
+      color:#EDAD0B;
+      text-decoration: none;
+
+      &:hover {
+        color:#007AB7;
+      }
+    }
+
     p, ul, ol {
       margin-bottom: 2em;
     }
@@ -106,18 +134,21 @@
       padding-left:1.2em;
     }
 
-    ul li {
-      line-height: 1.6em;
-    }
-
-
     ol {
       text-indent: 0.4em;
+
+
+      li {
+        margin-bottom: 0.7em;
+      }
     }
 
-    ol li {
-      margin-bottom: 0.7em;
+    ul {
+      li {
+        line-height: 1.6em;
+      }
     }
+
 
     .katex {
       color:white;
