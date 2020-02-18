@@ -24,9 +24,18 @@
 
     @extend %__markdown_default;
     
-    line-height: 1.4em;
-    
+    line-height: 1.7em;
 
+    p {
+      margin-bottom: 1em;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+    .katex {
+      font-size: 1.4em;
+    }
   }
 
   &__markdown-wrapper {
@@ -42,6 +51,20 @@
 
     padding:2em;
     font-size: 1rem;
+    line-height:1.7em;
+
+    p {
+      margin-bottom: 1.2em;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    .katex {
+      font-size: 1.2em;
+    }
+
 
     @include mq() {
       padding: 1rem;
@@ -91,14 +114,6 @@
       }
     }
 
-    p {
-      margin-bottom: 1em;
-
-      &:last-child {
-        margin-bottom: 0;
-      }
-    }
-
     ul, ol {
       margin-bottom: 1em;
 
@@ -128,7 +143,6 @@
 
     .katex {
       color:white;
-      font-size: 1.4em;
       margin: 0 0.5em;
     }
 
@@ -136,7 +150,8 @@
       background:rgba(255, 255, 255, 0.04);
       color:rgb(182, 173, 152);
       font-size: 0.7rem;
-      padding:0.3em 0.3em;
+      padding:0.3em 0.9em;
+      border-radius: 0.4em;
     }
   }
 
