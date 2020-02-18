@@ -7,7 +7,7 @@ import { GUI, Util } from '~/scripts/helper';
 /******************************************************************************
  * 2Dベクトル　ベクトルは向きと大きさを持つ
  *****************************************************************************/
-export default class SampleScene extends SceneBase 
+export default class Scene extends SceneBase 
 {  
   constructor() {
     super();

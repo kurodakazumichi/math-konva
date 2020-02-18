@@ -7,7 +7,7 @@ import { GUI, Util } from '~/scripts/helper';
 /******************************************************************************
  * ベクトル　ベクトルの成分
  *****************************************************************************/
-export default class SampleScene extends SceneBase 
+export default class Vector02 extends SceneBase 
 {  
   constructor() {
     super();
