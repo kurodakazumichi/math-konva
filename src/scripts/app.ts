@@ -1,3 +1,4 @@
+// TODO OGPの設定をどこかでやろう
 import { sStage, sScene, sCoord, sColor } from '~/scripts/system'
 
 class App {
@@ -22,6 +23,7 @@ class App {
 }
 
 
+// TODO メニューの処理はどこかで整理したい
 /** メニューの初期化、きったない処理だけどとりあえず動く */
 const setupMenu = () => {
 
