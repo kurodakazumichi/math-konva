@@ -47,6 +47,8 @@ export default class Scene extends SceneBase
       const { a, b } = this.params;
       b.x = a.x;
       b.y = a.y;
+    },
+    inverse: false,
     }
   }
 
@@ -58,6 +60,7 @@ export default class Scene extends SceneBase
     const f1 = this.gui.addFolder("コマンド");
     f1.add(this.params, "normalize");
     f1.add(this.params, "zero");
+    f1.add(this.params, "inverse");
     f1.open();
 
     const f2 = this.gui.addFolder("ベクトルABの成分");
@@ -100,6 +103,7 @@ export default class Scene extends SceneBase
     this.add(this.labelY);
     this.add(this.pointA);
     this.add(this.pointB);
+    this.add(this.arrow);
 
     this.pointA.on('dragmove', (e:Circle) => {
       this.params.a.x = Util.round(e.x());
@@ -173,6 +177,10 @@ export default class Scene extends SceneBase
     v.x = ab.x;
     v.y = ab.y;
 
+    if (this.params.inverse) {
+      this.arrow.points([b.x, b.y, a.x, a.y]);
+    } else {
     this.arrow.points([a.x, a.y, b.x, b.y]);
   }
+}
 }
