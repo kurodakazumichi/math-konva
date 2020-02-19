@@ -129,9 +129,13 @@
     ol {
       text-indent: 0.4em;
 
-
       li {
-        margin-bottom: 0.7em;
+        line-height: 1.7em;
+
+        // リスト内の数式はちょっと小さめで
+        .katex {
+          font-size: 1.2em;
+        }
       }
     }
 
