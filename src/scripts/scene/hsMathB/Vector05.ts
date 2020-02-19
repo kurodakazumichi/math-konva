@@ -1,5 +1,5 @@
 import SceneBase from '~/scripts/scene/SceneBase';
-import { sShape, sColor, sGroup, sCoord } from '~/scripts/system';
+import { sShape, sColor } from '~/scripts/system';
 import { Circle } from '~/scripts/node/shape';
 import { Vector2 } from 'math-lab';
 import { GUI as GUIHelper, Util } from '~/scripts/helper';
@@ -13,8 +13,6 @@ enum State {
 enum Animation {
   Phase1,
 }
-
-const MAX_ANIM_PHASE = Util.enumLength(Animation);
 
 interface IGuiFolders {
   anim:GUI|null,
