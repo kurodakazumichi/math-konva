@@ -12,6 +12,9 @@ export default class Scene extends SceneBase
 {  
   constructor() {
     super();
+    this.onChangeStep     = this.onChangeStep.bind(this);
+    this.onDragMovePointA = this.onDragMovePointA.bind(this);
+    this.onDragMovePointB = this.onDragMovePointB.bind(this);
   }
 
   //---------------------------------------------------------------------------
@@ -43,51 +46,278 @@ $\\vec{a} + (-\\vec{b})$と表すことができる。
     a:new Vector2( 1, 1),
     b:new Vector2(-1, 1),
     c:new Vector2(),
+    mode:{
+      step:false,
+    },
+    steps: {
+      step : 0,
+      nextStep: () => { this.setStep(++this.params.steps.step); },
+      prevStep: () => { this.setStep(--this.params.steps.step); }
+    }
+  }
+
+  calcVectorC() {
+    const { a, b, c } = this.params;
+    const t = Vector2.sub(a, b);
+    c.x = t.x;
+    c.y = t.y;
+  }
+
+  private onChangeStep(flg:boolean) {
+    this.updateGUI();
+
+    if (flg) {
+      this.setStep(0);
+    } else {
+      this.setComment("");
+      this.visibleAll(true);
+      this.fitGraphWithParams();
+    }
+    
   }
 
   //---------------------------------------------------------------------------
   // GUI
   //---------------------------------------------------------------------------
-  initGUI() {
+  private folders = {
+    a:{} as GUI,
+    b:{} as GUI,
+    c:{} as GUI,
+    step:{} as GUI,
+  }
 
+  initGUI() {
+    const mode = this.gui.addFolder("モード");
+    mode.add(this.params.mode, "step").onChange(this.onChangeStep);
+    mode.open();
+
+    const a = this.gui.addFolder("点A");
+    GUIHelper.addSlider(a, this.params.a, "x");
+    GUIHelper.addSlider(a, this.params.a, "y");
+    a.open();
+
+    const b = this.gui.addFolder("点B");
+    GUIHelper.addSlider(b, this.params.b, "x");
+    GUIHelper.addSlider(b, this.params.b, "y");
+    b.open();
+
+    const c = this.gui.addFolder("ベクトル OA - OB");
+    GUIHelper.addLSN(c, this.params.c, "x");
+    GUIHelper.addLSN(c, this.params.c, "y");
+    c.open();
+
+    const step = this.gui.addFolder("ステップ実行");
+    GUIHelper.addLSN(step, this.params.steps, "step");
+    step.add(this.params.steps, "nextStep");
+    step.add(this.params.steps, "prevStep");
+    step.open();
+
+    this.folders.a = a;
+    this.folders.b = b;
+    this.folders.c = c;
+    this.folders.step = step;
+
+    this.updateGUI();
+  }
+
+  private updateGUI() {
+    const { a, b, c, step } = this.folders;
+    const isStep = this.params.mode.step;
+
+    // ステップ実行時
+    if (isStep) {
+      a.hide(), b.hide(), c.hide(), step.show();
+    } else {
+      a.show(), b.show(), c.show(), step.hide();
+    }
   }
 
   //---------------------------------------------------------------------------
   // Graph
   //---------------------------------------------------------------------------
-  private arrowA = sShape.arrow();
-  private arrowB = sShape.arrow();
-  private arrowC = sShape.arrow().color(sColor.green);
-  private labelO = sShape.text("O");
-  private labelA = sShape.text("A");
-  private labelB = sShape.text("B");
-  private labelV = sShape.text("OA-OB").fontSize(0.17).italic();
-  private pointA = sShape.draggablePoint();
-  private pointB = sShape.draggablePoint();
+  private shapes = {
+    pointA : sShape.draggablePoint(),
+    pointB : sShape.draggablePoint(),
+    arrowA : sShape.arrow(),
+    arrowB : sShape.arrow(),
+    arrowC : sShape.arrow().color(sColor.green),
+    arrowC2: sShape.arrow().color(sColor.green).visible(false),
+    labelO : sShape.text("O"),
+    labelA : sShape.text("A"),
+    labelB : sShape.text("B"),
+    labelV : sShape.text("OA-OB").fontSize(0.17).italic(),
+    comment: sShape.text(""),
+  }
+
 
   initGraph() {
-    // TODO:pointA,BのonDragMove
-    this.add(this.pointA, this.pointB);
-    this.add(this.labelO, this.labelA, this.labelB, this.labelV);
-    this.add(this.arrowA, this.arrowB, this.arrowC);
+    const { shapes } = this;
+    shapes.labelO.pos(0, 0);
+
+    shapes.pointA.on('dragmove', this.onDragMovePointA);
+    shapes.pointB.on('dragmove', this.onDragMovePointB);
+
+    sShape.map(shapes, (s) => {this.add(s)});
+  }
+
+  private onDragMovePointA(e:Circle) {
+    const { a } = this.params;
+    a.x = Util.round(e.x());
+    a.y = Util.round(e.y());
+  }
+
+  private onDragMovePointB(e:Circle) {
+    const { b } = this.params;
+    b.x = Util.round(e.x());
+    b.y = Util.round(e.y());
+  }
+
+  private visibleAll(flg:boolean = false) {
+    sShape.map(this.shapes, (s) => { s.visible(flg); })
   }
 
   //---------------------------------------------------------------------------
   // Update
   //---------------------------------------------------------------------------
   update() {
+    // ステップ実行時はupdateを呼ばない
+    if (this.params.mode.step) return;
+    this.calcVectorC();
+    this.fitGraphWithParams();
+  }
+
+  /** 現在のパラメータの値にグラフを合わせる */
+  private fitGraphWithParams() {
+    const { shapes } = this;
+    const { a, b, c } = this.params;
+
+    shapes.pointA.pos(a.x, a.y);
+    shapes.pointB.pos(b.x, b.y);
+
+    shapes.labelA.pos(a.x, a.y);
+    shapes.labelB.pos(b.x, b.y).text('B');
+    shapes.labelV.pos(c.x, c.y);
+
+    shapes.arrowA.points([0, 0, a.x, a.y]).color(sColor.main);
+    shapes.arrowB.points([0, 0, b.x, b.y]).color(sColor.main);
+    shapes.arrowC.points([0, 0, c.x, c.y]);
+    shapes.arrowC2.visible(false);
+  }
+
+  //---------------------------------------------------------------------------
+  // Step
+  private stepFuncs = [
+    this.setPhase0.bind(this),
+    this.setPhase1.bind(this),
+    this.setPhase2.bind(this),
+    this.setPhase3.bind(this),
+    this.setPhase4.bind(this),
+    this.setPhase5.bind(this),
+    this.setPhase6.bind(this),
+  ]
+
+  private comments = [
+    `$\\vec{OA}-\\vec{OB}$は`,
+    `$\\vec{OA}$に`,
+    `$\\vec{OA}$に$\\vec{OB}$の`,
+    `$\\vec{OA}$に$\\vec{OB}$の逆ベクトルを`,
+    `$\\vec{OA}$に$\\vec{OB}$の逆ベクトルを足した`,
+    `点Oから点B'に向かうベクトルになる`,
+    `これは$\\vec{BA}$と同じである`,
+  ]
+  
+  private updateComment() {
+    this.setComment(this.comments[this.params.steps.step]);
+  }
+
+  private setStep(no:number) 
+  {
+    no = Util.cramp(no, 0, this.stepFuncs.length - 1);
+    this.params.steps.step = no;
+    const f = this.stepFuncs[no];
+    this.updateComment();
+    f && f();
+  }
+
+  private setPhase0() {
+    this.visibleAll(false);
+    this.shapes.comment.visible(true);
+    this.shapes.labelO.visible(true);
+    this.shapes.arrowA.visible(true).color(sColor.main);
+    this.shapes.labelA.visible(true);
+    this.shapes.arrowB.visible(true).color(sColor.main);
+    this.shapes.labelB.visible(true).text('B');
+
+    this.updateComment();
+
+    const { a } = this.params;
+    this.shapes.arrowA.points([0, 0, a.x, a.y]);
+    this.shapes.labelA.pos(a.x, a.y);
+  }
+
+  /** OAベクトルに */
+  private setPhase1() {
+    this.setPhase0()
+
+    this.updateComment();
+
+    const { a } = this.params;
+    this.shapes.arrowA.points([0, 0, a.x, a.y]).color(sColor.red);
+    this.shapes.labelA.pos(a.x, a.y);
+  }
+
+  /** OBベクトルの */
+  private setPhase2() {
+    this.setPhase1();
+    this.shapes.arrowB.visible(true);
+    this.shapes.labelB.visible(true);
+    
+    this.updateComment();
+
+    const { b } = this.params;
+    this.shapes.arrowB.points([0, 0, b.x, b.y]).color(sColor.red);
+    this.shapes.labelB.pos(b.x, b.y);
+  }
+
+  /** 逆ベクトルを */
+  private setPhase3() {
+    this.setPhase2();
+    this.updateComment();
+
+    const { b } = this.params;
+    this.shapes.arrowB.points([0, 0, -b.x, -b.y])
+    this.shapes.labelB.text('B\'').pos(-b.x, -b.y);
+  }
+
+  /** ベクトルAの先に付け足す */
+  private setPhase4() 
+  {
+    this.setPhase3();
+
+    this.updateComment();
+
     const { a, b } = this.params;
-    const c = Vector2.sub(a, b);
+    this.shapes.arrowB.points([a.x, a.y, a.x -b.x, a.y - b.y])
+    this.shapes.labelB.pos(a.x -b.x, a.y -b.y);
+  }
 
-    this.pointA.pos(a.x, a.y);
-    this.pointB.pos(b.x, b.y);
+  /** 緑のベクトルがOA-OB */
+  private setPhase5() {
+    this.setPhase4();
+    this.shapes.arrowC.visible(true);
+  }
 
-    this.labelA.pos(a.x, a.y);
-    this.labelB.pos(b.x, b.y);
-    this.labelV.pos(c.x, c.y);
+  /** またBからAに向かうベクトルでもある */
+  private setPhase6() {
+    this.setPhase5();
+    this.shapes.arrowA.color(sColor.main);
+    this.shapes.arrowB.color(sColor.main);
+    this.shapes.labelB.text('B');
+    const { a, b } = this.params;
 
-    this.arrowA.points([0, 0, a.x, a.y]);
-    this.arrowB.points([0, 0, b.x, b.y]);
-    this.arrowC.points([0, 0, c.x, c.y]);
+    this.fitGraphWithParams();
+    this.shapes.arrowC2.visible(true).points([b.x, b.y, a.x, a.y]);
+
+    this.updateComment();
   }
 }

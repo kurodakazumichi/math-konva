@@ -17,3 +17,10 @@ export const round = (num:number, fixed:number = 1) => {
 export const enumLength = <T>(e:T) => {
   return Object.values(e).length / 2;
 }
+
+/** min <= no <= max */
+export const cramp = (no:number, min:number, max:number) => {
+  no = Math.min(no, max);
+  no = Math.max(no, min);
+  return no;
+}

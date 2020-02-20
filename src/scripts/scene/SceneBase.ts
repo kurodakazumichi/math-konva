@@ -13,6 +13,7 @@ interface IDOM {
   gui:HTMLElement;
   description:HTMLElement;
   markdown:HTMLElement;
+  comment:HTMLElement;
 }
 
 /******************************************************************************
@@ -157,6 +158,7 @@ export default class SceneBase
       description: document.getElementById('description_forJs') as HTMLElement,
       gui        : document.getElementById('gui_forJs') as HTMLElement,
       markdown   : document.getElementById('markdown_forJs') as HTMLElement,
+      comment    : document.getElementById('comment_forJs') as HTMLElement,
     }
   }
 
@@ -173,6 +175,13 @@ export default class SceneBase
 
   protected setDescription(text:string) {
     this.dom.description.innerHTML = sMarkdown.render(text);
+  }
+
+  protected setComment(text:string) {
+    this.dom.comment.style.display = (text)? 'block':'none';
+    if (typeof text === 'string'){
+      this.dom.comment.innerHTML = sMarkdown.render(text);
+    }
   }
 
   //---------------------------------------------------------------------------
