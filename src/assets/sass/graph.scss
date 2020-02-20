@@ -7,9 +7,12 @@
   margin-bottom: 2rem;
   position: relative;
 
-  &__container {
+  &__wrapper {
+    position: relative;
     margin: 0 auto;
+  }
 
+  &__container {
     &::before {
       content: "※赤丸はドラッグできます";
       color:#fff;
@@ -22,6 +25,18 @@
         margin-top:-15px;
       }
     }
+  }
+
+  &__comment {
+    position: absolute;
+    background:rgba(0, 0, 0, 0.5);
+    width:100%;
+    padding:0.5em;
+    box-sizing: border-box;
+    bottom:0;
+    font-size:1rem;
+    display: none;
+    @extend %__markdown_default;
   }
 
   /** dat.guiのstyleがなぜかいろいろ崩れるので頑張って調整 */
