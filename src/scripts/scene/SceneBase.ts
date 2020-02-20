@@ -18,23 +18,15 @@ export default class SceneBase
     this._step    = new Step(this);
     this._dom     = new Dom();
   }
+
+  private _layer:Konva.Layer|null;
+  private _bgLayer:Konva.Layer|null; /** シーン生成時に一度だけ描画される */
+  private _dom:Dom|null;
+  private _gui:GUI|null;
+  private _step:Step|null;
   
   //---------------------------------------------------------------------------
-  // Public プロパティ
-  //---------------------------------------------------------------------------
-
-  /** Konva.Layerのgetter */
-  get layer() {
-    return this._layer as Konva.Layer; // nullを無視したいのでキャスト
-  }
-
-  /** 背景レイヤーのgetter */
-  get bgLayer() {
-    return this._bgLayer as Konva.Layer; // nullを無視したいのでキャスト
-  }
-
-  //---------------------------------------------------------------------------
-  // 継承先で上書きする必要のあるプロパティ
+  // 初期表示に関する定義
   //---------------------------------------------------------------------------
   protected get title() {
     console.error("override title properity."); return "";
@@ -51,32 +43,9 @@ export default class SceneBase
   protected get backgroundElements():(ShapeBase<Konva.Shape>|GroupBase)[] {
     return [sGroup.grid()]
   }
-  /** 座標形の初期化 (initの先頭で呼ばれる) */
-  protected initCoord() {}
-
-  /** GUIの初期化処理(initで呼ばれる) */
-  protected initGUI() {}
-
-  /** グラフの初期化処理(initで呼ばれる) */
-  protected initGraph() {}
-
-  /** ステップの初期化処理(initで呼ばれる) */
-  protected initStep() {}
 
   //---------------------------------------------------------------------------
-  // 必要があれば継承先でオーバーライドしてもいい
-  //---------------------------------------------------------------------------
-
-  /** マークダウンの初期化(initで呼ばれる) */
-  protected initMarkdown() {
-    const sceneType = sScene.getSceneTypeFromUrl();
-    sAjax.loadMarkdown(sceneType, (data) => {
-      this.dom.markdown = data;
-    })
-  }
-
-  //---------------------------------------------------------------------------
-  // Public メソッド
+  // 初期処理に関する定義
   //---------------------------------------------------------------------------
   /** 初期化 */
   init() {
@@ -94,13 +63,38 @@ export default class SceneBase
     this.initMarkdown();
   }
 
+  /** 座標形の初期化 (initの先頭で呼ばれる) */
+  protected initCoord() {}
+
+  /** DOMを初期処理 */
+  private initDom() {
+    this.setTitle(this.title);
+    this.setDescription(this.description);
+    this.dom.deployGui(this.gui);
+  }
+
+  /** ステップの初期化処理(initで呼ばれる) */
+  protected initStep() {}
+
+  /** GUIの初期化処理(initで呼ばれる) */
+  protected initGUI() {}
+
+  /** グラフの初期化処理(initで呼ばれる) */
+  protected initGraph() {}
+
+  /** マークダウンの初期化(initで呼ばれる) */
+  protected initMarkdown() {
+    const sceneType = sScene.getSceneTypeFromUrl();
+    sAjax.loadMarkdown(sceneType, (data) => {
+      this.dom.markdown = data;
+    })
+  }
+
+  //---------------------------------------------------------------------------
+  // 更新・破棄
+  //---------------------------------------------------------------------------
   /** 更新 */
   update() {}
-
-  /** 描画 */
-  draw() {
-    this._layer?.draw();
-  }
 
   /** 破棄 */
   destroy() {
@@ -116,8 +110,20 @@ export default class SceneBase
   }
 
   //---------------------------------------------------------------------------
-  // Protected メソッド
+  // Konva.Layerに関する定義
   //---------------------------------------------------------------------------
+
+  /** Konva.Layerのgetter */
+  get layer() {
+    return this._layer as Konva.Layer; // nullを無視したいのでキャスト
+  }
+
+  /** 背景レイヤーのgetter */
+  get bgLayer() {
+    return this._bgLayer as Konva.Layer; // nullを無視したいのでキャスト
+  }
+
+  /** レイヤーにオブジェクトを追加 */
   protected add(...children:ShapeBase<Konva.Shape>[]|GroupBase[]) {
     
     children.forEach((child:ShapeBase<Konva.Shape>|GroupBase) => {
@@ -126,24 +132,14 @@ export default class SceneBase
     return this;
   }
 
-  protected addAxisXY() {
-    this.add(sGroup.axisXY()); return this;
-  }
-
-  protected addGrid() {
-    this.add(sGroup.grid()); return this;
+  /** 描画 */
+  draw() {
+    this._layer?.draw();
   }
 
   //---------------------------------------------------------------------------
-  // Private メソッド
+  // DOMに関する定義
   //---------------------------------------------------------------------------
-
-  /** DOMを初期処理 */
-  private initDom() {
-    this.setTitle(this.title);
-    this.setDescription(this.description);
-    this.dom.deployGui(this.gui);
-  }
 
   protected setTitle(title:string) {
     this.dom.title = title;
@@ -153,25 +149,14 @@ export default class SceneBase
     this.dom.description = text;
   }
 
-  setComment(text:string) {
+  protected setComment(text:string) {
     this.dom.comment = text;
   }
 
   //---------------------------------------------------------------------------
-  // Private 変数
+  // GUIに関する定義
   //---------------------------------------------------------------------------
-  private _layer:Konva.Layer|null;
-  private _bgLayer:Konva.Layer|null; /** シーン生成時に一度だけ描画される */
-  private _dom:Dom|null;
-  private _gui:GUI|null;
-  private _step:Step|null;
-
-  // キャストはnullチェックを横着するためにしている
-  private get dom():Dom { return this._dom as Dom; }
-  protected get gui():GUI { return this._gui as GUI; }
-  protected get step():Step { return this._step as Step; }
-
-  protected initGuiForStep() {
+  protected createStepGui() {
     const f = this.gui.addFolder('ステップ実行');
     f.add(this.step, "next");
     f.add(this.step, "prev");
@@ -179,6 +164,14 @@ export default class SceneBase
     f.open();
     return f;
   }
+
+  //---------------------------------------------------------------------------
+  // その他
+  //---------------------------------------------------------------------------
+  // キャストはnullチェックを横着するためにしている
+  private get dom():Dom { return this._dom as Dom; }
+  protected get gui():GUI { return this._gui as GUI; }
+  protected get step():Step { return this._step as Step; }
 }
 
 /******************************************************************************
@@ -338,5 +331,3 @@ class Step
     return (msg)? msg:"";
   }
 }
-
-// TODO SceneBaseが大きくなってきたから内部の処理をクラスに小分けすることを検討

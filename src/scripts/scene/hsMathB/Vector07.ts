@@ -97,7 +97,7 @@ $\\vec{a} + (-\\vec{b})$と表すことができる。
     GUIHelper.addLSN(c, this.params.c, "y");
     c.open();
 
-    const step = this.initGuiForStep();
+    const step = this.createStepGui();
 
     this.folders.a = a;
     this.folders.b = b;
