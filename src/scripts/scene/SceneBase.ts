@@ -149,7 +149,7 @@ export default class SceneBase
     this.dom.description = text;
   }
 
-  protected setComment(text:string) {
+  setComment(text:string) {
     this.dom.comment = text;
   }
 
