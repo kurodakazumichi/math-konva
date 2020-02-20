@@ -1,4 +1,6 @@
 ### 新着
+- [数学B ベクトルの減法(引き算)](?scene=hs_mathb_vector_07)
+- [数学B 逆ベクトル](?scene=hs_mathb_vector_06)
 - [数学B ベクトルの加法](?scene=hs_mathb_vector_05)
 - [数学B ベクトルの正規化と単位ベクトルと零ベクトル](?scene=hs_mathb_vector_04)
 - [数学B ベクトルの大きさの求め方](?scene=hs_mathb_vector_03)
