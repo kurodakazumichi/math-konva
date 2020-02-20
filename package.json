@@ -24,7 +24,7 @@
     "start": "yarn cp && parcel src/index.html",
     "build": "yarn clean && mkdir ./math2d && yarn cp:build && parcel build src/index.html --no-source-maps -d math2d --public-url /math2d",
     "clean": "rm -rf ./dist ./math2d",
-    "cp": "rm -rf ./dist/md && cp -r ./src_md/ ./dist/md",
+    "cp": "yarn clean && mkdir dist && cp -r ./src_md/ ./dist/md",
     "cp:build": "rm -rf ./math2d/md && cp -rf ./src_md/ ./math2d/md"
   }
 }
