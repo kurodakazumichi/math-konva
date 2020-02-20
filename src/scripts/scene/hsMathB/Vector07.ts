@@ -12,9 +12,6 @@ export default class Scene extends SceneBase
 {  
   constructor() {
     super();
-    this.onChangeStep     = this.onChangeStep.bind(this);
-    this.onDragMovePointA = this.onDragMovePointA.bind(this);
-    this.onDragMovePointB = this.onDragMovePointB.bind(this);
   }
 
   //---------------------------------------------------------------------------
@@ -48,15 +45,10 @@ $\\vec{a} + (-\\vec{b})$と表すことができる。
     c:new Vector2(),
     mode:{
       step:false,
-    },
-    steps: {
-      step : 0,
-      nextStep: () => { this.setStep(++this.params.steps.step); },
-      prevStep: () => { this.setStep(--this.params.steps.step); }
     }
   }
 
-  calcVectorC() {
+  private calcVectorC() {
     const { a, b, c } = this.params;
     const t = Vector2.sub(a, b);
     c.x = t.x;
@@ -67,13 +59,12 @@ $\\vec{a} + (-\\vec{b})$と表すことができる。
     this.updateGUI();
 
     if (flg) {
-      this.setStep(0);
+      this.step.first();
     } else {
       this.setComment("");
       this.visibleAll(true);
       this.fitGraphWithParams();
     }
-    
   }
 
   //---------------------------------------------------------------------------
@@ -88,7 +79,7 @@ $\\vec{a} + (-\\vec{b})$と表すことができる。
 
   initGUI() {
     const mode = this.gui.addFolder("モード");
-    mode.add(this.params.mode, "step").onChange(this.onChangeStep);
+    mode.add(this.params.mode, "step").onChange(this.onChangeStep.bind(this));
     mode.open();
 
     const a = this.gui.addFolder("点A");
@@ -106,11 +97,7 @@ $\\vec{a} + (-\\vec{b})$と表すことができる。
     GUIHelper.addLSN(c, this.params.c, "y");
     c.open();
 
-    const step = this.gui.addFolder("ステップ実行");
-    GUIHelper.addLSN(step, this.params.steps, "step");
-    step.add(this.params.steps, "nextStep");
-    step.add(this.params.steps, "prevStep");
-    step.open();
+    const step = this.initGuiForStep();
 
     this.folders.a = a;
     this.folders.b = b;
@@ -146,7 +133,6 @@ $\\vec{a} + (-\\vec{b})$と表すことができる。
     labelA : sShape.text("A"),
     labelB : sShape.text("B"),
     labelV : sShape.text("OA-OB").fontSize(0.17).italic(),
-    comment: sShape.text(""),
   }
 
 
@@ -154,8 +140,8 @@ $\\vec{a} + (-\\vec{b})$と表すことができる。
     const { shapes } = this;
     shapes.labelO.pos(0, 0);
 
-    shapes.pointA.on('dragmove', this.onDragMovePointA);
-    shapes.pointB.on('dragmove', this.onDragMovePointB);
+    shapes.pointA.on('dragmove', this.onDragMovePointA.bind(this));
+    shapes.pointB.on('dragmove', this.onDragMovePointB.bind(this));
 
     sShape.map(shapes, (s) => {this.add(s)});
   }
@@ -206,49 +192,28 @@ $\\vec{a} + (-\\vec{b})$と表すことができる。
 
   //---------------------------------------------------------------------------
   // Step
-  private stepFuncs = [
-    this.setPhase0.bind(this),
-    this.setPhase1.bind(this),
-    this.setPhase2.bind(this),
-    this.setPhase3.bind(this),
-    this.setPhase4.bind(this),
-    this.setPhase5.bind(this),
-    this.setPhase6.bind(this),
-  ]
-
-  private comments = [
-    `$\\vec{OA}-\\vec{OB}$は`,
-    `$\\vec{OA}$に`,
-    `$\\vec{OA}$に$\\vec{OB}$の`,
-    `$\\vec{OA}$に$\\vec{OB}$の逆ベクトルを`,
-    `$\\vec{OA}$に$\\vec{OB}$の逆ベクトルを足した`,
-    `点Oから点B'に向かうベクトルになる`,
-    `これは$\\vec{BA}$と同じである`,
-  ]
-  
-  private updateComment() {
-    this.setComment(this.comments[this.params.steps.step]);
+  protected initStep() {
+    const { step } = this;
+    step.init([
+      [this.setPhase0.bind(this), `$\\vec{OA}-\\vec{OB}$は`],
+      [this.setPhase1.bind(this), `$\\vec{OA}$に`],
+      [this.setPhase2.bind(this), `$\\vec{OA}$に$\\vec{OB}$の`],
+      [this.setPhase3.bind(this), `$\\vec{OA}$に$\\vec{OB}$の逆ベクトルを`],
+      [this.setPhase4.bind(this), `$\\vec{OA}$に$\\vec{OB}$の逆ベクトルを足した`],
+      [this.setPhase5.bind(this), `点Oから点B'に向かうベクトルになる`],
+      [this.setPhase6.bind(this), `これは$\\vec{BA}$と同じである`],
+    ])
   }
 
-  private setStep(no:number) 
-  {
-    no = Util.cramp(no, 0, this.stepFuncs.length - 1);
-    this.params.steps.step = no;
-    const f = this.stepFuncs[no];
-    this.updateComment();
-    f && f();
-  }
+
 
   private setPhase0() {
     this.visibleAll(false);
-    this.shapes.comment.visible(true);
     this.shapes.labelO.visible(true);
     this.shapes.arrowA.visible(true).color(sColor.main);
     this.shapes.labelA.visible(true);
     this.shapes.arrowB.visible(true).color(sColor.main);
     this.shapes.labelB.visible(true).text('B');
-
-    this.updateComment();
 
     const { a } = this.params;
     this.shapes.arrowA.points([0, 0, a.x, a.y]);
@@ -258,9 +223,6 @@ $\\vec{a} + (-\\vec{b})$と表すことができる。
   /** OAベクトルに */
   private setPhase1() {
     this.setPhase0()
-
-    this.updateComment();
-
     const { a } = this.params;
     this.shapes.arrowA.points([0, 0, a.x, a.y]).color(sColor.red);
     this.shapes.labelA.pos(a.x, a.y);
@@ -271,8 +233,6 @@ $\\vec{a} + (-\\vec{b})$と表すことができる。
     this.setPhase1();
     this.shapes.arrowB.visible(true);
     this.shapes.labelB.visible(true);
-    
-    this.updateComment();
 
     const { b } = this.params;
     this.shapes.arrowB.points([0, 0, b.x, b.y]).color(sColor.red);
@@ -282,7 +242,6 @@ $\\vec{a} + (-\\vec{b})$と表すことができる。
   /** 逆ベクトルを */
   private setPhase3() {
     this.setPhase2();
-    this.updateComment();
 
     const { b } = this.params;
     this.shapes.arrowB.points([0, 0, -b.x, -b.y])
@@ -293,8 +252,6 @@ $\\vec{a} + (-\\vec{b})$と表すことができる。
   private setPhase4() 
   {
     this.setPhase3();
-
-    this.updateComment();
 
     const { a, b } = this.params;
     this.shapes.arrowB.points([a.x, a.y, a.x -b.x, a.y - b.y])
@@ -317,7 +274,5 @@ $\\vec{a} + (-\\vec{b})$と表すことができる。
 
     this.fitGraphWithParams();
     this.shapes.arrowC2.visible(true).points([b.x, b.y, a.x, a.y]);
-
-    this.updateComment();
   }
 }

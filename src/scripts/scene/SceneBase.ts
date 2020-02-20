@@ -4,6 +4,7 @@ import { GUI } from 'dat.gui';
 import { sGroup, sScene, sMarkdown, sAjax } from '~/scripts/system';
 import ShapeBase from '~/scripts/node/shape/ShapeBase';
 import GroupBase from '~/scripts/node/group/GroupBase';
+import { GUI as GuiHelper, Util } from '~/scripts/helper';
 
 /******************************************************************************
  * interface declare
@@ -25,7 +26,7 @@ export default class SceneBase
     this._layer   = new Konva.Layer();
     this._bgLayer = new Konva.Layer();
     this._gui     = new GUI({autoPlace:false});
-    this._dom     = this.getRequiredElements();
+    this._step    = new Step(this);
   }
   
   //---------------------------------------------------------------------------
@@ -69,6 +70,9 @@ export default class SceneBase
   /** グラフの初期化処理(initで呼ばれる) */
   protected initGraph() {}
 
+  /** ステップの初期化処理(initで呼ばれる) */
+  protected initStep() {}
+
   //---------------------------------------------------------------------------
   // 必要があれば継承先でオーバーライドしてもいい
   //---------------------------------------------------------------------------
@@ -101,7 +105,7 @@ export default class SceneBase
       this.bgLayer.add(elm.node);
     });
     this.bgLayer.draw();
-
+    this.initStep();
     this.initGUI();
     this.initGraph();
     this.initMarkdown();
@@ -126,6 +130,7 @@ export default class SceneBase
     this._dom = null;
     this._layer = null;
     this._gui   = null;
+    this._step  = null;
   }
 
   //---------------------------------------------------------------------------
@@ -191,8 +196,91 @@ export default class SceneBase
   private _bgLayer:Konva.Layer|null; /** シーン生成時に一度だけ描画される */
   private _dom:IDOM|null;
   private _gui:GUI|null;
+  private _step:Step|null;
 
-  // nullチェックを横着するための定義
-  private get dom():IDOM { return this._dom as IDOM; }
+  // キャストはnullチェックを横着するためにしている
   protected get gui():GUI { return this._gui as GUI; }
+  protected get step():Step { return this._step as Step; }
+
+  protected initGuiForStep() {
+    const f = this.gui.addFolder('ステップ実行');
+    f.add(this.step, "next");
+    f.add(this.step, "prev");
+    f.add(this.step, "no", this.step.min, this.step.max).step(1).listen();
+    f.open();
+    return f;
+  }
+}
+
+/******************************************************************************
+ * Step管理クラス
+ *****************************************************************************/
+class Step 
+{
+  constructor(scene:SceneBase) {
+    this.scene = scene;
+  }
+
+  set no(no:number) { this.set(no); }
+  get no() { return this._no; }
+  get min() { return 0; }
+  get max() { return this.funcs.length - 1; }
+
+  init(configs:[Function, string][]) {
+    configs.map((config) => {
+      this.push(config[0], config[1]);
+    })
+  }
+
+  push(f:Function, comment:string) {
+    this.funcs.push(f);
+    this.comments.push(comment);
+  }
+
+  /** 最初のステップへ */
+  first() { 
+    this.set(this.min); 
+  }
+
+  /** 次のステップへ */
+  next() { 
+    this.set(this.no + 1); 
+  }
+
+  /** 前のステップへ */
+  prev() {
+     this.set(this.no - 1); 
+  }
+
+  /** 破棄 */
+  destroy() {
+    this.scene    = null;
+    this.funcs    = [];
+    this.comments = [];
+  }
+
+  //---------------------------------------------------------------------------
+  // private
+  private scene:SceneBase|null;
+  private _no:number = 0;
+  private funcs:Function[] = [];
+  private comments:string[] = [];
+
+  private set(stepNo:number) {
+    stepNo = Util.cramp(stepNo, this.min, this.max);
+    this._no = stepNo;
+    
+    this.func();
+    this.scene?.setComment(this.comment);
+  }
+
+  private get func() {
+    const f = this.funcs[this.no];
+    return (f)? f:() => {}
+  }
+
+  private get comment() {
+    const msg = this.comments[this.no];
+    return (msg)? msg:"";
+  }
 }
