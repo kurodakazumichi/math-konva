@@ -1,5 +1,11 @@
+@import 'global.scss';
+
 html {
   font-size: calc(100% + 0.25vw);
+
+  @include mq(md) {
+    font-size: calc(62.5% + 0.25vw);
+  }
 }
 body {
   font-family: "M PLUS Rounded 1c";
