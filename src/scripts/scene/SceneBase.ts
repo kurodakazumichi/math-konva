@@ -4,18 +4,7 @@ import { GUI } from 'dat.gui';
 import { sGroup, sScene, sMarkdown, sAjax } from '~/scripts/system';
 import ShapeBase from '~/scripts/node/shape/ShapeBase';
 import GroupBase from '~/scripts/node/group/GroupBase';
-import { GUI as GuiHelper, Util } from '~/scripts/helper';
-
-/******************************************************************************
- * interface declare
- *****************************************************************************/
-interface IDOM {
-  title  :HTMLElement;
-  gui:HTMLElement;
-  description:HTMLElement;
-  markdown:HTMLElement;
-  comment:HTMLElement;
-}
+import { Util } from '~/scripts/helper';
 
 /******************************************************************************
  * シーンの基底クラス
@@ -27,6 +16,7 @@ export default class SceneBase
     this._bgLayer = new Konva.Layer();
     this._gui     = new GUI({autoPlace:false});
     this._step    = new Step(this);
+    this._dom     = new Dom();
   }
   
   //---------------------------------------------------------------------------
@@ -81,14 +71,7 @@ export default class SceneBase
   protected initMarkdown() {
     const sceneType = sScene.getSceneTypeFromUrl();
     sAjax.loadMarkdown(sceneType, (data) => {
-
-      if (data) {
-        this.dom.markdown.innerHTML = sMarkdown.render(data);
-      } else {
-        const parent = this.dom.markdown.parentElement;
-        parent && (parent.style.display = "none");
-      }
-
+      this.dom.markdown = data;
     })
   }
 
@@ -124,9 +107,8 @@ export default class SceneBase
     this.gui.destroy()
     this._layer?.destroy();
     this._bgLayer?.destroy();
-    this.dom.title.innerHTML = "";
-    this.dom.gui.innerHTML = "";
-    this.dom.description.innerHTML = "";
+    this.step.destroy();
+    this.dom.destroy();
     this._dom = null;
     this._layer = null;
     this._gui   = null;
@@ -155,38 +137,24 @@ export default class SceneBase
   //---------------------------------------------------------------------------
   // Private メソッド
   //---------------------------------------------------------------------------
-  private getRequiredElements():IDOM 
-  {
-    // ID間違えたらnullっちゃうけどチェックめんどいので強制キャスト
-    return {
-      title      : document.getElementById('title_forJs') as HTMLElement,
-      description: document.getElementById('description_forJs') as HTMLElement,
-      gui        : document.getElementById('gui_forJs') as HTMLElement,
-      markdown   : document.getElementById('markdown_forJs') as HTMLElement,
-      comment    : document.getElementById('comment_forJs') as HTMLElement,
-    }
-  }
 
   /** DOMを初期処理 */
   private initDom() {
     this.setTitle(this.title);
     this.setDescription(this.description);
-    this.dom.gui.appendChild(this.gui.domElement);
+    this.dom.deployGui(this.gui);
   }
 
   protected setTitle(title:string) {
-    this.dom.title.innerHTML = title;
+    this.dom.title = title;
   }
 
   protected setDescription(text:string) {
-    this.dom.description.innerHTML = sMarkdown.render(text);
+    this.dom.description = text;
   }
 
-  protected setComment(text:string) {
-    this.dom.comment.style.display = (text)? 'block':'none';
-    if (typeof text === 'string'){
-      this.dom.comment.innerHTML = sMarkdown.render(text);
-    }
+  setComment(text:string) {
+    this.dom.comment = text;
   }
 
   //---------------------------------------------------------------------------
@@ -194,11 +162,12 @@ export default class SceneBase
   //---------------------------------------------------------------------------
   private _layer:Konva.Layer|null;
   private _bgLayer:Konva.Layer|null; /** シーン生成時に一度だけ描画される */
-  private _dom:IDOM|null;
+  private _dom:Dom|null;
   private _gui:GUI|null;
   private _step:Step|null;
 
   // キャストはnullチェックを横着するためにしている
+  private get dom():Dom { return this._dom as Dom; }
   protected get gui():GUI { return this._gui as GUI; }
   protected get step():Step { return this._step as Step; }
 
@@ -209,6 +178,91 @@ export default class SceneBase
     f.add(this.step, "no", this.step.min, this.step.max).step(1).listen();
     f.open();
     return f;
+  }
+}
+
+/******************************************************************************
+ * DOM管理
+ *****************************************************************************/
+class Dom 
+{
+  constructor() {
+    this._dom = this.getRequiredElements();
+  }
+
+  set title(v:string) {
+    if (!this.dom.title) return;
+    this.dom.title.innerHTML = v;
+  }
+
+  set description(text:string) {
+    if(!this.dom.description) return;
+    this.dom.description.innerHTML = sMarkdown.render(text);
+  }
+
+  set comment(text:string) {
+    if (!this.dom.comment) return;
+    const { comment } = this.dom;
+    comment.style.display = this.getDisplay(text);
+    comment.innerHTML = sMarkdown.render(text);
+  }
+
+  set markdown(text:string) {
+    if (!this.dom.markdown) return;
+
+    if (text) {
+      this.dom.markdown.innerHTML = sMarkdown.render(text);
+    } else {
+      const parent = this.dom.markdown.parentElement;
+      parent && (parent.style.display = "none");
+    }
+  }
+
+  deployGui(gui:GUI) {
+    if (!this.dom.gui) return;
+    this.dom.gui.appendChild(gui.domElement);
+  }
+
+  destroy() {
+    this.title       = "";
+    this.description = "";
+    this.markdown    = "";
+    this.comment     = "";
+    
+    this.dom.title       = null;
+    this.dom.description = null;
+    this.dom.gui         = null;
+    this.dom.markdown    = null;
+    this.dom.comment     = null;
+  }
+
+  //---------------------------------------------------------------------------
+  // Private メソッド
+  //---------------------------------------------------------------------------
+  /** データの中身からstyle.displyaの内容を決める */
+  private getDisplay(data:string) {
+    return (data)? "block" : "none";
+  }
+
+  private _dom: {
+    title       : HTMLElement | null,
+    description : HTMLElement | null,
+    gui         : HTMLElement | null,
+    markdown    : HTMLElement | null,
+    comment     : HTMLElement | null
+  };
+
+  private get dom() { return this._dom; }
+
+  private getRequiredElements() 
+  {
+    return {
+      title      : document.getElementById('title_forJs'),
+      description: document.getElementById('description_forJs'),
+      gui        : document.getElementById('gui_forJs'),
+      markdown   : document.getElementById('markdown_forJs'),
+      comment    : document.getElementById('comment_forJs'),
+    }
   }
 }
 
@@ -284,3 +338,5 @@ class Step
     return (msg)? msg:"";
   }
 }
+
+// TODO SceneBaseが大きくなってきたから内部の処理をクラスに小分けすることを検討
