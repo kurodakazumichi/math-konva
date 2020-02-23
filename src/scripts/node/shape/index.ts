@@ -11,6 +11,10 @@ export class Line extends ShapeBase<Konva.Line>{
   points(points:number[]) {
     this.node.setAttr("points", sCoord.points(points)); return this;
   }
+
+  closed(v:boolean) {
+    this.node.closed(v);  return this;
+  }
 }
 
 /** Circle */
