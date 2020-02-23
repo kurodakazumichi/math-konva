@@ -103,6 +103,17 @@ class sShape extends SystemBase {
       .innerRadius(0.06)
       .numPoints(5)
   }
+  wedge() {
+    return new Shapes.Wedge()
+      .fill(sColor.gray)
+      .radius(0.5)
+      .angle(90)
+  }
+  circle() {
+    return new Shapes.Circle()
+      .radius(1)
+      .stroke(sColor.main)
+  }
 
   /** 便利関数、ShapesのObjectに対するmap */
   map(shapes:{[key:string]:ShapeBase<Konva.Shape>}, cb:(shape:ShapeBase<Konva.Shape>) => void){
