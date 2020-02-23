@@ -11,6 +11,9 @@ class sGroup extends SystemBase {
   grid() {
     return new Groups.Grid();
   }
+  triangle(points:number[] = []) {
+    return new Groups.Triangle(points);
+  }
 }
 
 const instance = new sGroup();

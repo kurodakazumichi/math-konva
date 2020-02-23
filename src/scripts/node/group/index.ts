@@ -2,6 +2,7 @@ import GroupBase from './GroupBase';
 import { sShape } from '~/scripts/system';
 
 import Grid from '~/scripts/node/group/Grid';
+import Triangle from '~/scripts/node/group/Triangle';
 
 /** Axis */
 export class AxisXY extends GroupBase{
@@ -13,4 +14,4 @@ export class AxisXY extends GroupBase{
   }
 }
 
-export { Grid }
+export { Grid, Triangle }
