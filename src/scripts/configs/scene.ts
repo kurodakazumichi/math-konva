@@ -8,6 +8,7 @@ import * as MsMath2 from '~/scripts/scene/msMath2';
 import * as MsMath3 from '~/scripts/scene/msMath3';
 import * as HsMath1 from '~/scripts/scene/hsMath1';
 import * as HsMathB from '~/scripts/scene/hsMathB';
+import * as MyTest from '~/scripts/scene/myTest';
 
 /** シーン列挙型 */
 export enum Type {
@@ -31,6 +32,7 @@ export enum Type {
   HS_MATHB_VECTOR_05,
   HS_MATHB_VECTOR_06,
   HS_MATHB_VECTOR_07,
+  MY_TEST_TRIANGLE_01,
 }
 
 //-----------------------------------------------------------------------------
@@ -55,6 +57,7 @@ const configs:ISceneRecord[] = [
   { name:"hs_math1_quadratic_08"  , type:Type.HS_MATH1_QUADRATIC_08  , sceneClass:HsMath1.Quadratic08 },
   { name:"hs_math1_quadratic_09"  , type:Type.HS_MATH1_QUADRATIC_09  , sceneClass:HsMath1.Quadratic09 },
   { name:"hs_math1_quadratic_10"  , type:Type.HS_MATH1_QUADRATIC_10  , sceneClass:HsMath1.Quadratic10 },
+
   { name:"hs_mathb_vector_01"     , type:Type.HS_MATHB_VECTOR_01     , sceneClass:HsMathB.Vector01 },
   { name:"hs_mathb_vector_02"     , type:Type.HS_MATHB_VECTOR_02     , sceneClass:HsMathB.Vector02 },
   { name:"hs_mathb_vector_03"     , type:Type.HS_MATHB_VECTOR_03     , sceneClass:HsMathB.Vector03 },
@@ -62,6 +65,8 @@ const configs:ISceneRecord[] = [
   { name:"hs_mathb_vector_05"     , type:Type.HS_MATHB_VECTOR_05     , sceneClass:HsMathB.Vector05 },
   { name:"hs_mathb_vector_06"     , type:Type.HS_MATHB_VECTOR_06     , sceneClass:HsMathB.Vector06 },
   { name:"hs_mathb_vector_07"     , type:Type.HS_MATHB_VECTOR_07     , sceneClass:HsMathB.Vector07 },
+
+  { name:"my_test_triangle_01" , type:Type.MY_TEST_TRIANGLE_01 , sceneClass:MyTest.Triangle01 },
 ];
 
 const defaultConfig = configs[0];
