@@ -83,3 +83,16 @@ export class Star extends ShapeBase<Konva.Star> {
     this.node.outerRadius(sCoord.u2px(v)); return this;
   }
 }
+
+/** Wedge */
+export class Wedge extends ShapeBase<Konva.Wedge> {
+  protected createNode() {
+    return new Konva.Wedge();
+  }
+  angle(v:number) {
+    this.node.angle(v); return this;
+  }
+  clockwise(v:boolean) {
+    this.node.clockwise(v); return this;
+  }
+}
