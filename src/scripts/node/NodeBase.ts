@@ -76,8 +76,14 @@ export default abstract class NodeBase<T extends Konva.Node> {
     this.x(x).y(y); return this;
   }
 
-  visible(flg:boolean) {
-    this.node.setAttr("visible", flg); return this;
+  visible(v:boolean):this;
+  visible():boolean;
+  visible(...v:[] | [boolean]) {
+    if (typeof v[0] === 'boolean') {
+      this.node.setAttr("visible", v[0]); return this;
+    } else {
+      return this.node.visible();
+    }
   }
 
   draggable(flg:boolean = true) {
@@ -119,5 +125,8 @@ export default abstract class NodeBase<T extends Konva.Node> {
   }
   opacity(v:number) {
     this.node.opacity(v); return this;
+  }
+  rotation(v:number) {
+    this.node.rotation(v); return this;
   }
 }
