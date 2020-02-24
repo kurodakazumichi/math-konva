@@ -1,7 +1,7 @@
 import GroupBase from './GroupBase';
 import { sShape, sColor } from '~/scripts/system';
 import { Line, Circle, Text, Wedge } from '~/scripts/node/shape';
-import { Vector2, Util, Triangle } from 'math-lab';
+import { Vector2, Util, Triangle2D } from 'math-lab';
 import { Util as MyUtil } from '~/scripts/helper'
 import ShapeBase from '../shape/ShapeBase';
 import Konva from 'konva';
@@ -64,14 +64,14 @@ export default class TriangleGroup extends GroupBase {
     super();
     this.binds();
 
-    this.data = new Triangle(points);
+    this.data = new Triangle2D(points);
     this.shapes = this.createShapes();
     this.sync();
     sShape.map(this.shapes as any, (s) => { this.add(s); })
   }
 
   /** 三角形クラスインスタンス */
-  data:Triangle;
+  data:Triangle2D;
 
   /** 図形リスト */
   private shapes:IShapes;
