@@ -34,6 +34,7 @@ export enum Type {
   HS_MATHB_VECTOR_07,
   MY_TEST_TRIANGLE_01,
   MY_TEST_COLISION_POINT_AND_POINT,
+  MY_TEST_COLISION_POINT_AND_LINE,
 }
 
 //-----------------------------------------------------------------------------
@@ -69,6 +70,7 @@ const configs:ISceneRecord[] = [
 
   { name:"my_test_triangle_01" , type:Type.MY_TEST_TRIANGLE_01 , sceneClass:MyTest.Triangle01 },
   { name:"my_test_collision_point_and_point" , type:Type.MY_TEST_COLISION_POINT_AND_POINT , sceneClass:MyTest.CollisionPointAndPoint },
+  { name:"my_test_collision_point_and_line" , type:Type.MY_TEST_COLISION_POINT_AND_LINE , sceneClass:MyTest.CollisionPointAndLine },
 ];
 
 const defaultConfig = configs[0];
