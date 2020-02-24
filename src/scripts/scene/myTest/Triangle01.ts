@@ -1,10 +1,5 @@
 import SceneBase from '~/scripts/scene/SceneBase';
-import { sShape, sColor, sGroup } from '~/scripts/system';
-import { Circle } from '~/scripts/node/shape';
-import { Vector2 } from 'math-lab';
-import { GUI as GUIHelper, Util } from '~/scripts/helper';
-import { GUI } from 'dat.gui';
-import Konva from 'konva';
+import { sGroup } from '~/scripts/system';
 
 /******************************************************************************
  * ベクトル　ベクトルの加法
