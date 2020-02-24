@@ -1,5 +1,6 @@
 import Konva from 'konva';
 import { sCoord } from '~/scripts/system';
+import { Util } from '~/scripts/helper';
 
 /******************************************************************************
  * Konva.Nodeのプロパティを再定義するためのNode基底クラス
@@ -70,6 +71,13 @@ export default abstract class NodeBase<T extends Konva.Node> {
     } else {
       return sCoord.uy(this.node.y());
     }
+  }
+
+  x2(digit:number = 1) {
+    return Util.round(this.x(), digit);
+  }
+  y2(digit:number = 1) {
+    return Util.round(this.y(), digit);
   }
 
   pos(x:number, y:number) {
