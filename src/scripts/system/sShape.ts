@@ -99,8 +99,8 @@ class sShape extends SystemBase {
       .fill(sColor.yellow)
       .stroke(sColor.main)
       .strokeWidth(1)
-      .outerRadius(0.15)
-      .innerRadius(0.06)
+      .outerRadius(0.3)
+      .innerRadius(0.2)
       .numPoints(5)
   }
   wedge() {

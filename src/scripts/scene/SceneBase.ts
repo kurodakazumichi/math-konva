@@ -24,6 +24,7 @@ export default class SceneBase
   private _dom:Dom|null;
   private _gui:GUI|null;
   private _step:Step|null;
+  protected timer = 0; // シーン制御で使用するタイマー
   
   //---------------------------------------------------------------------------
   // 初期表示に関する定義
