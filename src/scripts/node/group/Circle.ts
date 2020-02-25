@@ -61,7 +61,12 @@ export default class LineGroup  extends GroupBase {
   //---------------------------------------------------------------------------
   // 属性設定メソッド
   //---------------------------------------------------------------------------
-
+  fill(v:string) {
+    this.shapes.circle.fill(v); return this;
+  }
+  stroke(v:string) {
+    this.shapes.circle.stroke(v); return this;
+  }
 
   //---------------------------------------------------------------------------
   // その他
