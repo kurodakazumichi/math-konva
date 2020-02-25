@@ -1,7 +1,7 @@
 import GroupBase from './GroupBase';
-import { sShape, sCoord } from '~/scripts/system';
-import { Line, Circle, Arrow } from '~/scripts/node/shape';
-import { Vector2, Line2D, Circle2D } from 'math-lab';
+import { sShape } from '~/scripts/system';
+import { Circle, } from '~/scripts/node/shape';
+import { Vector2, Circle2D } from 'math-lab';
 
 interface IShapes {
   circle:Circle;
