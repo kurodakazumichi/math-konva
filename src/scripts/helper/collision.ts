@@ -93,9 +93,17 @@ export const getSourceSegmentAndPoint = (seg:Segment2D, p:Vector2, bias:number) 
 }
 
 /**
- * 線分と点
+ * 点と円
  */
 export const isHitCircleAndPoint = (circle:Circle2D, p:Vector2) => {
   const v = Vector2.sub(circle.p, p);
   return (v.magnitude < circle.r);
+}
+
+/**
+ * 円と円
+ */
+export const isHitCircleAndCircle = (c1:Circle2D, c2:Circle2D) => {
+  const v = Vector2.sub(c1.p, c2.p);
+  return (v.magnitude < (c1.r + c2.r));
 }
