@@ -73,19 +73,6 @@ export default class LineGroup  extends GroupBase {
   }
 
   //---------------------------------------------------------------------------
-  // Line2D関係
-  //---------------------------------------------------------------------------
-  collisionInfoWithPoint(p:Vector2) {
-    const { data } = this;
-    const to = Vector2.sub(p, data.p);
-    const cross = Vector2.cross(data.v, to);
-    const dot   = Vector2.dot(data.v, to);
-    const perp  = data.getPoint(dot);
-
-    return { cross, dot, perp }
-  }
-
-  //---------------------------------------------------------------------------
   // その他
   //---------------------------------------------------------------------------
   private createShapes():IShapes {

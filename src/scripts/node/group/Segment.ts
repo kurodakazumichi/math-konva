@@ -11,16 +11,6 @@ interface IShapes {
   pointerP2: Circle;
 }
 
-/** 衝突の情報源 */
-export interface ICollisionSource {
-  v1:Vector2,  // 始点から点Pへ向かうベクトル
-  v2:Vector2,  // 始点から終点へ向かうベクトル
-  l1:number,   // v1の長さ
-  l2:number,   // v2の長狭
-  dot:number,  // v1・v2(v1は正規化)
-  pos:Vector2, // 衝突位置
-}
-
 /******************************************************************************
  * Segment
  *****************************************************************************/
@@ -80,33 +70,6 @@ export default class SegmentGroup  extends GroupBase {
     this.shapes.dir.visible(v);
     this.syncArrow();
     return this;
-  }
-
-  //---------------------------------------------------------------------------
-  // Line2D関係
-  //---------------------------------------------------------------------------
-  intersect(p:Vector2, bias:number) {
-    const { p1, p2 } = this.data;
-    const v1 = Vector2.sub(p2, p1);
-    const v2 = Vector2.sub(p, p1);
-    const l1 = v1.magnitude;
-    const l2 = v2.magnitude;
-    const dot = Vector2.dot(v1, v2);
-
-    return (l2 <= l1) && (l1 * l2 - dot) < bias;
-
-  }
-  getCollisionSource(p:Vector2):ICollisionSource {
-    const { p1, p2 } = this.data;
-    const v1 = Vector2.sub(p2, p1);
-    const v2 = Vector2.sub(p, p1);
-    const l1 = v1.magnitude;
-    const l2 = v2.magnitude;
-    const nv = v1.normalize;
-    const dot = Vector2.dot(nv, v2);
-    const pos = Vector2.add(p1, nv.times(dot));
-
-    return { v1, v2, l1, l2, dot, pos }
   }
 
   //---------------------------------------------------------------------------
