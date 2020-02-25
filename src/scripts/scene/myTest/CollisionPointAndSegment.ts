@@ -1,6 +1,7 @@
 import SceneBase from '~/scripts/scene/SceneBase';
 import { sShape, sGroup } from '~/scripts/system';
 import { Vector2 } from 'math-lab';
+import { Collision } from '~/scripts/helper/';
 
 /******************************************************************************
  * 点と線分の衝突判定
@@ -79,13 +80,13 @@ $\\vec{a}$の長さより、$\\vec{b}$の方が短くなければいけない
   private shapes = {
     p: sShape.point(),
     aux1:sShape.arrow().strokeWidth(1),
-    aux2:sShape.auxLine().dash(0.1),
+    aux2:sShape.auxLine().dash(0.1).strokeWidth(5),
     hit : sShape.star(),
   }
 
   initGraph() {
-    sShape.map(this.shapes, (s) => { this.add(s); })
     this.add(this.segment);
+    sShape.map(this.shapes, (s) => { this.add(s); })
     this.onChangeGuide(this.params.guide);
   }
 
@@ -98,26 +99,27 @@ $\\vec{a}$の長さより、$\\vec{b}$の方が短くなければいけない
   //---------------------------------------------------------------------------
   p:Vector2 = new Vector2();
   update() {
-    if (!this.params.update) return;
-    this.timer++;
+    if (this.params.update){
+      this.timer++;
 
-    // 点Pの円運動
-    this.p.x = Math.cos(this.timer * 0.01) * 3;
-    this.p.y = Math.sin(this.timer * 0.01) * 3;
-    this.shapes.p.pos(this.p.x, this.p.y);
+      // 点Pの円運動
+      this.p.x = Math.cos(this.timer * 0.01) * 3;
+      this.p.y = Math.sin(this.timer * 0.01) * 3;
+      this.shapes.p.pos(this.p.x, this.p.y);
+    }
 
     // 衝突判定
-    const source = this.segment.getCollisionSource(this.p);
+    const source = Collision.getSourceSegmentAndPoint(this.segment.data, this.p, 0.01);
 
     if (this.params.guide) {
       const { p } = this.segment.data;
       this.shapes.aux1.points([p.x, p.y, this.p.x, this.p.y])
-      this.shapes.aux2.points([source.pos.x, source.pos.y, this.p.x, this.p.y])
+      this.shapes.aux2.points([source.pos.x, source.pos.y, p.x, p.y])
     }
 
     // intersectは衝突結果のみわかる 
     // const isHit = this.segment.intersect(this.p, 0.01);
-    const isHit = (source.l2 < source.l1) && (source.l2 - source.dot < 0.01);
+    const isHit = (source.l2 < source.l1) && (source.l2 - source.dot < 0.001);
 
     if (isHit) {
 

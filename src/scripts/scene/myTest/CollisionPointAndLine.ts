@@ -1,6 +1,7 @@
+import { Vector2 } from 'math-lab';
 import SceneBase from '~/scripts/scene/SceneBase';
 import { sShape, sGroup } from '~/scripts/system';
-import { Vector2 } from 'math-lab';
+import { Collision } from '~/scripts/helper/';
 
 /******************************************************************************
  * 点と線の衝突判定
@@ -86,18 +87,16 @@ export default class Scene extends SceneBase
     this.shapes.p.pos(this.p.x, this.p.y);
 
     // 衝突判定
-    const info = this.line.collisionInfoWithPoint(this.p);
+    const source = Collision.getSourceLineAndPoint(this.line2D, this.p, 0.1)
 
     if (this.params.guide) {
       const { p } = this.line.data;
       this.shapes.aux1.points([p.x, p.y, this.p.x, this.p.y])
-      this.shapes.aux2.points([info.perp.x, info.perp.y, this.p.x, this.p.y])
+      this.shapes.aux2.points([source.perp.x, source.perp.y, this.p.x, this.p.y])
     }
 
-    const isHit = (Math.abs(info.cross) < 0.1);
-
-    if (isHit) {
-      this.shapes.hit.pos(info.perp.x, info.perp.y);
+    if (source.isHit) {
+      this.shapes.hit.pos(source.perp.x, source.perp.y);
       this.shapes.hit.visible(true);
     } else {
       this.shapes.hit.visible(false);

@@ -2,7 +2,7 @@ import SceneBase from '~/scripts/scene/SceneBase';
 import { sShape } from '~/scripts/system';
 import { Circle } from '~/scripts/node/shape';
 import { Vector2 } from 'math-lab';
-import { GUI as GUIHelper } from '~/scripts/helper';
+import { GUI as GUIHelper, Collision } from '~/scripts/helper';
 
 /******************************************************************************
  * 点と点の衝突
@@ -86,7 +86,7 @@ export default class Scene extends SceneBase
     this.velocity = Vector2.sub(B, A).normalize.times(0.03);
     A.add(this.velocity);
 
-    const isHit = (Vector2.sub(A, B).magnitude < 0.1);
+    const isHit = Collision.isHitPointAndPoint(A, B, 0.1);
 
     if (isHit) {
       A.x = B.x;
