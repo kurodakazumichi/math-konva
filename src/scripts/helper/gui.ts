@@ -1,6 +1,5 @@
 import { GUI } from 'dat.gui';
-import { sCoord, sColor } from '~/scripts/system';
-import { isNumber } from 'util';
+import { sCoord } from '~/scripts/system';
 
 const DEFAULT_STEP = 0.1;
 
