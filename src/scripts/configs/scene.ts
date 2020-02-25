@@ -37,7 +37,7 @@ export enum Type {
   MY_TEST_COLISION_POINT_AND_LINE,
   MY_TEST_COLISION_POINT_AND_SEGMENT,
   MY_TEST_COLISION_POINT_AND_CIRCLE,
-
+  MY_TEST_COLISION_CIRCLE_AND_CIRCLE,
 }
 
 //-----------------------------------------------------------------------------
@@ -76,6 +76,7 @@ const configs:ISceneRecord[] = [
   { name:"my_test_collision_point_and_line" , type:Type.MY_TEST_COLISION_POINT_AND_LINE , sceneClass:MyTest.CollisionPointAndLine },
   { name:"my_test_collision_point_and_segment" , type:Type.MY_TEST_COLISION_POINT_AND_SEGMENT , sceneClass:MyTest.CollisionPointAndSegment },
   { name:"my_test_collision_point_and_circle" , type:Type.MY_TEST_COLISION_POINT_AND_CIRCLE , sceneClass:MyTest.CollisionPointAndCircle },
+  { name:"my_test_collision_circle_and_circle" , type:Type.MY_TEST_COLISION_CIRCLE_AND_CIRCLE , sceneClass:MyTest.CollisionCircleAndCircle },
 ];
 
 const defaultConfig = configs[0];
