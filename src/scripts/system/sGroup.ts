@@ -21,6 +21,9 @@ class sGroup extends SystemBase {
   segment(p1:Vector2, p2:Vector2) {
     return new Groups.Segment(p1, p2);
   }
+  circle(p:Vector2, radius:number) {
+    return new Groups.Circle(p, radius);
+  }
 }
 
 const instance = new sGroup();

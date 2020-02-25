@@ -5,6 +5,7 @@ import Grid from '~/scripts/node/group/Grid';
 import Triangle from '~/scripts/node/group/Triangle';
 import Line from '~/scripts/node/group/Line';
 import Segment from '~/scripts/node/group/Segment';
+import Circle from '~/scripts/node/group/Circle';
 
 /** Axis */
 export class AxisXY extends GroupBase{
@@ -16,4 +17,4 @@ export class AxisXY extends GroupBase{
   }
 }
 
-export { Grid, Triangle, Line, Segment }
+export { Grid, Triangle, Line, Segment, Circle }
