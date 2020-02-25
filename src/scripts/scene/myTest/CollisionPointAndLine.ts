@@ -45,9 +45,9 @@ export default class Scene extends SceneBase
   }
 
   onChangeGuide(v:boolean) {
-    this.shapes.aux1.visible(this.params.guide);
-    this.shapes.aux2.visible(this.params.guide);
-    this.line.visibleDirArrow(this.params.guide);
+    this.shapes.aux1.visible(v);
+    this.shapes.aux2.visible(v);
+    this.line.visibleDirArrow(v);
   }
 
   //---------------------------------------------------------------------------
@@ -65,6 +65,7 @@ export default class Scene extends SceneBase
   initGraph() {
     sShape.map(this.shapes, (s) => { this.add(s); })
     this.add(this.line);
+    this.onChangeGuide(this.params.guide);
   }
 
   get line2D() {
