@@ -1,4 +1,4 @@
-import { Vector2, Line2D, Segment2D } from 'math-lab';
+import { Vector2, Line2D, Segment2D, Circle2D } from 'math-lab';
 
 /**
  * 点と点
@@ -90,4 +90,12 @@ export const getSourceSegmentAndPoint = (seg:Segment2D, p:Vector2, bias:number) 
   // 衝突結果
   const isHit = (l2 <= l1) && (l1 * l2 - dot) < bias;
   return { v1, v2, l1, l2, dot, pos, isHit }
+}
+
+/**
+ * 線分と点
+ */
+export const isHitCircleAndPoint = (circle:Circle2D, p:Vector2) => {
+  const v = Vector2.sub(circle.p, p);
+  return (v.magnitude < circle.r);
 }
