@@ -41,7 +41,13 @@ export default class Scene extends SceneBase
   //---------------------------------------------------------------------------
   initGUI() {
     this.gui.add(this.params, "update");
-    this.gui.add(this.params, "guide");
+    this.gui.add(this.params, "guide").onChange(this.onChangeGuide.bind(this));
+  }
+
+  onChangeGuide(v:boolean) {
+    this.shapes.aux1.visible(this.params.guide);
+    this.shapes.aux2.visible(this.params.guide);
+    this.line.visibleDirArrow(this.params.guide);
   }
 
   //---------------------------------------------------------------------------
@@ -95,9 +101,5 @@ export default class Scene extends SceneBase
     } else {
       this.shapes.hit.visible(false);
     }
-
-    this.shapes.aux1.visible(this.params.guide);
-    this.shapes.aux2.visible(this.params.guide);
-    this.line.visibleDirArrow(this.params.guide);
   }
 }
