@@ -1,6 +1,7 @@
 import Konva from 'konva';
 import { sCoord } from '~/scripts/system';
 import { Util } from '~/scripts/helper';
+import { Vector2 } from 'math-lab';
 
 /******************************************************************************
  * Konva.Nodeのプロパティを再定義するためのNode基底クラス
@@ -80,8 +81,17 @@ export default abstract class NodeBase<T extends Konva.Node> {
     return Util.round(this.y(), digit);
   }
 
-  pos(x:number, y:number) {
-    this.x(x).y(y); return this;
+  pos(p:Vector2):this;
+  pos(x:number, y:number):this;
+  pos():Vector2;
+
+  pos(...v:[]|[number, number]|[Vector2]){
+    switch(v.length) {
+      case 0: return new Vector2(this.x(), this.y());
+      case 1: this.x(v[0].x).y(v[0].y); break;
+      case 2: this.x(v[0]).y(v[1]); break;
+    }
+    return this;
   }
 
   visible(v:boolean):this;
