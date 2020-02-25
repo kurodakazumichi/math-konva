@@ -2,7 +2,7 @@ import SceneBase from '~/scripts/scene/SceneBase';
 import { sGroup } from '~/scripts/system';
 
 /******************************************************************************
- * ベクトル　ベクトルの加法
+ * 三角形クラスのテスト
  *****************************************************************************/
 export default class Scene extends SceneBase 
 {  

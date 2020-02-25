@@ -3,7 +3,7 @@ import { sShape, sGroup } from '~/scripts/system';
 import { Vector2 } from 'math-lab';
 
 /******************************************************************************
- * ベクトル　ベクトルの加法
+ * 点と線の衝突判定
  *****************************************************************************/
 export default class Scene extends SceneBase 
 {  

@@ -5,7 +5,7 @@ import { Vector2 } from 'math-lab';
 import { GUI as GUIHelper } from '~/scripts/helper';
 
 /******************************************************************************
- * ベクトル　ベクトルの加法
+ * 点と点の衝突
  *****************************************************************************/
 export default class Scene extends SceneBase 
 {  
