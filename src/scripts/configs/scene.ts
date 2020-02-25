@@ -35,6 +35,7 @@ export enum Type {
   MY_TEST_TRIANGLE_01,
   MY_TEST_COLISION_POINT_AND_POINT,
   MY_TEST_COLISION_POINT_AND_LINE,
+  MY_TEST_COLISION_POINT_AND_SEGMENT,
 }
 
 //-----------------------------------------------------------------------------
@@ -71,6 +72,7 @@ const configs:ISceneRecord[] = [
   { name:"my_test_triangle_01" , type:Type.MY_TEST_TRIANGLE_01 , sceneClass:MyTest.Triangle01 },
   { name:"my_test_collision_point_and_point" , type:Type.MY_TEST_COLISION_POINT_AND_POINT , sceneClass:MyTest.CollisionPointAndPoint },
   { name:"my_test_collision_point_and_line" , type:Type.MY_TEST_COLISION_POINT_AND_LINE , sceneClass:MyTest.CollisionPointAndLine },
+  { name:"my_test_collision_point_and_segment" , type:Type.MY_TEST_COLISION_POINT_AND_SEGMENT , sceneClass:MyTest.CollisionPointAndSegment },
 ];
 
 const defaultConfig = configs[0];
