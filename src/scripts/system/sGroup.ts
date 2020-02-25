@@ -1,4 +1,5 @@
 import SystemBase from '~/scripts/system/SystemBase';
+import GroupBase from '~/scripts/node/group/GroupBase';
 import * as Groups  from  '~/scripts/node/group';
 import { Vector2 } from 'math-lab';
 
@@ -23,6 +24,13 @@ class sGroup extends SystemBase {
   }
   circle(p:Vector2, radius:number) {
     return new Groups.Circle(p, radius);
+  }
+
+  /** 便利関数、ShapesのObjectに対するmap */
+  map(groups:{[key:string]:GroupBase}, cb:(group:GroupBase) => void){
+    Object.values(groups).map((group) => {
+      cb(group);
+    })
   }
 }
 
