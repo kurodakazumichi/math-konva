@@ -114,6 +114,13 @@ class sShape extends SystemBase {
       .radius(1)
       .stroke(sColor.main)
   }
+  rect() {
+    return new Shapes.Rect()
+      .width(1)
+      .height(1)
+      .strokeWidth(2)
+      .stroke(sColor.main)
+  }
 
   /** 便利関数、ShapesのObjectに対するmap */
   map(shapes:{[key:string]:ShapeBase<Konva.Shape>}, cb:(shape:ShapeBase<Konva.Shape>) => void){

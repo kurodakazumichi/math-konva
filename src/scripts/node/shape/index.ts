@@ -100,3 +100,10 @@ export class Wedge extends ShapeBase<Konva.Wedge> {
     this.node.clockwise(v); return this;
   }
 }
+
+/** Rect */
+export class Rect extends ShapeBase<Konva.Rect> {
+  protected createNode() {
+    return new Konva.Rect();
+  }
+}
