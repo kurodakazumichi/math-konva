@@ -1,9 +1,7 @@
 import SceneBase from '~/scripts/scene/SceneBase';
-import { sShape, sColor, sGroup } from '~/scripts/system';
-import { Circle } from '~/scripts/node/shape';
+import { sColor, sGroup } from '~/scripts/system';
 import { Vector2 } from 'math-lab';
-import { GUI as GUIHelper, Util, Collision } from '~/scripts/helper';
-import { GUI } from 'dat.gui';
+import { Collision } from '~/scripts/helper';
 
 /******************************************************************************
  * シーン名
