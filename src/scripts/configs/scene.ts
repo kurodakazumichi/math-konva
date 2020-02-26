@@ -9,6 +9,7 @@ import * as MsMath3 from '~/scripts/scene/msMath3';
 import * as HsMath1 from '~/scripts/scene/hsMath1';
 import * as HsMathB from '~/scripts/scene/hsMathB';
 import * as MyTest from '~/scripts/scene/myTest';
+import * as Collision from '~/scripts/scene/collision';
 
 /** シーン列挙型 */
 export enum Type {
@@ -33,13 +34,13 @@ export enum Type {
   HS_MATHB_VECTOR_06,
   HS_MATHB_VECTOR_07,
   MY_TEST_TRIANGLE_01,
-  MY_TEST_COLISION_POINT_AND_POINT,
-  MY_TEST_COLISION_POINT_AND_LINE,
-  MY_TEST_COLISION_POINT_AND_SEGMENT,
-  MY_TEST_COLISION_POINT_AND_CIRCLE,
-  MY_TEST_COLISION_CIRCLE_AND_CIRCLE,
-  MY_TEST_COLISION_CIRCLE_AND_LINE,
-  MY_TEST_COLISION_CIRCLE_AND_CIRCLE2,
+  COLISION_POINT_AND_POINT,
+  COLISION_POINT_AND_LINE,
+  COLISION_POINT_AND_SEGMENT,
+  COLISION_POINT_AND_CIRCLE,
+  COLISION_CIRCLE_AND_CIRCLE,
+  COLISION_CIRCLE_AND_LINE,
+  COLISION_CIRCLE_AND_CIRCLE2,
 }
 
 //-----------------------------------------------------------------------------
@@ -74,13 +75,14 @@ const configs:ISceneRecord[] = [
   { name:"hs_mathb_vector_07"     , type:Type.HS_MATHB_VECTOR_07     , sceneClass:HsMathB.Vector07 },
 
   { name:"my_test_triangle_01" , type:Type.MY_TEST_TRIANGLE_01 , sceneClass:MyTest.Triangle01 },
-  { name:"my_test_collision_point_and_point" , type:Type.MY_TEST_COLISION_POINT_AND_POINT , sceneClass:MyTest.CollisionPointAndPoint },
-  { name:"my_test_collision_point_and_line" , type:Type.MY_TEST_COLISION_POINT_AND_LINE , sceneClass:MyTest.CollisionPointAndLine },
-  { name:"my_test_collision_point_and_segment" , type:Type.MY_TEST_COLISION_POINT_AND_SEGMENT , sceneClass:MyTest.CollisionPointAndSegment },
-  { name:"my_test_collision_point_and_circle" , type:Type.MY_TEST_COLISION_POINT_AND_CIRCLE , sceneClass:MyTest.CollisionPointAndCircle },
-  { name:"my_test_collision_circle_and_circle" , type:Type.MY_TEST_COLISION_CIRCLE_AND_CIRCLE , sceneClass:MyTest.CollisionCircleAndCircle },
-  { name:"my_test_collision_circle_and_line" , type:Type.MY_TEST_COLISION_CIRCLE_AND_LINE , sceneClass:MyTest.CollisionCircleAndLine },
-  { name:"my_test_collision_circle_and_circle2" , type:Type.MY_TEST_COLISION_CIRCLE_AND_CIRCLE2 , sceneClass:MyTest.CollisionCircleAndCircle2 },
+
+  { name:"collision_point_and_point"   , type:Type.COLISION_POINT_AND_POINT   , sceneClass:Collision.PointAndPoint },
+  { name:"collision_point_and_line"    , type:Type.COLISION_POINT_AND_LINE    , sceneClass:Collision.PointAndLine },
+  { name:"collision_point_and_segment" , type:Type.COLISION_POINT_AND_SEGMENT , sceneClass:Collision.PointAndSegment },
+  { name:"collision_point_and_circle"  , type:Type.COLISION_POINT_AND_CIRCLE  , sceneClass:Collision.PointAndCircle },
+  { name:"collision_circle_and_circle" , type:Type.COLISION_CIRCLE_AND_CIRCLE , sceneClass:Collision.CircleAndCircle },
+  { name:"collision_circle_and_line"   , type:Type.COLISION_CIRCLE_AND_LINE   , sceneClass:Collision.CircleAndLine },
+  { name:"collision_circle_and_circle2", type:Type.COLISION_CIRCLE_AND_CIRCLE2, sceneClass:Collision.CircleAndCircle2 },
 ];
 
 const defaultConfig = configs[0];
