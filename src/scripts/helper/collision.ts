@@ -63,7 +63,7 @@ export const isHitSegmentAndPoint = (seg:Segment2D, p:Vector2, bias:number) => {
 /**
  * 線分と点の衝突に関する情報を取得
  */
-export interface ICollisionSource {
+export interface ISourceSegmentAndPoint {
   v1:Vector2,    // 始点から点Pへ向かうベクトル
   v2:Vector2,    // 始点から終点へ向かうベクトル
   l1:number,     // v1の長さ
@@ -75,7 +75,11 @@ export interface ICollisionSource {
 /**
  * 線分と点
  */
-export const getSourceSegmentAndPoint = (seg:Segment2D, p:Vector2, bias:number) => {
+export const getSourceSegmentAndPoint = (
+  seg:Segment2D, 
+  p:Vector2, 
+  bias:number
+):ISourceSegmentAndPoint => {
   const { p1, p2 } = seg;
   // 線分のベクトル
   const v1 = Vector2.sub(p2, p1);
@@ -106,4 +110,95 @@ export const isHitCircleAndPoint = (circle:Circle2D, p:Vector2) => {
 export const isHitCircleAndCircle = (c1:Circle2D, c2:Circle2D) => {
   const v = Vector2.sub(c1.p, c2.p);
   return (v.magnitude < (c1.r + c2.r));
+}
+
+/**
+ * 円と円の衝突に関する情報を取得
+ */
+export interface ISourceCircleAndCircle {
+  len  :number;  // ２円の距離
+  isHit:boolean; // 衝突結果
+  isContain:boolean; // 一方の円に内包されているかどうか
+  line:Line2D|null; // 交点を結ぶ線
+  source:ISourceCircleAndLine|null;
+}
+export const getSourceCircleAndCircle = (
+  c1:Circle2D, 
+  c2:Circle2D
+):ISourceCircleAndCircle => {
+
+  const v = Vector2.sub(c1.p, c2.p);
+  const len = v.magnitude;
+  const isHit = (len < (c1.r + c2.r));
+  const isContain = (len < Math.abs(c1.r - c2.r));
+
+  if (!isHit) {
+    return { len, isHit, isContain, line:null, source:null}
+  }
+
+  // 円の方程式の連立方程式
+  const m = (-2 * c1.p.y) - (-2 * c2.p.y);
+  const l = (-2 * c1.p.x) - (-2 * c2.p.x);
+  const n = (c1.p.x**2 + c1.p.y**2 - c1.r**2) - (c2.p.x**2 + c2.p.y**2 - c2.r**2);
+
+  // x=0の時、x=1の時の座標を取得
+  const p1 = new Vector2(0, -n/m);
+  const p2 = new Vector2(1, (-l -n)/m);
+
+  // line2Dを生成
+  const line = new Line2D(p1, Vector2.sub(p2, p1).normalize)
+
+  const source = getSourceCircleAndLine(c1, line);
+
+  return { len, isHit, isContain, line, source}
+}
+
+/**
+ * 円と線
+ */
+export const isHitCircleAndLine = (circle:Circle2D, line:Line2D) => {
+  // 線上の点から円の中心点に向かうベクトル
+  const v1 = Vector2.sub(circle.p, line.p);
+
+  // 線の方向ベクトル(正規化)とv1で外積を取り
+  // 外積 < 円の半径だったら衝突
+  const cross = Vector2.cross(line.v, v1);
+
+  return (Math.abs(cross) < circle.r);
+}
+
+/**
+ * 円と線の衝突に関する情報を取得
+ */
+export interface ISourceCircleAndLine {
+  dot  :number,  // 内積
+  cross:number,  // 外積
+  isHit:boolean, // 衝突結果
+  near :Vector2, // 円と直線の最近傍点
+  pos1 :Vector2, // 衝突位置
+  pos2 :Vector2, // 衝突位置
+}
+
+export const getSourceCircleAndLine = (
+  circle:Circle2D,
+  line:Line2D
+):ISourceCircleAndLine => {
+  // 線上の点から円の中心点に向かうベクトル
+  const v1 = Vector2.sub(circle.p, line.p);
+  // 線の方向ベクトルとv1の内積と外積
+  const dot = Vector2.dot(line.v, v1);
+  const cross = Vector2.cross(line.v, v1);
+
+  // 外積 < 半径だったら当たってる
+  const isHit = Math.abs(cross) < circle.r;
+
+  // 最近傍点をHとすると、線の起点の位置から方向ベクトルをdotの値だけ伸ばした点
+  const near = line.getPoint(dot);
+
+  // 衝突点
+  const len = Math.sqrt(circle.r**2 - cross**2);
+  const pos1 = Vector2.add(near, Vector2.times(line.v, len));
+  const pos2 = Vector2.add(near, Vector2.times(line.v, -len));
+
+  return { dot, cross, isHit, near, pos1, pos2 }
 }

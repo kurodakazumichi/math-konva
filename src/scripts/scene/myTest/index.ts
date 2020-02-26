@@ -7,6 +7,8 @@ import CollisionPointAndLine   from './CollisionPointAndLine';
 import CollisionPointAndSegment from './CollisionPointAndSegment';
 import CollisionPointAndCircle from './CollisionPointAndCircle';
 import CollisionCircleAndCircle from './CollisionCircleAndCircle';
+import CollisionCircleAndCircle2 from './CollisionCircleAndCircle2';
+import CollisionCircleAndLine from './CollisionCircleAndLine';
 
 export { 
   Triangle01,
@@ -15,4 +17,6 @@ export {
   CollisionPointAndSegment,
   CollisionPointAndCircle,
   CollisionCircleAndCircle,
+  CollisionCircleAndCircle2,
+  CollisionCircleAndLine,
 }
