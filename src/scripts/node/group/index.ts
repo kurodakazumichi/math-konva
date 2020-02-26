@@ -7,6 +7,7 @@ import Line from '~/scripts/node/group/Line';
 import Segment from '~/scripts/node/group/Segment';
 import Circle from '~/scripts/node/group/Circle';
 import Vector from '~/scripts/node/group/Vector';
+import AABB from '~/scripts/node/group/AABB';
 
 /** Axis */
 export class AxisXY extends GroupBase{
@@ -18,4 +19,4 @@ export class AxisXY extends GroupBase{
   }
 }
 
-export { Grid, Triangle, Line, Segment, Circle, Vector }
+export { Grid, Triangle, Line, Segment, Circle, Vector, AABB }

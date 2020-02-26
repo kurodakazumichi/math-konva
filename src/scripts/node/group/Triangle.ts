@@ -3,8 +3,6 @@ import { sShape, sColor } from '~/scripts/system';
 import { Line, Circle, Text, Wedge } from '~/scripts/node/shape';
 import { Vector2, Util, Triangle2D } from 'math-lab';
 import { Util as MyUtil } from '~/scripts/helper'
-import ShapeBase from '../shape/ShapeBase';
-import Konva from 'konva';
 
 interface IShapes 
 {
@@ -62,7 +60,7 @@ export default class TriangleGroup extends GroupBase {
 
   constructor(points:number[]) {
     super();
-    this.binds();
+    this.binds(TriangleGroup);
 
     this.data = new Triangle2D(points);
     this.shapes = this.createShapes();
@@ -451,11 +449,6 @@ export default class TriangleGroup extends GroupBase {
   visibleAngleC(v:boolean) {
     return this.visibleAndSync(v, this.shapes.angleC, this.syncAngleC);
   }
-  private visibleAndSync(v:boolean, shape:ShapeBase<Konva.Shape>, syncFunc:Function) {
-    shape.visible(v);
-    syncFunc();
-    return this;
-  }
 
   //---------------------------------------------------------------------------
   // 重心、外心、内心
@@ -483,9 +476,9 @@ export default class TriangleGroup extends GroupBase {
   //---------------------------------------------------------------------------
   private createShapes():IShapes {
     return {
-      pointerA    : sShape.draggablePoint().on('dragmove', this.onDragMovePointerA),
-      pointerB    : sShape.draggablePoint().on('dragmove', this.onDragMovePointerB),
-      pointerC    : sShape.draggablePoint().on('dragmove', this.onDragMovePointerC),
+      pointerA    : sShape.draggablePoint().on('dragmove', this.onDragMovePointerA.bind(this)),
+      pointerB    : sShape.draggablePoint().on('dragmove', this.onDragMovePointerB.bind(this)),
+      pointerC    : sShape.draggablePoint().on('dragmove', this.onDragMovePointerC.bind(this)),
       A           : sShape.wedge().radius(0.3),
       B           : sShape.wedge().radius(0.3),
       C           : sShape.wedge().radius(0.3),
@@ -528,41 +521,6 @@ export default class TriangleGroup extends GroupBase {
     this.data.C.x = e.x();
     this.data.C.y = e.y();
     this.sync();
-  }
-
-  /** bindが必要なメソッドをまとめて定義 */
-  private binds() {
-    this.onDragMovePointerA = this.onDragMovePointerA.bind(this);
-    this.onDragMovePointerB = this.onDragMovePointerB.bind(this);
-    this.onDragMovePointerC = this.onDragMovePointerC.bind(this);
-    this.syncPointerA       = this.syncPointerA.bind(this);
-    this.syncPointerB       = this.syncPointerB.bind(this);
-    this.syncPointerC       = this.syncPointerC.bind(this);
-    this.syncMain           = this.syncMain.bind(this);
-    this.syncName           = this.syncName.bind(this);
-    this.syncAB             = this.syncAB.bind(this);
-    this.syncBC             = this.syncBC.bind(this);
-    this.syncCA             = this.syncCA.bind(this);
-    this.syncLabelAB        = this.syncLabelAB.bind(this);
-    this.syncLabelBC        = this.syncLabelBC.bind(this);
-    this.syncLabelCA        = this.syncLabelCA.bind(this);
-    this.syncLengthA        = this.syncLengthA.bind(this);
-    this.syncLengthB        = this.syncLengthB.bind(this);
-    this.syncLengthC        = this.syncLengthC.bind(this);
-    this.syncLabelA         = this.syncLabelA.bind(this);
-    this.syncLabelB         = this.syncLabelB.bind(this);
-    this.syncLabelC         = this.syncLabelC.bind(this);
-    this.syncWedgeA         = this.syncWedgeA.bind(this);
-    this.syncWedgeB         = this.syncWedgeB.bind(this);
-    this.syncWedgeC         = this.syncWedgeC.bind(this);
-    this.syncAngleA         = this.syncAngleA.bind(this);
-    this.syncAngleB         = this.syncAngleB.bind(this);
-    this.syncAngleC         = this.syncAngleC.bind(this);
-    this.syncCenter         = this.syncCenter.bind(this);
-    this.syncOuterCenter    = this.syncOuterCenter.bind(this);
-    this.syncInnerCenter    = this.syncInnerCenter.bind(this);
-    this.syncOuterCircle    = this.syncOuterCircle.bind(this);
-    this.syncInnerCircle    = this.syncInnerCircle.bind(this);
   }
 
   //---------------------------------------------------------------------------

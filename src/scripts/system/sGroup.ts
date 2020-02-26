@@ -28,6 +28,9 @@ class sGroup extends SystemBase {
   vector(p1:Vector2, p2:Vector2) {
     return new Groups.Vector(p1, p2);
   }
+  aabb(c:Vector2, rx:number, ry:number) {
+    return new Groups.AABB(c, rx, ry);
+  }
 
   /** 便利関数、ShapesのObjectに対するmap */
   map(groups:{[key:string]:GroupBase}, cb:(group:GroupBase) => void){
