@@ -8,6 +8,7 @@ import PointAndCircle from './PointAndCircle';
 import CircleAndCircle from './CircleAndCircle';
 import CircleAndCircle2 from './CircleAndCircle2';
 import CircleAndLine from './CircleAndLine';
+import AABBAndAABB from './AABBAndAABB';
 
 export { 
   PointAndPoint,
@@ -17,4 +18,5 @@ export {
   CircleAndCircle,
   CircleAndCircle2,
   CircleAndLine,
+  AABBAndAABB,
 }
