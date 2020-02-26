@@ -1,7 +1,7 @@
 
 import Konva from 'konva';
 import { GUI } from 'dat.gui';
-import { sGroup, sScene, sMarkdown, sAjax } from '~/scripts/system';
+import { sGroup, sScene, sMarkdown, sAjax, sShape } from '~/scripts/system';
 import ShapeBase from '~/scripts/node/shape/ShapeBase';
 import GroupBase from '~/scripts/node/group/GroupBase';
 import { Util } from '~/scripts/helper';
@@ -164,6 +164,16 @@ export default class SceneBase
     f.add(this.step, "no", this.step.min, this.step.max).step(1).listen();
     f.open();
     return f;
+  }
+
+  //---------------------------------------------------------------------------
+  // Shape, Groupの扱い
+  //---------------------------------------------------------------------------
+  protected addShapes(shapes:{[key:string]:ShapeBase<Konva.Shape>}) {
+    sShape.map(shapes, (s) => { this.add(s); })
+  }
+  protected addGroups(groups:{[key:string]:GroupBase}) {
+    sGroup.map(groups, (g) => { this.add(g)} )
   }
 
   //---------------------------------------------------------------------------
