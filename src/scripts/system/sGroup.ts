@@ -25,6 +25,9 @@ class sGroup extends SystemBase {
   circle(p:Vector2, radius:number) {
     return new Groups.Circle(p, radius);
   }
+  vector(p1:Vector2, p2:Vector2) {
+    return new Groups.Vector(p1, p2);
+  }
 
   /** 便利関数、ShapesのObjectに対するmap */
   map(groups:{[key:string]:GroupBase}, cb:(group:GroupBase) => void){
