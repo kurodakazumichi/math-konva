@@ -1,4 +1,5 @@
 import { Vector2, Line2D, Segment2D, Circle2D } from 'math-lab';
+import { AABB2D } from 'math-lab/dist/Primitive2D';
 
 /**
  * 点と点
@@ -201,4 +202,13 @@ export const getSourceCircleAndLine = (
   const pos2 = Vector2.add(near, Vector2.times(line.v, -len));
 
   return { dot, cross, isHit, near, pos1, pos2 }
+}
+
+/**
+ * AABB同士の衝突判定
+ */
+export const isHitAABBAndAABB = (o1:AABB2D, o2:AABB2D) => {
+  if ((Math.abs(o1.c.x - o2.c.x) > (o1.rx + o2.rx))) return false;
+  if ((Math.abs(o1.c.y - o2.c.y) > (o1.ry + o2.ry))) return false;
+  return true;
 }
