@@ -1,8 +1,7 @@
 import GroupBase from './GroupBase';
 import { sShape } from '~/scripts/system';
 import { Circle, Rect } from '~/scripts/node/shape';
-import { Vector2 } from 'math-lab';
-import { AABB2D } from 'math-lab/dist/Primitive2D';
+import { Vector2, AABB2D } from 'math-lab';
 
 
 interface IShapes {

@@ -4,7 +4,7 @@ import { Vector2 } from 'math-lab';
 import { Collision } from '~/scripts/helper';
 
 /******************************************************************************
- * シーン名
+ * AABBとAABBの衝突
  *****************************************************************************/
 export default class Scene extends SceneBase 
 {  
