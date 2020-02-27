@@ -30,6 +30,11 @@ interface IShapes
   b           : Text,
   c           : Text,
 
+
+  // 直角三角形だった場合のxyの長さ
+  x           : Text,
+  y           : Text,
+
   // ３つの角を表す扇型
   A           : Wedge,
   B           : Wedge,
@@ -64,6 +69,8 @@ export default class TriangleGroup extends GroupBase {
 
     this.data = new Triangle2D(points);
     this.shapes = this.createShapes();
+    this.visibleAll(false);
+    this.visibleMain(true).visibleLabel(true)
     this.sync();
     sShape.map(this.shapes as any, (s) => { this.add(s); })
   }
@@ -94,6 +101,9 @@ export default class TriangleGroup extends GroupBase {
     this.syncLengthA();
     this.syncLengthB();
     this.syncLengthC();
+
+    this.syncLengthX();
+    this.syncLengthY();
 
     this.syncPointerA();
     this.syncPointerB();
@@ -191,6 +201,23 @@ export default class TriangleGroup extends GroupBase {
     shape
       .text(MyUtil.round(side.magnitude, 1).toString())
       .pos(pos.x + side.x / 2, pos.y + side.y / 2);
+  }
+
+  //---------------------------------------------------------------------------
+  // 直角三角形だったときのxy
+  private syncLengthX() {
+    if (!this.shapes.x.visible()) return;
+    const { B, BC } = this.data;
+    this.shapes.x
+      .text(`${MyUtil.round(this.data.A.x, 1)}`)
+      .pos(B.x + BC.x / 2, B.y + BC.y / 2)
+  }
+  private syncLengthY() {
+    if (!this.shapes.y.visible()) return;
+    const { C, CA } = this.data;
+    this.shapes.y
+    .text(`${MyUtil.round(this.data.A.y, 1)}`)
+      .pos(C.x + CA.x / 2, C.y + CA.y / 2)
   }
 
   //---------------------------------------------------------------------------
@@ -379,7 +406,7 @@ export default class TriangleGroup extends GroupBase {
   //---------------------------------------------------------------------------
   // ３辺のラベル
   visibleLabelSide(v:boolean) {
-    this.visibleLabelAB(v).visibleLabelBC(v).visibleLabelCA(v);
+    return this.visibleLabelAB(v).visibleLabelBC(v).visibleLabelCA(v);
   }
   visibleLabelAB(v:boolean)  {
     return this.visibleAndSync(v, this.shapes.labelAB, this.syncLabelAB);
@@ -405,6 +432,19 @@ export default class TriangleGroup extends GroupBase {
   visibleLengthC(v:boolean) {
     return this.visibleAndSync(v, this.shapes.c, this.syncLengthC);
   }
+
+  //---------------------------------------------------------------------------
+  // 直角三角形だったときのXY
+  visibleLengthXY(v:boolean) {
+    return this.visibleLengthX(v).visibleLengthY(v);
+  }
+  visibleLengthX(v:boolean) {
+    return this.visibleAndSync(v, this.shapes.x, this.syncLengthX);
+  }
+  visibleLengthY(v:boolean) {
+    return this.visibleAndSync(v, this.shapes.y, this.syncLengthY);
+  }
+
   //---------------------------------------------------------------------------
   // ３頂点ラベル
   visibleLabel(v:boolean) {
@@ -504,6 +544,8 @@ export default class TriangleGroup extends GroupBase {
       a           : sShape.text().fontSize(0.2),
       b           : sShape.text().fontSize(0.2),
       c           : sShape.text().fontSize(0.2),
+      x           : sShape.text().fontSize(0.2),
+      y           : sShape.text().fontSize(0.2),
     }
   }
 
