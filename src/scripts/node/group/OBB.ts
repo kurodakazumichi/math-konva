@@ -31,6 +31,25 @@ export default class OBBGroup  extends GroupBase {
   private shapes:IShapes;
 
   //---------------------------------------------------------------------------
+  // 正方形制御フラグ
+  //---------------------------------------------------------------------------
+  private _isSquare = false;
+  isSquare():boolean;
+  isSquare(v:boolean):this;
+  isSquare(...v:[]|[boolean]) {
+    if (typeof v[0] === 'boolean') {
+      this._isSquare = v[0];
+      if (this._isSquare) {
+        this.data.r.y = this.data.r.x;
+        this.sync();
+      }
+      return this;
+    } else {
+      return this._isSquare;
+    }
+  }
+
+  //---------------------------------------------------------------------------
   // 同期処理
   //---------------------------------------------------------------------------
   /** MathLab.Line2Dの内容とShapesの位置を同期 */
@@ -115,6 +134,9 @@ export default class OBBGroup  extends GroupBase {
     const v = Vector2.sub(this.data.c, e.pos());
     this.data.rx = Math.abs(v.x);
     this.data.ry = Math.abs(v.y);
+    if (this.isSquare()) {
+      this.data.ry = this.data.rx;
+    }
     this.sync();
   }
 }

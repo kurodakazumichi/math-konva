@@ -16,7 +16,7 @@ export default class Scene extends SceneBase
   // Overrideするプロパティ
   //---------------------------------------------------------------------------
   protected get title() {
-    return "OBBとOBBの衝突";
+    return "正方形同士(回転あり)の衝突";
   }
 
   protected get description() {
@@ -51,8 +51,8 @@ export default class Scene extends SceneBase
   // Graph
   //---------------------------------------------------------------------------
   private groups = {
-    r1: sGroup.obb(Vector2.zero, 4, 1, 0),
-    r2: sGroup.obb(Vector2.zero, 1, 1, 25),
+    r1: sGroup.obb(Vector2.zero, 1, 1, 0).isSquare(true),
+    r2: sGroup.obb(Vector2.zero, 0.7, 0.7, 25).isSquare(true),
   }
   initGraph() {
     this.addGroups(this.groups);
@@ -77,7 +77,7 @@ export default class Scene extends SceneBase
 
   private updateCollision() {
     const { r1, r2 } = this.groups;
-    const isHit = Collision.isHitOBBAndOBB(r1.data, r2.data);
+    const isHit = Collision.isHitOBBSquareAndOBBSquare(r1.data, r2.data);
 
     const color = (isHit)? sColor.yellow : sColor.main;
     r1.stroke(color);

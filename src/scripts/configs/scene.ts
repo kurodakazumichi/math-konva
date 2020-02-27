@@ -44,7 +44,7 @@ export enum Type {
   COLISION_CIRCLE_AND_LINE,
   COLISION_CIRCLE_AND_CIRCLE2,
   COLISION_AABB_AND_AABB,
-  COLISION_OBB_AND_OBB,
+  COLISION_OBB_AND_OBB01,
 }
 
 //-----------------------------------------------------------------------------
@@ -91,7 +91,7 @@ const configs:ISceneRecord[] = [
   { name:"collision_circle_and_line"   , type:Type.COLISION_CIRCLE_AND_LINE   , sceneClass:Collision.CircleAndLine },
   { name:"collision_circle_and_circle2", type:Type.COLISION_CIRCLE_AND_CIRCLE2, sceneClass:Collision.CircleAndCircle2 },
   { name:"collision_aabb_and_aabb"     , type:Type.COLISION_AABB_AND_AABB     , sceneClass:Collision.AABBAndAABB },
-  { name:"collision_obb_and_obb"       , type:Type.COLISION_OBB_AND_OBB       , sceneClass:Collision.OBBAndOBB },
+  { name:"collision_obb_and_obb_01"    , type:Type.COLISION_OBB_AND_OBB01     , sceneClass:Collision.OBBAndOBB01 },
 ];
 
 const defaultConfig = configs[0];

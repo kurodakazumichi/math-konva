@@ -109,8 +109,7 @@ export const isHitCircleAndPoint = (circle:Circle2D, p:Vector2) => {
  * 円と円
  */
 export const isHitCircleAndCircle = (c1:Circle2D, c2:Circle2D) => {
-  const v = Vector2.sub(c1.p, c2.p);
-  return (v.magnitude < (c1.r + c2.r));
+  return isHitLength(c1.p, c2.p, c1.r + c2.r);
 }
 
 /**
@@ -213,19 +212,25 @@ export const isHitAABBAndAABB = (o1:AABB2D, o2:AABB2D) => {
   return true;
 }
 
-/** OBB同士の衝突判定 */
-export const isHitOBBAndOBB = (o1:OBB2D, o2:OBB2D) => {
+/** 回転する正方形同士の衝突 */
+export const isHitOBBSquareAndOBBSquare = (o1:OBB2D, o2:OBB2D) => {
+
+  // 円としてぶつかってるならぶつかってる
+  if (isHitLength(o1.c, o2.c, o1.r.x + o2.r.x)) {
+    return true;
+  }
+
   // o1の領域にo2の頂点が含まれていたら衝突確定なので終了
-  if(isContainOBBWithOBB(o1, o2)) return true;
+  if(isContainVertexOBBWithOBB(o1, o2)) return true;
   
   // o2の領域にo1の頂点が含まれてる可能性もあるので判定
-  return isContainOBBWithOBB(o2, o1);
+  return isContainVertexOBBWithOBB(o2, o1);
 }
 
 /**
  * o1の領域にo2の頂点が含まれるかどうかの判定処理
  */
-export const isContainOBBWithOBB = (o1:OBB2D, o2:OBB2D) => {
+export const isContainVertexOBBWithOBB = (o1:OBB2D, o2:OBB2D) => {
   const s  = [o1.s1, o1.s2, o1.s3, o1.s4]; // o1の4辺、右回り
   const p1 = [o1.p1, o1.p2, o1.p3, o1.p4]; // o1の4頂点
   const p2 = [o2.p1, o2.p2, o2.p3, o2.p4]; // o2の4頂点
@@ -258,4 +263,8 @@ export const isContainOBBWithOBB = (o1:OBB2D, o2:OBB2D) => {
     if (isHit) break;
   }
   return isHit;
+}
+
+export const isHitLength = (p1:Vector2, p2:Vector2, len:number) => {
+  return (Vector2.sub(p1, p2).magnitude < len)
 }
