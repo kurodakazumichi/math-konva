@@ -3317,7 +3317,7 @@ match-at@^0.1.0:
 
 "math-lab@https://github.com/kurodakazumichi/math-lab.git":
   version "1.0.0"
-  resolved "https://github.com/kurodakazumichi/math-lab.git#251a42c0dea8f79acef4bad714700e340009aafd"
+  resolved "https://github.com/kurodakazumichi/math-lab.git#a062b8b6ca8576e110946ea6fb2e01e756c415ee"
 
 md5.js@^1.3.4:
   version "1.3.5"
