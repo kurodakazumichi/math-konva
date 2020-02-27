@@ -1,5 +1,5 @@
 import { Vector2, Line2D, Segment2D, Circle2D } from 'math-lab';
-import { AABB2D } from 'math-lab/dist/Primitive2D';
+import { AABB2D, OBB2D } from 'math-lab/dist/Primitive2D';
 
 /**
  * 点と点
@@ -211,4 +211,51 @@ export const isHitAABBAndAABB = (o1:AABB2D, o2:AABB2D) => {
   if ((Math.abs(o1.c.x - o2.c.x) > (o1.rx + o2.rx))) return false;
   if ((Math.abs(o1.c.y - o2.c.y) > (o1.ry + o2.ry))) return false;
   return true;
+}
+
+/** OBB同士の衝突判定 */
+export const isHitOBBAndOBB = (o1:OBB2D, o2:OBB2D) => {
+  // o1の領域にo2の頂点が含まれていたら衝突確定なので終了
+  if(isContainOBBWithOBB(o1, o2)) return true;
+  
+  // o2の領域にo1の頂点が含まれてる可能性もあるので判定
+  return isContainOBBWithOBB(o2, o1);
+}
+
+/**
+ * o1の領域にo2の頂点が含まれるかどうかの判定処理
+ */
+export const isContainOBBWithOBB = (o1:OBB2D, o2:OBB2D) => {
+  const s  = [o1.s1, o1.s2, o1.s3, o1.s4]; // o1の4辺、右回り
+  const p1 = [o1.p1, o1.p2, o1.p3, o1.p4]; // o1の4頂点
+  const p2 = [o2.p1, o2.p2, o2.p3, o2.p4]; // o2の4頂点
+
+  // 衝突結果、trueで初めて、衝突条件を満たさなかったらfalseにする
+  let isHit = true;
+  
+  // 1頂点につき、4辺との判定を行うので頂点を1つずつループする
+  for(let i = 0; i < p2.length; ++i) {
+
+    isHit = true;
+
+    // 矩形内に含まれているかどうかを確認したいo2頂点の1つ
+    const t = p2[i];
+    
+    // 4辺をループ
+    for(let j = 0; j < s.length; ++j) 
+    {
+      const v1 = s[j];                  // o1の１辺
+      const v2 = Vector2.sub(t, p1[j]); // o1の始点からtへ向かうベクトル
+
+      // 外積結果がプラスだったら点は外側にあるので確実に矩形の外にある
+      // よって、判定を終了し次の頂点の判定へ
+      if (0 < Vector2.cross(v1, v2)) {
+        isHit = false;
+        break;
+      }
+    }
+    // この時点でisHitがtrueのままだったら確実に衝突してるのでこれ以上判定はしない
+    if (isHit) break;
+  }
+  return isHit;
 }
