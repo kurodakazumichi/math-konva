@@ -34,6 +34,9 @@ class sGroup extends SystemBase {
   obb(c:Vector2, rx:number, ry:number, angle:number) {
     return new Groups.OBB(c, rx, ry, angle);
   }
+  unitCircle(radius:number, radian:number) {
+    return new Groups.UnitCircle(radius, radian);
+  }
 
   /** 便利関数、ShapesのObjectに対するmap */
   map(groups:{[key:string]:GroupBase}, cb:(group:GroupBase) => void){

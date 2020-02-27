@@ -1,9 +1,7 @@
 import SceneBase from '~/scripts/scene/SceneBase';
-import { sShape, sColor, sGroup } from '~/scripts/system';
+import { sShape, sGroup } from '~/scripts/system';
 import { Circle } from '~/scripts/node/shape';
-import { Vector2, Util } from 'math-lab';
-import { GUI as GUIHelper } from '~/scripts/helper';
-import { GUI } from 'dat.gui';
+import { Util } from 'math-lab';
 
 /******************************************************************************
  * sin, cos, tan

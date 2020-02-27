@@ -33,9 +33,10 @@
     width:100%;
     padding:0.5em;
     box-sizing: border-box;
-    bottom:0;
+    top:0;
     font-size:1rem;
     display: none;
+    line-height: 2em;
     @extend %__markdown_default;
   }
 
