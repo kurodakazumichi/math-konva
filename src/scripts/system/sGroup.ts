@@ -31,6 +31,9 @@ class sGroup extends SystemBase {
   aabb(c:Vector2, rx:number, ry:number) {
     return new Groups.AABB(c, rx, ry);
   }
+  obb(c:Vector2, rx:number, ry:number, angle:number) {
+    return new Groups.OBB(c, rx, ry, angle);
+  }
 
   /** 便利関数、ShapesのObjectに対するmap */
   map(groups:{[key:string]:GroupBase}, cb:(group:GroupBase) => void){
