@@ -1,8 +1,7 @@
 import GroupBase from './GroupBase';
-import { sShape } from '~/scripts/system';
+import { sShape, sColor } from '~/scripts/system';
 import { Circle, Rect } from '~/scripts/node/shape';
 import { Vector2, OBB2D } from 'math-lab';
-
 
 interface IShapes {
   rect:Rect,
@@ -46,7 +45,6 @@ export default class OBBGroup  extends GroupBase {
     if(!this.shapes.rect.visible()) return;
     const { c, width, height, rx, ry, angle } = this.data;
     this.shapes.rect.pos(c).width(width).height(height).offset(-rx, ry).rotation(-angle);
-    console.log(height);
   }
 
   private syncPointerC() {
@@ -61,7 +59,9 @@ export default class OBBGroup  extends GroupBase {
 
   private syncPointerA() {
     if(!this.shapes.pointerA.visible()) return;
-    this.shapes.pointerA.pos(this.data.p2);
+    const p = this.shapes.pointerA.pos();
+    p.set(this.data.r.x, 0).rotate(this.data.rad).add(this.data.c);
+    this.shapes.pointerA.pos(p);
   }
 
   //---------------------------------------------------------------------------
@@ -95,7 +95,7 @@ export default class OBBGroup  extends GroupBase {
         .on('dragmove', this.onDragMovePointerC.bind(this)),
       pointerR: sShape.draggablePoint().visible(false)
         .on('dragmove', this.onDragMovePointerR.bind(this)),
-      pointerA: sShape.draggablePoint().visible(true)
+      pointerA: sShape.draggablePoint().stroke(sColor.red).fill("").visible(true)
         .on('dragmove', this.onDragMovePointerA.bind(this)),
     }
   }
@@ -107,17 +107,7 @@ export default class OBBGroup  extends GroupBase {
 
   private onDragMovePointerA(e:Circle) {
     const { c } = this.data;
-    const v = Vector2.sub(e.pos(), c);
-    const rad = Math.atan(v.y/v.x)
-
-    this.data.rad = rad;
-
-    if (rad < 0 && v.x < 0 || 0 < rad && v.y < 0) {
-      this.data.rad += Math.PI;
-    }
-
-    this.data.rad -= (Math.PI/4);
-
+    this.data.rad = Vector2.sub(e.pos(), c).rad;
     this.sync();
   }
 
