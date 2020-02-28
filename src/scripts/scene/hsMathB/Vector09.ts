@@ -1,5 +1,5 @@
 import SceneBase from '~/scripts/scene/SceneBase';
-import { sShape, sColor, sGroup, sCoord } from '~/scripts/system';
+import { sShape, sColor, sGroup } from '~/scripts/system';
 import { Vector2 } from 'math-lab';
 import { Util } from '~/scripts/helper';
 
