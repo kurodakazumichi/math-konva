@@ -4,7 +4,7 @@ import { Vector2 } from 'math-lab';
 import { Util } from '~/scripts/helper';
 
 /******************************************************************************
- * ベクトルの内積
+ * ベクトルの外積
  *****************************************************************************/
 export default class Scene extends SceneBase 
 {  
@@ -16,22 +16,22 @@ export default class Scene extends SceneBase
   // Overrideするプロパティ
   //---------------------------------------------------------------------------
   protected get title() {
-    return "ベクトルの内積";
+    return "ベクトルの外積";
   }
 
   protected get description() {
     return `
 ２つのベクトル$\\vec{a} = (x1, y1)$と$\\vec{b} = (x2, y2)$があり、ベクトルの間の角を$\\theta$とした時
 
-ベクトル内積は$\\vec{a} \\cdot \\vec{b}$と書き、計算方法は以下のようになる
+ベクトル外積は$\\vec{a} \\times \\vec{b}$と書き、計算方法は以下のようになる
 
-- **θの角度がわかって**いる場合(ベクトルの長さをかけたものに、さらにcosθをかける)
+- **θの角度がわかって**いる場合(ベクトルの長さをかけたものに、さらにsinθをかける)
 
-$\\vec{a} \\cdot \\vec{b}=|\\vec{a}||\\vec{b}|\\cos\\theta$
+$\\vec{a} \\cdot \\vec{b}=|\\vec{a}||\\vec{b}|\\sin\\theta$
 
-- **θの角度がわからない**場合(それぞれのx、yをかけたものを足す)
+- **θの角度がわからない**場合
 
-$\\vec{a} \\cdot \\vec{b}=x1x2 + y1y2$
+$\\vec{a} \\cdot \\vec{b}=x1y2 - y1x2$
 `;
   }
 
@@ -58,7 +58,7 @@ $\\vec{a} \\cdot \\vec{b}=x1x2 + y1y2$
     b: sGroup.vector(Vector2.zero, Vector2.one.times(3)),
   }
   private shapes = {
-    dot     : sShape.point(),
+    cross   : sShape.point(),
     aux1    : sShape.auxLine(),
     aux2    : sShape.auxLine(),
     labelDot: sShape.text(),
@@ -68,6 +68,7 @@ $\\vec{a} \\cdot \\vec{b}=x1x2 + y1y2$
     this.groups.a.nameText("a")
       .visibleName(true)
       .visibleAuxParallel(true)
+      .visibleAuxVertical(true)
       .visiblePointerP1(false)
 
     this.groups.b.nameText("b")
@@ -84,10 +85,11 @@ $\\vec{a} \\cdot \\vec{b}=x1x2 + y1y2$
     this.addShapes(this.shapes);
   }
 
+  v:Vector2[] = [];
   //---------------------------------------------------------------------------
   // Update
   //---------------------------------------------------------------------------
-  update() {
+  update() {    
     const { a, b } = this.groups;
 
     // 基準となるベクトルaの正規化フラグがたっていたら
@@ -98,21 +100,21 @@ $\\vec{a} \\cdot \\vec{b}=x1x2 + y1y2$
     }
 
     // 更新に必要な値を産出
-    const v1     = a.vec;
-    const v2     = b.vec;
-    const dot    = Vector2.dot(v1, v2);
-    const dotPos = v1.normalize.times(dot);
+    const v1       = a.vec;
+    const v2       = b.vec;
+    const cross    = Vector2.cross(v1, v2);
+    const crossPos = v1.set(-v1.y, v1.x).normalize.times(cross);
 
     // 内積の位置を表す点
-    this.shapes.dot.pos(dotPos);
+    this.shapes.cross.pos(crossPos);
 
     // 内積の値
-    this.shapes.labelDot.text(`${Util.round(dot,2)}`)
-      .pos(dotPos);
+    this.shapes.labelDot.text(`${Util.round(cross,2)}`)
+      .pos(crossPos);
 
     // ベクトルbからベクトルaに射影した補助線
     this.shapes.aux2.points([
-      v2.x, v2.y, dotPos.x, dotPos.y
+      v2.x, v2.y, crossPos.x, crossPos.y
     ])
   }
 }

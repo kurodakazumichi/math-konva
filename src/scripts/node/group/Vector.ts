@@ -5,11 +5,12 @@ import { Vector2, Segment2D, Linear } from 'math-lab';
 
 interface IShapes {
   /** 直線 */
-  arrow    : Arrow,
-  pointerP1: Circle;
-  pointerP2: Circle;
-  name     : Text;
-  aux      : Line,
+  arrow       : Arrow,
+  pointerP1   : Circle;
+  pointerP2   : Circle;
+  name        : Text;
+  auxParallel : Line,
+  auxVertical : Line,
 }
 
 /******************************************************************************
@@ -48,7 +49,8 @@ export default class Vector  extends GroupBase {
     this.syncPointerP1();
     this.syncPointerP2();
     this.syncName();
-    this.syncAuxLine();
+    this.syncAuxParallel();
+    this.syncAuxVertical();
   }
 
   private syncArrow() {
@@ -72,11 +74,21 @@ export default class Vector  extends GroupBase {
     this.shapes.name.pos(this.data.p2);
   }
 
-  private syncAuxLine() {
-    if (!this.shapes.aux.visible()) return;
+  private syncAuxParallel() {
+    if (!this.shapes.auxParallel.visible()) return;
     const { p1, p2 } = this.data;
     this.linear.initBy2Point(p1.x, p1.y, p2.x, p2.y);
-    this.shapes.aux.points([
+    this.shapes.auxParallel.points([
+      sCoord.left , this.linear.fx(sCoord.left),
+      sCoord.right, this.linear.fx(sCoord.right)
+    ])
+  }
+
+  private syncAuxVertical() {
+    if (!this.shapes.auxVertical.visible()) return;
+    const { p1, p2 } = this.data;
+    this.linear.initBy2Point(p1.x, p1.y, -p2.y, p2.x);
+    this.shapes.auxVertical.points([
       sCoord.left , this.linear.fx(sCoord.left),
       sCoord.right, this.linear.fx(sCoord.right)
     ])
@@ -91,8 +103,11 @@ export default class Vector  extends GroupBase {
   visibleName(v:boolean) {
     return this.visibleAndSync(v, this.shapes.name, this.syncName);
   }
-  visibleAuxLine(v:boolean) {
-    return this.visibleAndSync(v, this.shapes.aux, this.syncAuxLine);
+  visibleAuxParallel(v:boolean) {
+    return this.visibleAndSync(v, this.shapes.auxParallel, this.syncAuxParallel);
+  }
+  visibleAuxVertical(v:boolean) {
+    return this.visibleAndSync(v, this.shapes.auxVertical, this.syncAuxVertical);
   }
 
   nameText(name:string) {
@@ -111,13 +126,18 @@ export default class Vector  extends GroupBase {
       .on('dragmove', this.onDragMovePointerP2.bind(this))
 
     const arrow = sShape.arrow();
-    
+
     const name  = sShape.text()
       .italic()
       .fontSize(0.2)
       .visible(false);
 
-    const aux   = sShape.auxLine()
+    const auxParallel = sShape.auxLine()
+      .stroke(sColor.main)
+      .dash(0.1)
+      .visible(false)
+
+    const auxVertical = sShape.auxLine()
       .stroke(sColor.main)
       .dash(0.1)
       .visible(false)
@@ -126,7 +146,8 @@ export default class Vector  extends GroupBase {
       pointerP1, pointerP2,
       arrow,
       name,
-      aux
+      auxParallel,
+      auxVertical,
     }
   }
 

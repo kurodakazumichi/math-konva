@@ -10,6 +10,7 @@ import Vector06 from './Vector06';
 import Vector07 from './Vector07';
 import Vector08 from './Vector08';
 import Vector09 from './Vector09';
+import Vector10 from './Vector10';
 
 export { 
   Vector01,
@@ -21,4 +22,5 @@ export {
   Vector07,
   Vector08,
   Vector09,
+  Vector10,
 }
