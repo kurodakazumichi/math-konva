@@ -1,22 +1,25 @@
 import GroupBase from './GroupBase';
-import { sShape } from '~/scripts/system';
-import { Circle, Arrow } from '~/scripts/node/shape';
-import { Vector2, Segment2D } from 'math-lab';
+import { sShape, sColor, sCoord } from '~/scripts/system';
+import { Circle, Arrow, Text, Line } from '~/scripts/node/shape';
+import { Vector2, Segment2D, Linear } from 'math-lab';
 
 interface IShapes {
   /** 直線 */
   arrow    : Arrow,
   pointerP1: Circle;
   pointerP2: Circle;
+  name     : Text;
+  aux      : Line,
 }
 
 /******************************************************************************
- * Segment
+ * Vector
  *****************************************************************************/
-export default class SegmentGroup  extends GroupBase {
+export default class Vector  extends GroupBase {
 
   constructor(p1:Vector2, p2:Vector2) {
     super();
+    this.binds(Vector);
     this.data = new Segment2D(p1, p2);
     this.shapes = this.createShapes();
     this.sync();
@@ -26,8 +29,15 @@ export default class SegmentGroup  extends GroupBase {
   /** 線クラス */
   data:Segment2D;
 
+  /** １次関数 */
+  private linear:Linear = new Linear(0, 0);
+
   /** 図形リスト */
   private shapes:IShapes;
+
+  get vec()  {
+    return Vector2.sub(this.data.p2, this.data.p1);
+  }
 
   //---------------------------------------------------------------------------
   // 同期処理
@@ -37,6 +47,8 @@ export default class SegmentGroup  extends GroupBase {
     this.syncArrow();
     this.syncPointerP1();
     this.syncPointerP2();
+    this.syncName();
+    this.syncAuxLine();
   }
 
   private syncArrow() {
@@ -55,20 +67,66 @@ export default class SegmentGroup  extends GroupBase {
     this.shapes.pointerP2.pos(p2.x, p2.y);
   }
 
+  private syncName() {
+    if (!this.shapes.name.visible()) return;
+    this.shapes.name.pos(this.data.p2);
+  }
+
+  private syncAuxLine() {
+    if (!this.shapes.aux.visible()) return;
+    const { p1, p2 } = this.data;
+    this.linear.initBy2Point(p1.x, p1.y, p2.x, p2.y);
+    this.shapes.aux.points([
+      sCoord.left , this.linear.fx(sCoord.left),
+      sCoord.right, this.linear.fx(sCoord.right)
+    ])
+  }
+
   //---------------------------------------------------------------------------
   // 属性設定メソッド
   //---------------------------------------------------------------------------
+  visiblePointerP1(v:boolean) {
+    return this.visibleAndSync(v, this.shapes.pointerP1, this.syncPointerP1);
+  }
+  visibleName(v:boolean) {
+    return this.visibleAndSync(v, this.shapes.name, this.syncName);
+  }
+  visibleAuxLine(v:boolean) {
+    return this.visibleAndSync(v, this.shapes.aux, this.syncAuxLine);
+  }
 
+  nameText(name:string) {
+    this.shapes.name.text(name);
+    return this;
+  }
   //---------------------------------------------------------------------------
   // その他
   //---------------------------------------------------------------------------
-  private createShapes():IShapes {
+  private createShapes():IShapes 
+  {
+    const pointerP1 = sShape.draggablePoint()
+      .on('dragmove', this.onDragMovePointerP1.bind(this))
+
+    const pointerP2 = sShape.draggablePoint()
+      .on('dragmove', this.onDragMovePointerP2.bind(this))
+
+    const arrow = sShape.arrow();
+    
+    const name  = sShape.text()
+      .italic()
+      .fontSize(0.2)
+      .visible(false);
+
+    const aux   = sShape.auxLine()
+      .stroke(sColor.main)
+      .dash(0.1)
+      .visible(false)
+
     return {
-      pointerP1: sShape.draggablePoint()
-      .on('dragmove', this.onDragMovePointerP1.bind(this)),
-      pointerP2: sShape.draggablePoint()
-      .on('dragmove', this.onDragMovePointerP2.bind(this)),
-      arrow: sShape.arrow(),
+      pointerP1, pointerP2,
+      arrow,
+      name,
+      aux
     }
   }
 
