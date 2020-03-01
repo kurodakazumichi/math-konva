@@ -55,7 +55,9 @@ function getSliderMinByPropName(propName:string)
   switch(propName) {
     case "x": return sCoord.left;
     case "y": return sCoord.down;
-    case "timer": return 0;
+    case "radius":
+    case "gravity":
+    case "timer" : return 0;
   }
   return -1;
 }
@@ -65,6 +67,8 @@ function getSliderMaxByPropName(propName:string) {
   switch(propName) {
     case "x": return sCoord.right;
     case "y": return sCoord.top;
+    case "radius": return sCoord.right;
+    case "gravity": return 0.1;
     case "timer": return 1;
   }
   return 1;

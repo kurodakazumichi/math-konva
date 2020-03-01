@@ -4,7 +4,7 @@ import { GUI } from 'dat.gui';
 import { sGroup, sScene, sMarkdown, sAjax, sShape } from '~/scripts/system';
 import ShapeBase from '~/scripts/node/shape/ShapeBase';
 import GroupBase from '~/scripts/node/group/GroupBase';
-import { Util } from '~/scripts/helper';
+import { Util } from 'math-lab';
 
 /******************************************************************************
  * シーンの基底クラス

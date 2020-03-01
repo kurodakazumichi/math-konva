@@ -1,5 +1,6 @@
 import SystemBase from '~/scripts/system/SystemBase';
 import { sEnv } from '~/scripts/system';
+import { Vector2 } from 'math-lab';
 
 const DEFAULT_WIDTH  = 720;
 const DEFAULT_HEIGHT = 720;
@@ -119,6 +120,15 @@ class sCoord extends SystemBase {
   }
   uy(y:number) {
     return -((y - this.halfHeight) / this._unit);
+  }
+
+  //---------------------------------------------------------------------------
+  // Util
+  cramp(v:Vector2) {
+    if (this.left  > v.x) v.x = this.right;
+    if (this.right < v.x) v.x = this.left;
+    if (this.top   < v.y) v.y = this.down;
+    if (this.down  > v.y) v.y = this.top;
   }
 
   //---------------------------------------------------------------------------

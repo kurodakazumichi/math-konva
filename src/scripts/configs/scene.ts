@@ -10,6 +10,7 @@ import * as HsMath1 from '~/scripts/scene/hsMath1';
 import * as HsMathB from '~/scripts/scene/hsMathB';
 import * as MyTest from '~/scripts/scene/myTest';
 import * as Collision from '~/scripts/scene/collision';
+import * as Motion from '~/scripts/scene/motion';
 
 /** シーン列挙型 */
 export enum Type {
@@ -48,6 +49,11 @@ export enum Type {
   COLISION_CIRCLE_AND_CIRCLE2,
   COLISION_AABB_AND_AABB,
   COLISION_OBB_AND_OBB01,
+
+  MOTION_CIRCULAR_01,
+  MOTION_CIRCULAR_02,
+  MOTION_LINEAR_01,
+  MOTION_PYHSICAL_01,
 }
 
 //-----------------------------------------------------------------------------
@@ -98,6 +104,11 @@ const configs:ISceneRecord[] = [
   { name:"collision_circle_and_circle2", type:Type.COLISION_CIRCLE_AND_CIRCLE2, sceneClass:Collision.CircleAndCircle2 },
   { name:"collision_aabb_and_aabb"     , type:Type.COLISION_AABB_AND_AABB     , sceneClass:Collision.AABBAndAABB },
   { name:"collision_obb_and_obb_01"    , type:Type.COLISION_OBB_AND_OBB01     , sceneClass:Collision.OBBAndOBB01 },
+
+  { name:"motion_circular_01", type:Type.MOTION_CIRCULAR_01, sceneClass:Motion.Circular01 },
+  { name:"motion_circular_02", type:Type.MOTION_CIRCULAR_02, sceneClass:Motion.Circular02 },
+  { name:"motion_linear_01"  , type:Type.MOTION_LINEAR_01  , sceneClass:Motion.Linear01 },
+  { name:"motion_pyhsical_01"  , type:Type.MOTION_PYHSICAL_01  , sceneClass:Motion.Physical01 },
 ];
 
 const defaultConfig = configs[0];
