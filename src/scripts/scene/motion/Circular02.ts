@@ -1,7 +1,6 @@
 import SceneBase from '~/scripts/scene/SceneBase';
 import { sShape } from '~/scripts/system';
 import { GUI as GUIHelper } from '~/scripts/helper';
-import { Circle } from '~/scripts/node/group';
 
 /******************************************************************************
  * 円運動
