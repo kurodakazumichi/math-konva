@@ -65,7 +65,7 @@ export default class Scene extends SceneBase
     pos.x += this.groups.velocity.vec.x * this.params.speed;
     pos.y += this.groups.velocity.vec.y * this.params.speed;
 
-    sCoord.cramp(pos);
+    sCoord.repeat(pos);
     this.shapes.c1.pos(pos);
   }
 }

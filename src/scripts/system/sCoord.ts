@@ -124,7 +124,15 @@ class sCoord extends SystemBase {
 
   //---------------------------------------------------------------------------
   // Util
-  cramp(v:Vector2) {
+  /** 上下左右の範囲に閉じ込める */
+  confine(v:Vector2) {
+    if (v.x < this.left) v.x  = this.left;
+    if (this.right < v.x) v.x = this.right;
+    if (this.top   < v.y) v.y = this.top;
+    if (v.y < this.down) v.y  = this.down;   
+  }
+
+  repeat(v:Vector2) {
     if (this.left  > v.x) v.x = this.right;
     if (this.right < v.x) v.x = this.left;
     if (this.top   < v.y) v.y = this.down;
