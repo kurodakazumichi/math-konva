@@ -18,6 +18,7 @@ export default class LineGroup  extends GroupBase {
 
   constructor(point:Vector2, dir:Vector2) {
     super();
+    this.binds(LineGroup);
     this.data = new Line2D(point, dir.normalize);
     this.shapes = this.createShapes();
     this.sync();
@@ -70,6 +71,16 @@ export default class LineGroup  extends GroupBase {
     this.shapes.dir.visible(v);
     this.syncArrow();
     return this;
+  }
+
+  visiblePointers(v:boolean) {
+    return this.visiblePointerP(v).visiblePointerV(v);
+  }
+  visiblePointerP(v:boolean) {
+    return this.visibleAndSync(v, this.shapes.pointerP, this.syncPointerP);
+  }
+  visiblePointerV(v:boolean) {
+    return this.visibleAndSync(v, this.shapes.pointerV, this.syncPointerV);
   }
 
   //---------------------------------------------------------------------------

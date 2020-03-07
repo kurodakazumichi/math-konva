@@ -16,6 +16,7 @@ export default class LineGroup  extends GroupBase {
 
   constructor(center:Vector2, radius:number) {
     super();
+    this.binds(LineGroup);
     this.data = new Circle2D(center, radius);
     this.shapes = this.createShapes();
     this.sync();
@@ -66,6 +67,18 @@ export default class LineGroup  extends GroupBase {
   }
   stroke(v:string) {
     this.shapes.circle.stroke(v); return this;
+  }
+
+  visiblePointers(v:boolean) {
+    return this.visiblePointerP(v).visiblePointerR(v);
+  }
+
+  visiblePointerP(v:boolean) {
+    return this.visibleAndSync(v, this.shapes.pointerP, this.syncPointerP);
+  }
+
+  visiblePointerR(v:boolean) {
+    return  this.visibleAndSync(v, this.shapes.pointerR, this.syncPointerR);
   }
 
   //---------------------------------------------------------------------------

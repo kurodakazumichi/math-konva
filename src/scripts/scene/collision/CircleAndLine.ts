@@ -41,7 +41,8 @@ export default class Scene extends SceneBase
   }
 
   onChangeGuide(v:boolean) {
-
+    this.groups.circle.visiblePointers(v);
+    this.groups.line.visiblePointers(v);
   }
 
   //---------------------------------------------------------------------------

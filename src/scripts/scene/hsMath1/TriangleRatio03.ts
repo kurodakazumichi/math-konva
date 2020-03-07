@@ -1,6 +1,5 @@
 import SceneBase from '~/scripts/scene/SceneBase';
 import { sShape, sColor } from '~/scripts/system';
-import { GUI as GUIHelper } from '~/scripts/helper';
 
 /******************************************************************************
  * サインの利用例

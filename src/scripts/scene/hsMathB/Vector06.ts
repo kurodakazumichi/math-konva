@@ -143,7 +143,7 @@ export default class Scene extends SceneBase
   }
 
   updateB() {
-    const { b, v } = this.params;
+    const { b } = this.params;
     this.pointB.pos(b.x, b.y);
     this.labelB.pos(b.x, b.y);
   }
