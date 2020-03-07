@@ -78,13 +78,14 @@ export default class Scene extends SceneBase
   //---------------------------------------------------------------------------
   p:Vector2 = new Vector2();
   update() {
-    if (!this.params.update) return;
-    this.timer++;
+    if (this.params.update){
+      this.timer++;
 
-    // 点Pの円運動
-    this.p.x = Math.cos(this.timer * 0.01) * 3;
-    this.p.y = Math.sin(this.timer * 0.01) * 3;
-    this.shapes.p.pos(this.p.x, this.p.y);
+      // 点Pの円運動
+      this.p.x = Math.cos(this.timer * 0.01) * 3;
+      this.p.y = Math.sin(this.timer * 0.01) * 3;
+      this.shapes.p.pos(this.p.x, this.p.y);
+    } 
 
     // 衝突判定
     const source = Collision.getSourceLineAndPoint(this.line2D, this.p, 0.1)

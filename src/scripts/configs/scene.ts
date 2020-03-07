@@ -54,6 +54,8 @@ export enum Type {
   MOTION_CIRCULAR_02,
   MOTION_LINEAR_01,
   MOTION_PYHSICAL_01,
+  MOTION_TRACKING_01,
+  MOTION_TRACKING_02,
 }
 
 //-----------------------------------------------------------------------------
@@ -108,7 +110,9 @@ const configs:ISceneRecord[] = [
   { name:"motion_circular_01", type:Type.MOTION_CIRCULAR_01, sceneClass:Motion.Circular01 },
   { name:"motion_circular_02", type:Type.MOTION_CIRCULAR_02, sceneClass:Motion.Circular02 },
   { name:"motion_linear_01"  , type:Type.MOTION_LINEAR_01  , sceneClass:Motion.Linear01 },
-  { name:"motion_pyhsical_01"  , type:Type.MOTION_PYHSICAL_01  , sceneClass:Motion.Physical01 },
+  { name:"motion_pyhsical_01", type:Type.MOTION_PYHSICAL_01, sceneClass:Motion.Physical01 },
+  { name:"motion_tracking_01", type:Type.MOTION_TRACKING_01, sceneClass:Motion.Tracking01 },
+  { name:"motion_tracking_02", type:Type.MOTION_TRACKING_02, sceneClass:Motion.Tracking02 },
 ];
 
 const defaultConfig = configs[0];
