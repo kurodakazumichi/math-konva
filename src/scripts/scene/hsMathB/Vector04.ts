@@ -20,11 +20,11 @@ export default class Scene extends SceneBase
     return "ベクトルの正規化と単位ベクトルと零ベクトル";
   }
 
-  protected get description() {
+  protected get overview() {
     return `
 - **正規化**：ベクトルの*向きを変えずに大きさだけ１にする*こと
 - **単位ベクトル**：大きさが１のベクトルのこと
-- **零ベクトル**：大きさが0のベクトル*のこと
+- **零ベクトル**：大きさが0のベクトルのこと
 
 :::note
 正規化をして単位ベクトルにする事で、0.5倍、2倍、3倍など向きを変えずに好きな大きさに変える事が用意になる。

@@ -19,7 +19,7 @@ export default class Scene extends SceneBase
     return "ベクトルの外積";
   }
 
-  protected get description() {
+  protected get overview() {
     return `
 ２つのベクトル$\\vec{a} = (x1, y1)$と$\\vec{b} = (x2, y2)$があり、ベクトルの間の角を$\\theta$とした時
 

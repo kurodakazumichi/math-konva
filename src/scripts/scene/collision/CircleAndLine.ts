@@ -19,7 +19,7 @@ export default class Scene extends SceneBase
     return "円と線の衝突判定";
   }
 
-  protected get description() {
+  protected get overview() {
     return `
 `;
   }

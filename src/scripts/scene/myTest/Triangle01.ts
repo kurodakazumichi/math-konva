@@ -17,7 +17,7 @@ export default class Scene extends SceneBase
     return "三角形クラスのテスト";
   }
 
-  protected get description() {
+  protected get overview() {
     return `
 自作三角形クラスの動作確認用ページ
 `;

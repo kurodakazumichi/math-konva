@@ -20,7 +20,7 @@ export default class Scene extends SceneBase
     return "ベクトルの成分";
   }
 
-  protected get description() {
+  protected get overview() {
     return `
 - ベクトルの*xの量*を**x成分**と呼び
 - ベクトルの*yの量*を**y成分**と呼ぶ

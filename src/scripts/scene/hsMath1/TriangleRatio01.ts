@@ -19,7 +19,7 @@ export default class Scene extends SceneBase
     return "サイン、コサイン、タンジェント";
   }
 
-  protected get description() {
+  protected get overview() {
     return `
 それぞれ直角三角形の**辺の長さの比率**。
 `;

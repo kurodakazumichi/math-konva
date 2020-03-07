@@ -19,7 +19,7 @@ export default class Scene extends SceneBase
     return "ベクトルの実数倍(スカラー倍とも呼ぶ)";
   }
 
-  protected get description() {
+  protected get overview() {
     return `
 1. ベクトルに実数をかけると**ベクトルを伸ばしたり縮めたり**できる。
 

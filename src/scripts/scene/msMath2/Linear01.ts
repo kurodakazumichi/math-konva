@@ -22,7 +22,7 @@ export default class Scene extends SceneBase
     return "直線";
   }
   
-  protected get description() {
+  protected get overview() {
     return `
 $y=ax+b$
 

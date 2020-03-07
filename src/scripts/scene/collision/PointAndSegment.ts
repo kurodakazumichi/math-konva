@@ -19,7 +19,7 @@ export default class Scene extends SceneBase
     return "点と線分の衝突判定";
   }
 
-  protected get description() {
+  protected get overview() {
     return `
 点と線分の衝突はやや手順が面倒。
 

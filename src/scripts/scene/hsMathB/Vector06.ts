@@ -21,7 +21,7 @@ export default class Scene extends SceneBase
     return "逆ベクトル";
   }
 
-  protected get description() {
+  protected get overview() {
     return `
 1. **逆ベクトル**とは、*大きさが同じで、向きが反対*のベクトルのこと
 1. *x成分*と*y成分*の両方に**マイナスをかける**と逆ベクトルになる

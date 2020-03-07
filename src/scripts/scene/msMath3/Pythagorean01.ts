@@ -21,7 +21,7 @@ export default class SampleScene extends SceneBase
     return "三平方の定理";
   }
 
-  protected get description() {
+  protected get overview() {
     return `
 $c^2=a^2+b^2$
 

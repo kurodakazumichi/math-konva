@@ -21,7 +21,7 @@ export default class Scene extends SceneBase
     return "物理挙動";
   }
 
-  protected get description() {
+  protected get overview() {
     return `
 重力による加速度運動と跳ね返り
 `;

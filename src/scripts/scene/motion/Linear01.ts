@@ -19,7 +19,7 @@ export default class Scene extends SceneBase
     return "等速直線運動";
   }
 
-  protected get description() {
+  protected get overview() {
     return `
 一定方向に等速で進む運動。
 `;

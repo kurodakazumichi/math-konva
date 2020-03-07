@@ -20,7 +20,7 @@ export default class TitleScene extends SceneBase
     return "数学ラボ";
   }
 
-  protected get description() {
+  protected get overview() {
     return `
 **数学**を勉強するだけだとつまらないので、**勉強したことでなんか作ってみよう**と思って作っているサイトです。
 

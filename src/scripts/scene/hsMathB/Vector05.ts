@@ -40,7 +40,7 @@ export default class Scene extends SceneBase
     return "ベクトルの加法(足し算)";
   }
 
-  protected get description() {
+  protected get overview() {
     return `
 $\\vec{a} + \\vec{b} = \\vec{c}$
 

@@ -33,8 +33,8 @@ export default class SceneBase
     console.error("override title properity."); return "";
   }
 
-  protected get description() {
-    console.error("orveride explanation properity."); return "";
+  protected get overview() {
+    console.error("orveride overview properity."); return "";
   }
 
   /** 
@@ -70,7 +70,7 @@ export default class SceneBase
   /** DOMを初期処理 */
   private initDom() {
     this.setTitle(this.title);
-    this.setDescription(this.description);
+    this.setOverview(this.overview);
     this.dom.deployGui(this.gui);
   }
 
@@ -146,8 +146,8 @@ export default class SceneBase
     this.dom.title = title;
   }
 
-  protected setDescription(text:string) {
-    this.dom.description = text;
+  protected setOverview(text:string) {
+    this.dom.overview = text;
   }
 
   setComment(text:string) {
@@ -197,11 +197,12 @@ class Dom
   set title(v:string) {
     if (!this.dom.title) return;
     this.dom.title.innerHTML = v;
+    document.title = v;
   }
 
-  set description(text:string) {
-    if(!this.dom.description) return;
-    this.dom.description.innerHTML = sMarkdown.render(text);
+  set overview(text:string) {
+    if(!this.dom.overview) return;
+    this.dom.overview.innerHTML = sMarkdown.render(text);
   }
 
   set comment(text:string) {
@@ -229,15 +230,15 @@ class Dom
 
   destroy() {
     this.title       = "";
-    this.description = "";
+    this.overview = "";
     this.markdown    = "";
     this.comment     = "";
     
-    this.dom.title       = null;
-    this.dom.description = null;
-    this.dom.gui         = null;
-    this.dom.markdown    = null;
-    this.dom.comment     = null;
+    this.dom.title    = null;
+    this.dom.overview = null;
+    this.dom.gui      = null;
+    this.dom.markdown = null;
+    this.dom.comment  = null;
   }
 
   //---------------------------------------------------------------------------
@@ -249,11 +250,11 @@ class Dom
   }
 
   private _dom: {
-    title       : HTMLElement | null,
-    description : HTMLElement | null,
-    gui         : HTMLElement | null,
-    markdown    : HTMLElement | null,
-    comment     : HTMLElement | null
+    title    : HTMLElement | null,
+    overview : HTMLElement | null,
+    gui      : HTMLElement | null,
+    markdown : HTMLElement | null,
+    comment  : HTMLElement | null
   };
 
   private get dom() { return this._dom; }
@@ -261,11 +262,11 @@ class Dom
   private getRequiredElements() 
   {
     return {
-      title      : document.getElementById('title_forJs'),
-      description: document.getElementById('description_forJs'),
-      gui        : document.getElementById('gui_forJs'),
-      markdown   : document.getElementById('markdown_forJs'),
-      comment    : document.getElementById('comment_forJs'),
+      title    : document.getElementById('title_forJs'),
+      overview : document.getElementById('overview_forJs'),
+      gui      : document.getElementById('gui_forJs'),
+      markdown : document.getElementById('markdown_forJs'),
+      comment  : document.getElementById('comment_forJs'),
     }
   }
 }

@@ -19,7 +19,7 @@ export default class Scene extends SceneBase
     return "目的地を目指す";
   }
 
-  protected get description() {
+  protected get overview() {
     return `
 一直線に目的地にたどり着く
 `;

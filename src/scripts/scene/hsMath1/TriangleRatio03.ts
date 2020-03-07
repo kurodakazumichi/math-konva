@@ -18,7 +18,7 @@ export default class Scene extends SceneBase
     return "サインの利用例";
   }
 
-  protected get description() {
+  protected get overview() {
     return ``;
   }
 

@@ -24,7 +24,7 @@ export default class SampleScene extends SceneBase
     return "２次関数　狙った場所にモノを投げる";
   }
 
-  protected get description() {
+  protected get overview() {
     return `
 ２次関数は**通過する３点がわかれば軌道が決まる**
 

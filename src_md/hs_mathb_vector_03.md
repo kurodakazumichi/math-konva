@@ -1,3 +1,6 @@
+### 動画
+@[youtube](https://youtu.be/X0buWop-qFg)
+
 ### ベクトルの大きさを求める式
 
 **ベクトルの大きさ** = $\sqrt{x^2 + y^2}$

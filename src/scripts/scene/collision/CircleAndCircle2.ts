@@ -19,7 +19,7 @@ export default class Scene extends SceneBase
     return "円と円の交点";
   }
 
-  protected get description() {
+  protected get overview() {
     return `
 `;
   }

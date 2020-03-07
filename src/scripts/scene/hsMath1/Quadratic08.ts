@@ -30,7 +30,7 @@ export default class SampleScene extends SceneBase
     return "２次関数　放物線を描く動き";
   }
 
-  protected get description() {
+  protected get overview() {
     return `
 ２次関数を使って**放物線を描く動き**をさせるサンプルです。
 

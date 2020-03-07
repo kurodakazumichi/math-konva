@@ -21,7 +21,7 @@ export default class SampleScene extends SceneBase
     return "２つの放物線が交わる点";
   }
 
-  protected get description() {
+  protected get overview() {
     return `交点は２つの**２次関数の連立方程式**を解く事で交点が求める事ができる。`;
   }
 

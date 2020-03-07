@@ -20,7 +20,7 @@ export default class Scene extends SceneBase
     return "ベクトルは向きと大きさを持つ";
   }
 
-  protected get description() {
+  protected get overview() {
     return `
 ベクトルは*向き*と、*大きさ*という**２つの情報を持ち**矢印で表現される。
 

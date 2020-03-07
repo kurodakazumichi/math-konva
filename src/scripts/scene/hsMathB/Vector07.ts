@@ -21,7 +21,7 @@ export default class Scene extends SceneBase
     return "ベクトルの減法(引き算)";
   }
 
-  protected get description() {
+  protected get overview() {
     return `
 ２つのベクトル$\\vec{a}$, $\\vec{b}$の引き算は$\\vec{a}$に$\\vec{b}$の**逆ベクトルを足したモノ**として
 

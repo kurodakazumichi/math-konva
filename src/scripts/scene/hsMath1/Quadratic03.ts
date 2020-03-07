@@ -23,7 +23,7 @@ export default class SampleScene extends SceneBase
     return "２次関数 因数分解式";
   }
 
-  protected get description() {
+  protected get overview() {
     return `
 $y=a(x-s)(x-t)$　ただし$(a \\neq 0)$
 

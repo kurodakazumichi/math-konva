@@ -19,7 +19,7 @@ export default class Scene extends SceneBase
     return "点と線の衝突判定";
   }
 
-  protected get description() {
+  protected get overview() {
     return `
 1. **線の方向を表すベクトル**を$\\vec{a}$  
 2. **線の任意の点から動く点に向かうベクトル**を$\\vec{b}$

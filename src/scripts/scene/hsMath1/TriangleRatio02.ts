@@ -17,7 +17,7 @@ export default class Scene extends SceneBase
     return "単位円とサイン、コサイン";
   }
 
-  protected get description() {
+  protected get overview() {
     return `
 **単位円**(半径１の円)の半径を$r$とすると
 

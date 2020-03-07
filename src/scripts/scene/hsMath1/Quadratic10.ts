@@ -20,7 +20,7 @@ export default class SampleScene extends SceneBase
     return "２次関数　うにょうにょする";
   }
 
-  protected get description() {
+  protected get overview() {
     return `
 **適当に動く３つの点から２次関数を作る**ことで*うにょうにょ*させている。
     `;

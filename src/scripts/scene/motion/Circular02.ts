@@ -18,7 +18,7 @@ export default class Scene extends SceneBase
     return "円運動 その２";
   }
 
-  protected get description() {
+  protected get overview() {
     return `
 **任意の点を中心**とした円運動。
 

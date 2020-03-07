@@ -19,7 +19,7 @@ export default class Scene extends SceneBase
     return "正方形同士(回転あり)の衝突";
   }
 
-  protected get description() {
+  protected get overview() {
     return `
 `;
   }

@@ -21,7 +21,7 @@ export default class SampleScene extends SceneBase
     return "２次関数 一般形";
   }
 
-  protected get description() {
+  protected get overview() {
     return `
 $y=ax^2+bx+c$　ただし$(a \\neq 0)$
 

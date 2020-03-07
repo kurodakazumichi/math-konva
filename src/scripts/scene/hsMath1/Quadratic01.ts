@@ -22,7 +22,7 @@ export default class SampleScene extends SceneBase
     return "２次関数 標準形";
   }
 
-  protected get description() {
+  protected get overview() {
     return `
 $y=a(x-p)^2+q$　ただし $(a \\neq 0)$  
 

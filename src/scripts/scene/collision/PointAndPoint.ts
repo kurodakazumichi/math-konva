@@ -20,7 +20,7 @@ export default class Scene extends SceneBase
     return "点と点の衝突判定";
   }
 
-  protected get description() {
+  protected get overview() {
     return `
 点と点の衝突は**２つの点のx座標とy座標が一致**しているかどうかで判定できる。
 

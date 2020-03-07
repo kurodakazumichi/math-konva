@@ -19,7 +19,7 @@ export default class Scene extends SceneBase
     return "AABBとAABBの衝突";
   }
 
-  protected get description() {
+  protected get overview() {
     return `
 `;
   }

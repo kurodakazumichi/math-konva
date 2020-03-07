@@ -20,7 +20,7 @@ export default class Scene extends SceneBase
     return "ベクトルの大きさの求め方";
   }
 
-  protected get description() {
+  protected get overview() {
     return `
 ベクトルは*底辺がx*、*高さがy*の**直角三角形として見ることができる**ので、ベクトルの大きさは**三平方の定理**を使って求める事ができる。
 

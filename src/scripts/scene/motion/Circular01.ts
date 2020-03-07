@@ -18,7 +18,7 @@ export default class Scene extends SceneBase
     return "円運動 その１";
   }
 
-  protected get description() {
+  protected get overview() {
     return `
 原点(0, 0)を中心とした円運動は**x座標をcosθ**、**y座標をsinθ**にする。
 
