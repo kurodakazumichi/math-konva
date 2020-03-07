@@ -29,6 +29,7 @@ export enum Type {
   HS_MATH1_QUADRATIC_10,
   HS_MAth1_TRIANGLE_RATIO_01,
   HS_MAth1_TRIANGLE_RATIO_02,
+  HS_MAth1_TRIANGLE_RATIO_03,
   HS_MATHB_VECTOR_01,
   HS_MATHB_VECTOR_02,
   HS_MATHB_VECTOR_03,
@@ -83,6 +84,7 @@ const configs:ISceneRecord[] = [
 
   { name:"hs_math1_triangle_ratio_01", type:Type.HS_MAth1_TRIANGLE_RATIO_01, sceneClass:HsMath1.TriangleRatio01 },
   { name:"hs_math1_triangle_ratio_02", type:Type.HS_MAth1_TRIANGLE_RATIO_02, sceneClass:HsMath1.TriangleRatio02 },
+  { name:"hs_math1_triangle_ratio_03", type:Type.HS_MAth1_TRIANGLE_RATIO_03, sceneClass:HsMath1.TriangleRatio03 },
 
   { name:"hs_mathb_vector_01"     , type:Type.HS_MATHB_VECTOR_01     , sceneClass:HsMathB.Vector01 },
   { name:"hs_mathb_vector_02"     , type:Type.HS_MATHB_VECTOR_02     , sceneClass:HsMathB.Vector02 },

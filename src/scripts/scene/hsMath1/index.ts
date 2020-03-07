@@ -13,6 +13,7 @@ import Quadratic09 from './Quadratic09';
 import Quadratic10 from './Quadratic10';
 import TriangleRatio01 from './TriangleRatio01';
 import TriangleRatio02 from './TriangleRatio02';
+import TriangleRatio03 from './TriangleRatio03';
 
 export { 
   Quadratic01, 
@@ -27,4 +28,5 @@ export {
   Quadratic10,
   TriangleRatio01,
   TriangleRatio02,
+  TriangleRatio03,
 }
