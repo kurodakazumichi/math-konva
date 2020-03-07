@@ -19,6 +19,7 @@
     "markdown-it": "^10.0.0",
     "markdown-it-container": "^2.0.0",
     "markdown-it-katex": "^2.0.3",
+    "markdown-it-video": "^0.6.3",
     "math-lab": "https://github.com/kurodakazumichi/math-lab.git"
   },
   "scripts": {
