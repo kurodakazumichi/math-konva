@@ -1,13 +1,12 @@
 import SceneBase from '~/scripts/scene/SceneBase';
 import { sShape } from '~/scripts/system';
-import { Circle } from '~/scripts/node/shape';
 import { Vector2 } from 'math-lab';
-import { GUI, Util } from '~/scripts/helper';
+
 
 /******************************************************************************
- * タイトルシーン
+ * タイトル
  *****************************************************************************/
-export default class TitleScene extends SceneBase 
+export default class Scene extends SceneBase 
 {  
   constructor() {
     super();
@@ -22,11 +21,13 @@ export default class TitleScene extends SceneBase
 
   protected get overview() {
     return `
-**数学**を勉強するだけだとつまらないので、**勉強したことでなんか作ってみよう**と思って作っているサイトです。
+**数学ラボ**では*動く数学*を作成しています。
+
+*数学って何ができるんだろう*　絶賛勉強中
 
 ::: note
-- 基本的にグラフの中心が原点(0, 0)で横がX軸、縦がY軸という扱いです。
-- グリッドの１マスが長さ1になるという扱いです。
+- グラフの中心が原点(0, 0)で横がX軸、縦がY軸という扱いです。
+- グリッドの1メモリが長さ1という扱いです。
 :::
 `;
   }
@@ -34,68 +35,47 @@ export default class TitleScene extends SceneBase
   //---------------------------------------------------------------------------
   // Parameters
   //---------------------------------------------------------------------------
-  params = {
-    v: new Vector2(1, 1)
+  private params = {
+    speed :0.01,
   }
+
 
   //---------------------------------------------------------------------------
   // GUI
   //---------------------------------------------------------------------------
+
   initGUI() {
-    const f1 = this.gui.addFolder("ベクトルの成分");
-    GUI.addSLR(f1, this.params.v, "x");
-    GUI.addSTD(f1, this.params.v, "y");
-    GUI.addLSN(f1, this.params.v, "magnitude").step(0.01);
-    f1.open();
+    this.gui.add(this.params, "speed", 0, 1)
   }
 
   //---------------------------------------------------------------------------
   // Graph
   //---------------------------------------------------------------------------
-
-  /** グラフ内の要素 */
-  private arrow = sShape.arrow();
-  private pointer = sShape.draggablePoint();
-  private label = sShape.text();
-
+  private shapes =  {
+    c: sShape.point().radius(0.2),
+    t: sShape.draggablePoint().pos(0, 0),
+  }
   initGraph() {
-
-    this.add(this.arrow);
-
-    this.add(this.pointer);
-    this.add(this.label);
-    this.pointer.on('dragmove', (e:Circle) => {
-
-      this.params.v.x = Util.round(e.x());
-      this.params.v.y = Util.round(e.y());
-
-    })
+    this.addShapes(this.shapes);
   }
 
   //---------------------------------------------------------------------------
   // Update
   //---------------------------------------------------------------------------
+  private velocity = Vector2.zero;
 
   update() {
-    const v = this.params.v;
-    this.arrow.points([0, 0, v.x, v.y]);
+    const { c, t } = this.shapes;
+    const { speed } = this.params;
 
-    const nv = v.normalize;
-    this.pointer.offset(nv.x * 0.2, nv.y * 0.2);
-    this.pointer.pos(v.x, v.y);
-    this.updateLabel();
+    // ターゲットとの間のベクトル
+    const v1 = Vector2.sub(t.pos(), c.pos());
+    this.velocity.lerp(v1, speed);
 
+    // 位置を更新
+    const pos = c.pos();
+    pos.add(this.velocity);
+
+    this.shapes.c.pos(pos);
   }
-
-  updateLabel() {
-    const { v } = this.params;
-    const v2    = v.clone().times(0.5);
-
-    this.label
-      .pos(v2.x, v2.y)
-      .text(`大きさ=${Util.round(v.magnitude, 2)}`);
-
-  }
-
-
 }
