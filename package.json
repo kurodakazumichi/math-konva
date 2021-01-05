@@ -13,7 +13,7 @@
     "typescript": "^3.7.5"
   },
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "dat.gui": "^0.7.6",
     "konva": "^4.1.4",
     "markdown-it": "^10.0.0",
